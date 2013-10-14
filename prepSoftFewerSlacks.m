@@ -3,7 +3,7 @@
 % time step
 dt = 0.25;
 
-% system matrices
+% system matrices x+ = Ax + Bu
 A = [1 dt 0.5*dt*dt; 
      0 1 dt;
      0 0 1]; % states [pos; vel; acc]
