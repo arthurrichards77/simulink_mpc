@@ -1,0 +1,5 @@
+slprj/**/*
+*.eps
+*.mat
+*.mexw64
+*.mexw32
