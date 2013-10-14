@@ -19,6 +19,7 @@ ellef = size(Ef,1); % number of terminal equalities
 T = (ne-ellef)/size(A,1);
 
 % list of slack variables
+% TO DO - make this a parameter
 if m==3,
     slackList = kron(ones(1,T),[2 3]) + kron((1:T)-1,[6 6]);
 elseif m==2,
