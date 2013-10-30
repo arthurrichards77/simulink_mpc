@@ -11,14 +11,6 @@ B = [0.5*dt*dt  ;
      dt         ;
      1          ]; % inputs [delta-acc]
 
-% hard constraints are Fx*x+Fu*u<=Ymax
-Fx = [0 0 0;
-     0 0 0];
-Fu = [1 ;
-    -1 ];
-f = [0.5 % move <= 0.5
-        0.5 ]; 
-
 % soft constraints: cost includes sum_i ( max{Cs_i*x + Ds_i*u - Ysmax, 0} )
 Fxs = [0 1 0; 
      0 -1 0;

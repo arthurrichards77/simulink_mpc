@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.481"
+    ComputedModelVersion    "1.482"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -38,9 +38,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "aeagr"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Oct 30 17:12:26 2013"
-  RTWModifiedTimeStamp	  305053795
-  ModelVersionFormat	  "1.%<AutoIncrement:481>"
+  LastModifiedDate	  "Wed Oct 30 18:06:48 2013"
+  RTWModifiedTimeStamp	  305057206
+  ModelVersionFormat	  "1.%<AutoIncrement:482>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -2913,7 +2913,7 @@ Model {
       SID		      "358"
       Position		      [660, 345, 690, 375]
       ZOrder		      -15
-      Variance		      "0.000000001*0"
+      Variance		      "0.000000001"
       SampleTime	      "dt"
     }
     Block {
@@ -3066,7 +3066,7 @@ Model {
       Position		      [505, 130, 535, 160]
       ZOrder		      -22
       Time		      "100"
-      After		      "0.01*0"
+      After		      "0.01"
       SampleTime	      "0"
     }
     Block {

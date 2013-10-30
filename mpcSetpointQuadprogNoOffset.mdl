@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.358"
+    ComputedModelVersion    "1.364"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -38,9 +38,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "aeagr"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Dec 12 13:15:34 2012"
-  RTWModifiedTimeStamp	  277218876
-  ModelVersionFormat	  "1.%<AutoIncrement:358>"
+  LastModifiedDate	  "Wed Oct 30 18:05:35 2013"
+  RTWModifiedTimeStamp	  305055623
+  ModelVersionFormat	  "1.%<AutoIncrement:364>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -672,6 +672,17 @@ Model {
       Decimation	      "10"
     }
     Block {
+      BlockType		      DiscretePulseGenerator
+      PulseType		      "Sample based"
+      TimeSource	      "Use simulation time"
+      Amplitude		      "1"
+      Period		      "2"
+      PulseWidth	      "1"
+      PhaseDelay	      "0"
+      SampleTime	      "1"
+      VectorParams1D	      on
+    }
+    Block {
       BlockType		      Gain
       Gain		      "1"
       Multiplication	      "Element-wise(K.*u)"
@@ -751,6 +762,14 @@ Model {
       SourceOfInitialOutputValue "Dialog"
       OutputWhenDisabled      "held"
       InitialOutput	      "[]"
+    }
+    Block {
+      BlockType		      RandomNumber
+      Mean		      "0"
+      Variance		      "1"
+      Seed		      "0"
+      SampleTime	      "-1"
+      VectorParams1D	      on
     }
     Block {
       BlockType		      RateTransition
@@ -856,7 +875,7 @@ Model {
   }
   System {
     Name		    "mpcSetpointQuadprogNoOffset"
-    Location		    [98, 85, 1155, 516]
+    Location		    [340, 325, 1397, 932]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -870,12 +889,12 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "364"
+    SIDHighWatermark	    "370"
     Block {
       BlockType		      Clock
       Name		      "Clock"
       SID		      "340"
-      Position		      [535, 270, 555, 290]
+      Position		      [545, 410, 565, 430]
       ZOrder		      -4
     }
     Block {
@@ -883,7 +902,7 @@ Model {
       Name		      "Control"
       SID		      "8"
       Ports		      [1]
-      Position		      [535, 159, 565, 191]
+      Position		      [545, 299, 575, 331]
       Floating		      off
       Location		      [648, 71, 1271, 436]
       Open		      on
@@ -915,7 +934,7 @@ Model {
       Name		      "MPC"
       SID		      "202"
       Ports		      [2, 1]
-      Position		      [300, 73, 365, 137]
+      Position		      [310, 213, 375, 277]
       TreatAsAtomicUnit	      on
       MinAlgLoopOccurrences   off
       PropExecContextOutsideSubsystem off
@@ -928,7 +947,7 @@ Model {
       System {
 	Name			"MPC"
 	Location		[264, 122, 1151, 864]
-	Open			on
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -1274,7 +1293,7 @@ Model {
       Name		      "Mux"
       SID		      "3"
       Ports		      [2, 1]
-      Position		      [755, 84, 760, 171]
+      Position		      [765, 224, 770, 311]
       ShowName		      off
       Inputs		      "2"
       DisplayOption	      "bar"
@@ -1284,7 +1303,7 @@ Model {
       Name		      "Mux1"
       SID		      "89"
       Ports		      [2, 1]
-      Position		      [265, 70, 270, 110]
+      Position		      [275, 210, 280, 250]
       ShowName		      off
       Inputs		      "2"
       DisplayOption	      "bar"
@@ -1294,7 +1313,7 @@ Model {
       Name		      "Mux2"
       SID		      "341"
       Ports		      [4, 1]
-      Position		      [590, 266, 595, 354]
+      Position		      [600, 406, 605, 494]
       ShowName		      off
       DisplayOption	      "bar"
     }
@@ -1303,14 +1322,42 @@ Model {
       Name		      "Position"
       SID		      "2"
       Ports		      [1, 1]
-      Position		      [680, 90, 710, 120]
+      Position		      [690, 230, 720, 260]
+    }
+    Block {
+      BlockType		      DiscretePulseGenerator
+      Name		      "Pulse\nGenerator"
+      SID		      "365"
+      Ports		      [0, 1]
+      Position		      [430, 19, 460, 51]
+      ZOrder		      -13
+      PulseType		      "Time based"
+      Amplitude		      "-0.2*0"
+      Period		      "200"
+      PhaseDelay	      "120"
+    }
+    Block {
+      BlockType		      RandomNumber
+      Name		      "Random\nNumber"
+      SID		      "369"
+      Position		      [600, 310, 630, 340]
+      ZOrder		      -15
+      Variance		      "0.000000001"
+      SampleTime	      "dt"
+    }
+    Block {
+      BlockType		      RateTransition
+      Name		      "Rate Transition2"
+      SID		      "366"
+      Position		      [480, 14, 510, 56]
+      ZOrder		      -10
     }
     Block {
       BlockType		      SubSystem
       Name		      "SetPoint Sequence"
       SID		      "360"
       Ports		      [0, 1]
-      Position		      [65, 94, 120, 146]
+      Position		      [75, 234, 130, 286]
       MinAlgLoopOccurrences   off
       PropExecContextOutsideSubsystem off
       RTWSystemCode	      "Auto"
@@ -1401,10 +1448,10 @@ Model {
       Name		      "State"
       SID		      "7"
       Ports		      [1]
-      Position		      [850, 114, 880, 146]
+      Position		      [860, 254, 890, 286]
       Floating		      off
       Location		      [577, 503, 1196, 886]
-      Open		      on
+      Open		      off
       NumInputPorts	      "1"
       ZoomMode		      "yonly"
       List {
@@ -1431,8 +1478,8 @@ Model {
     Block {
       BlockType		      Step
       Name		      "Step"
-      SID		      "353"
-      Position		      [505, 15, 535, 45]
+      SID		      "367"
+      Position		      [430, 95, 460, 125]
       ZOrder		      -22
       Time		      "100"
       After		      "0.01"
@@ -1443,7 +1490,7 @@ Model {
       Name		      "Sum"
       SID		      "87"
       Ports		      [2, 1]
-      Position		      [400, 95, 420, 115]
+      Position		      [410, 235, 430, 255]
       ShowName		      off
       IconShape		      "round"
       Inputs		      "|++"
@@ -1456,7 +1503,35 @@ Model {
       Name		      "Sum1"
       SID		      "325"
       Ports		      [2, 1]
-      Position		      [540, 95, 560, 115]
+      Position		      [550, 235, 570, 255]
+      ShowName		      off
+      IconShape		      "round"
+      Inputs		      "++|"
+      InputSameDT	      off
+      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+      SaturateOnIntegerOverflow	off
+    }
+    Block {
+      BlockType		      Sum
+      Name		      "Sum2"
+      SID		      "370"
+      Ports		      [2, 1]
+      Position		      [695, 280, 715, 300]
+      ZOrder		      -25
+      ShowName		      off
+      IconShape		      "round"
+      Inputs		      "|++"
+      InputSameDT	      off
+      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+      SaturateOnIntegerOverflow	off
+    }
+    Block {
+      BlockType		      Sum
+      Name		      "Sum3"
+      SID		      "368"
+      Ports		      [2, 1]
+      Position		      [505, 100, 525, 120]
+      ZOrder		      -24
       ShowName		      off
       IconShape		      "round"
       Inputs		      "++|"
@@ -1469,7 +1544,7 @@ Model {
       Name		      "To Workspace"
       SID		      "342"
       Ports		      [1]
-      Position		      [655, 295, 715, 325]
+      Position		      [665, 435, 725, 465]
       ZOrder		      -7
       VariableName	      "simout"
       MaxDataPoints	      "inf"
@@ -1479,7 +1554,7 @@ Model {
       BlockType		      UnitDelay
       Name		      "Unit Delay"
       SID		      "88"
-      Position		      [430, 158, 465, 192]
+      Position		      [440, 298, 475, 332]
       BlockMirror	      on
       SampleTime	      "dt"
     }
@@ -1488,17 +1563,17 @@ Model {
       Name		      "Velocity"
       SID		      "1"
       Ports		      [1, 1]
-      Position		      [590, 90, 620, 120]
+      Position		      [600, 230, 630, 260]
     }
     Block {
       BlockType		      Scope
       Name		      "delta-Control"
       SID		      "307"
       Ports		      [1]
-      Position		      [435, 19, 465, 51]
+      Position		      [445, 159, 475, 191]
       Floating		      off
       Location		      [652, 517, 1275, 882]
-      Open		      off
+      Open		      on
       NumInputPorts	      "1"
       List {
 	ListType		AxesTitles
@@ -1525,15 +1600,15 @@ Model {
     Line {
       SrcBlock		      "Velocity"
       SrcPort		      1
-      Points		      [25, 0]
+      Points		      [15, 0]
       Branch {
 	DstBlock		"Position"
 	DstPort			1
       }
       Branch {
 	Points			[0, 45]
-	DstBlock		"Mux"
-	DstPort			2
+	DstBlock		"Sum2"
+	DstPort			1
       }
     }
     Line {
@@ -1647,13 +1722,6 @@ Model {
       DstPort		      1
     }
     Line {
-      SrcBlock		      "Step"
-      SrcPort		      1
-      Points		      [10, 0]
-      DstBlock		      "Sum1"
-      DstPort		      1
-    }
-    Line {
       SrcBlock		      "Mux2"
       SrcPort		      1
       DstBlock		      "To Workspace"
@@ -1665,16 +1733,54 @@ Model {
       DstBlock		      "Mux2"
       DstPort		      1
     }
+    Line {
+      SrcBlock		      "Step"
+      SrcPort		      1
+      DstBlock		      "Sum3"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Pulse\nGenerator"
+      SrcPort		      1
+      DstBlock		      "Rate Transition2"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Rate Transition2"
+      SrcPort		      1
+      DstBlock		      "Sum3"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Sum3"
+      SrcPort		      1
+      Points		      [30, 0]
+      DstBlock		      "Sum1"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Sum2"
+      SrcPort		      1
+      DstBlock		      "Mux"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Random\nNumber"
+      SrcPort		      1
+      Points		      [70, 0]
+      DstBlock		      "Sum2"
+      DstPort		      2
+    }
     Annotation {
       SID		      "196"
       Name		      "u(k)=u(k-1)+delta_u(k)"
-      Position		      [448, 82]
+      Position		      [458, 222]
     }
   }
 }
 # Finite State Machines
 #
-#    Stateflow Version 7.6 (R2011b) dated Jan 26 2012, 02:07:42
+#    Stateflow Version 7.6 (R2011b) dated Jan 25 2012, 21:03:37
 #
 #
 

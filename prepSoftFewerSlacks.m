@@ -11,9 +11,23 @@ B = [0.5*dt*dt  ;
      dt         ;
      1          ]; % inputs [delta-acc]
 
-% hard constraints are Fx*x+Fu*u<=Ymax
-Fx = [0 0 0;
-     0 0 0];
+% adding hard control constraints    
+Fx = [0 0 1 ;
+     0 0 -1 ;
+     0 0 0 ;
+     0 0 0 ];
+Fu = [0 ;
+    0 ;
+    1 ;
+    -1 ];
+f = [0.1 ; % control <= 0.1
+    0.1 ;
+    0.5 % move <= 0.5
+        0.5 ]; 
+
+    % removing hard control constraints    
+Fx = [0 0 0 ;
+     0 0 0 ];
 Fu = [1 ;
     -1 ];
 f = [0.5 % move <= 0.5
