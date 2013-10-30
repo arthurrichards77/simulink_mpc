@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.479"
+    ComputedModelVersion    "1.481"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -38,9 +38,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "aeagr"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Oct 30 11:49:55 2013"
-  RTWModifiedTimeStamp	  305033366
-  ModelVersionFormat	  "1.%<AutoIncrement:479>"
+  LastModifiedDate	  "Wed Oct 30 17:12:26 2013"
+  RTWModifiedTimeStamp	  305053795
+  ModelVersionFormat	  "1.%<AutoIncrement:481>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1031,7 +1031,7 @@ Model {
       System {
 	Name			"MPC"
 	Location		[336, 133, 1595, 999]
-	Open			on
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -2903,7 +2903,7 @@ Model {
       Position		      [505, 54, 535, 86]
       ZOrder		      -13
       PulseType		      "Time based"
-      Amplitude		      "-0.2"
+      Amplitude		      "-0.2*0"
       Period		      "200"
       PhaseDelay	      "120"
     }
@@ -2913,7 +2913,7 @@ Model {
       SID		      "358"
       Position		      [660, 345, 690, 375]
       ZOrder		      -15
-      Variance		      "0.000000001"
+      Variance		      "0.000000001*0"
       SampleTime	      "dt"
     }
     Block {
@@ -3066,7 +3066,7 @@ Model {
       Position		      [505, 130, 535, 160]
       ZOrder		      -22
       Time		      "100"
-      After		      "0.01"
+      After		      "0.01*0"
       SampleTime	      "0"
     }
     Block {
@@ -3387,8 +3387,6 @@ Stateflow {
     created		    "02-Feb-2011 17:25:45"
     isLibrary		    0
     firstTarget		    30
-    debug {
-    }
     sfVersion		    76014001.00040001
   }
   chart {
