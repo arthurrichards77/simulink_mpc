@@ -1,5 +1,7 @@
 slprj/**/*
 *.eps
+*.pdf
 *.mat
 *.mexw64
 *.mexw32
+*.asv
