@@ -3,7 +3,7 @@
 % time step
 dt = 0.25;
 
-% system matrices
+% system matrices x+ = Ax + Bu
 A = [1 dt 0.5*dt*dt; 
      0 1 dt;
      0 0 1]; % states [pos; vel; acc]
@@ -24,16 +24,38 @@ f = [0.1 ; % control <= 0.1
     0.1 ;
     0.5 % move <= 0.5
         0.5 ]; 
+
+% removing hard control constraints    
+% Fx = [0 0 0 ;
+%      0 0 0 ];
+% Fu = [1 ;
+%     -1 ];
+% f = [0.5 % move <= 0.5
+%         0.5 ]; 
+
+% soft constraints: cost includes sum_i ( max{Cs_i*x + Ds_i*u - Ysmax, 0} )
+% Fxs = [0 1 0; 
+%      0 -1 0;
+%      0 0 1;
+%      0 0 -1];
+% Fus = [0 ;
+%      0 ;
+%      0 ;
+%      0 ];
+% fs = [0.2; % vel <= 0.2
+%         0.2;
+%         0.1; % acc <= 0.1
+%         0.1 ];     
     
-% soft constraints on velocity only    
+    % soft constraints on vel only: cost includes sum_i ( max{Cs_i*x + Ds_i*u - Ysmax, 0} )
 Fxs = [0 1 0; 
-     0 -1 0]*100;
+     0 -1 0];
 Fus = [0 ;
      0 ];
 fs = [0.2; % vel <= 0.2
-        0.2 ]*100; 
+        0.2 ];     
     
-% terminal constraints Ff*x(N)<=Ff;
+% terminal constraints Ff*x(N)<=ff;
 Ff = 0.00001*[eye(2) [0;0]; -eye(2) [0;0]];
 ff = ones(4,1); % effectively relaxed
 
@@ -44,31 +66,38 @@ Ff = [0 0 1;
 ff = [0.1; 0.1];
 
 % terminal equality constraints Ef*x(N)==ef
-% Ef = eye(3)-A;
-% Ef = Ef(1:2,:); % otherwise just get a zero row
-% %Ef = [0 1 0; 0 0 1];
+% Ef = [0 1 0; 0 0 1];
 % ef = [0;0];
 
-% remove terminal equality constraints
+% no terminal equalities
 Ef = [];
 ef = [];
 
 % cost 
 % xN*Qf*xN + qf'*xN + sum (x'*Q*x + u'*R*u + q'*x + r'*u)
+Qf = diag([5 5 2]);
 Q = diag([5 5 2]);
-R = diag([5]);
+R = diag([10]);
 qf = [0; 0; 0];
 q = [0; 0; 0];
 r = [0]; 
 
-% try dlqr terminal cost
-% [Kf,Qf] = dlqr(A,B,Q,R);
-
-% lazy terminal cost
-Qf = Q;
-
 % horizon
 T = 10;
+
+% augment B, r and R to accommodate slacks for soft constraints
+B = B*[1 0];
+r = [r; 100]; % this captures cost weight on violations
+R = blkdiag(R, 0.00001);
+
+% couple them using the constraint matrices
+Fx = [Fx;Fxs;zeros(1,size(A,1))]; % bottom row is for "slack >= 0" constraint
+Fu = [Fu*[1 0]; Fus (0*fs - 1); [0 -1] ];
+f = [f;fs;0];
+
+% need to set the redundant soft constraint settings to compatible sizes,
+% else coder gets in a knot
+Fus = Fus*[1 0];
 
 %% checking problem setup
 
@@ -132,7 +161,7 @@ end
 %      C*z == b
 %
 % where h = hx*x0 + hc
-% and b = bx*x0 + bd*d
+% and b = bx*x0 + bd*d + b;
 
 H = blkdiag(R,kron(eye(T-1),blkdiag(Q,R)),Qf);
 P = blkdiag(Fu,kron(eye(T-1),[Fx Fu]),Ff);
@@ -161,7 +190,7 @@ end
 %bd = 0*bd;
 
 % term for tracking non-zero reference
-gt = kron(ones(T,1),[zeros(1,n); -2*Q]);
+gt = kron(ones(T,1),[zeros(2,n); -2*Q]);
 
 %% goof - try sparse
 % seems to help quadprog anyway, provided interior point algorithm is used
@@ -170,10 +199,11 @@ gt = kron(ones(T,1),[zeros(1,n); -2*Q]);
 %P = sparse(P);
 %C = sparse(C);
 
+%% options for quadprog
+qpopts = optimset();
+qpopts = optimset('Algorithm','interior-point-convex');
+
 %% options
-opts=[];
-opts(1)=1; % 1 = assume diagonal Phi when solving
-opts(2)=5; % Newton iterations
-opts(3)=1; % 1 = use soft constraints
-opts(4)=0; % 1 = checking on
-opts(7)=0.005; % tuning of barrier weight kappa
+opts(1)=0; % 1 = assume diagonal Phi when solving
+opts(2)=3; % Newton iterations
+opts(3)=0; % 1 = use soft constraints

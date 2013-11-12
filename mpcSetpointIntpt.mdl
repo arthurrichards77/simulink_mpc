@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.482"
+    ComputedModelVersion    "1.532"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -38,9 +38,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "aeagr"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Oct 30 18:06:48 2013"
-  RTWModifiedTimeStamp	  305057206
-  ModelVersionFormat	  "1.%<AutoIncrement:482>"
+  LastModifiedDate	  "Tue Nov 12 17:04:42 2013"
+  RTWModifiedTimeStamp	  306160046
+  ModelVersionFormat	  "1.%<AutoIncrement:532>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -857,6 +857,21 @@ Model {
       SFunctionDeploymentMode off
     }
     Block {
+      BlockType		      Saturate
+      UpperLimitSource	      "Dialog"
+      UpperLimit	      "0.5"
+      LowerLimitSource	      "Dialog"
+      LowerLimit	      "-0.5"
+      LinearizeAsGain	      on
+      ZeroCross		      on
+      SampleTime	      "-1"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: Same as input"
+      LockScale		      off
+      RndMeth		      "Floor"
+    }
+    Block {
       BlockType		      Scope
       ModelBased	      off
       TickLabels	      "OneTimeTick"
@@ -954,7 +969,7 @@ Model {
   }
   System {
     Name		    "mpcSetpointIntpt"
-    Location		    [2, 82, 1278, 948]
+    Location		    [38, 98, 1314, 964]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -968,7 +983,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "391"
+    SIDHighWatermark	    "399"
     Block {
       BlockType		      Clock
       Name		      "Clock"
@@ -984,9 +999,10 @@ Model {
       Position		      [600, 334, 630, 366]
       ZOrder		      -5
       Floating		      off
-      Location		      [1299, 515, 1922, 880]
-      Open		      off
+      Location		      [1292, 515, 1915, 880]
+      Open		      on
       NumInputPorts	      "1"
+      ZoomMode		      "yonly"
       List {
 	ListType		AxesTitles
 	axes1			"%<SignalLabel>"
@@ -1002,9 +1018,9 @@ Model {
 	MarkerStyles		"none|none|none|none|none|none"
       }
       ShowLegends	      off
-      TimeRange		      "240             "
-      YMin		      "-0.4"
-      YMax		      "0.35"
+      TimeRange		      "200             "
+      YMin		      "-0.1"
+      YMax		      "0.1"
       SaveName		      "ScopeData1"
       DataFormat	      "StructureWithTime"
       SampleTime	      "0"
@@ -1030,8 +1046,8 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"MPC"
-	Location		[336, 133, 1595, 999]
-	Open			off
+	Location		[-14, 108, 1245, 974]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -1182,7 +1198,7 @@ Model {
 	  SID			  "361"
 	  Position		  [255, 910, 285, 940]
 	  ZOrder		  -18
-	  Value			  "Ef"
+	  Value			  "Ef_sig"
 	}
 	Block {
 	  BlockType		  Constant
@@ -1486,11 +1502,10 @@ Model {
 	  BlockType		  Demux
 	  Name			  "Demux"
 	  SID			  "314"
-	  Ports			  [1, 3]
-	  Position		  [595, 722, 600, 798]
+	  Ports			  [1, 4]
+	  Position		  [575, 768, 580, 882]
 	  ZOrder		  -7
 	  ShowName		  off
-	  Outputs		  "3"
 	  DisplayOption		  "bar"
 	}
 	Block {
@@ -2198,11 +2213,35 @@ Model {
 	}
 	Block {
 	  BlockType		  Gain
-	  Name			  "bx*x"
-	  SID			  "298"
-	  Position		  [150, 520, 180, 550]
+	  Name			  "Pz"
+	  SID			  "397"
+	  Position		  [660, 650, 690, 680]
 	  ZOrder		  -11
-	  Gain			  "bx"
+	  Gain			  "P"
+	  Multiplication	  "Matrix(K*u)"
+	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Pz-h"
+	  SID			  "398"
+	  Ports			  [2, 1]
+	  Position		  [715, 657, 745, 688]
+	  ZOrder		  -2
+	  Inputs		  "+-"
+	  InputSameDT		  off
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "bd*d"
+	  SID			  "353"
+	  Position		  [150, 575, 180, 605]
+	  ZOrder		  -11
+	  Gain			  "bd"
 	  Multiplication	  "Matrix(K*u)"
 	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
@@ -2210,11 +2249,11 @@ Model {
 	}
 	Block {
 	  BlockType		  Gain
-	  Name			  "bx*x1"
-	  SID			  "353"
-	  Position		  [150, 575, 180, 605]
+	  Name			  "bx*x"
+	  SID			  "298"
+	  Position		  [150, 520, 180, 550]
 	  ZOrder		  -11
-	  Gain			  "bd"
+	  Gain			  "bx"
 	  Multiplication	  "Matrix(K*u)"
 	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
@@ -2240,7 +2279,7 @@ Model {
 	  Position		  [780, 74, 810, 106]
 	  ZOrder		  -3
 	  Floating		  off
-	  Location		  [769, 149, 1915, 927]
+	  Location		  [769, 149, 1256, 476]
 	  Open			  on
 	  NumInputPorts		  "1"
 	  ZoomMode		  "yonly"
@@ -2259,8 +2298,8 @@ Model {
 	    MarkerStyles	    "none|none|none|none|none|none"
 	  }
 	  ShowLegends		  off
-	  YMin			  "-0.25"
-	  YMax			  "2.5"
+	  YMin			  "-1.9e+07"
+	  YMax			  "1e+06"
 	  SaveName		  "ScopeData8"
 	  DataFormat		  "StructureWithTime"
 	  SampleTime		  "0"
@@ -2276,7 +2315,6 @@ Model {
 	  Location		  [188, 390, 1033, 821]
 	  Open			  off
 	  NumInputPorts		  "1"
-	  ZoomMode		  "yonly"
 	  List {
 	    ListType		    AxesTitles
 	    axes1		    "%<SignalLabel>"
@@ -2302,9 +2340,21 @@ Model {
 	  BlockType		  Constant
 	  Name			  "g"
 	  SID			  "233"
-	  Position		  [150, 320, 180, 350]
+	  Position		  [150, 330, 180, 360]
 	  ZOrder		  -35
 	  Value			  "g"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "gt*xt"
+	  SID			  "352"
+	  Position		  [150, 280, 180, 310]
+	  ZOrder		  -11
+	  Gain			  "gt"
+	  Multiplication	  "Matrix(K*u)"
+	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
 	}
 	Block {
 	  BlockType		  Constant
@@ -2336,18 +2386,6 @@ Model {
 	}
 	Block {
 	  BlockType		  Gain
-	  Name			  "hx*x3"
-	  SID			  "352"
-	  Position		  [150, 280, 180, 310]
-	  ZOrder		  -11
-	  Gain			  "gt"
-	  Multiplication	  "Matrix(K*u)"
-	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
-	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
-	  SaturateOnIntegerOverflow off
-	}
-	Block {
-	  BlockType		  Gain
 	  Name			  "hxs*x"
 	  SID			  "324"
 	  Position		  [115, 865, 145, 895]
@@ -2360,15 +2398,49 @@ Model {
 	}
 	Block {
 	  BlockType		  Scope
+	  Name			  "infeas"
+	  SID			  "399"
+	  Ports			  [1]
+	  Position		  [790, 659, 820, 691]
+	  ZOrder		  -3
+	  Floating		  off
+	  Location		  [192, 634, 516, 873]
+	  Open			  off
+	  NumInputPorts		  "1"
+	  ZoomMode		  "yonly"
+	  List {
+	    ListType		    AxesTitles
+	    axes1		    "%<SignalLabel>"
+	  }
+	  List {
+	    ListType		    ScopeGraphics
+	    FigureColor		    "[0.5 0.5 0.5]"
+	    AxesColor		    "[0 0 0]"
+	    AxesTickColor	    "[1 1 1]"
+	    LineColors		    "[1 1 0;1 0 1;0 1 1;1 0 0;0 1 0;0 0 1]"
+	    LineStyles		    "-|-|-|-|-|-"
+	    LineWidths		    "[0.5 0.5 0.5 0.5 0.5 0.5]"
+	    MarkerStyles	    "none|none|none|none|none|none"
+	  }
+	  ShowLegends		  off
+	  YMin			  "1.65436e-24"
+	  YMax			  "2.75e-08"
+	  SaveName		  "ScopeData11"
+	  DataFormat		  "StructureWithTime"
+	  SampleTime		  "0"
+	}
+	Block {
+	  BlockType		  Scope
 	  Name			  "rd"
 	  SID			  "316"
 	  Ports			  [1]
-	  Position		  [620, 744, 650, 776]
+	  Position		  [700, 794, 730, 826]
 	  ZOrder		  -3
 	  Floating		  off
 	  Location		  [188, 390, 512, 629]
-	  Open			  off
+	  Open			  on
 	  NumInputPorts		  "1"
+	  ZoomMode		  "yonly"
 	  List {
 	    ListType		    AxesTitles
 	    axes1		    "%<SignalLabel>"
@@ -2395,7 +2467,7 @@ Model {
 	  Name			  "rp"
 	  SID			  "315"
 	  Ports			  [1]
-	  Position		  [620, 694, 650, 726]
+	  Position		  [750, 764, 780, 796]
 	  ZOrder		  -3
 	  Floating		  off
 	  Location		  [192, 634, 516, 873]
@@ -2428,13 +2500,45 @@ Model {
 	  Name			  "solChoice"
 	  SID			  "317"
 	  Ports			  [1]
-	  Position		  [620, 794, 650, 826]
+	  Position		  [660, 824, 690, 856]
 	  ZOrder		  -3
 	  Floating		  off
 	  Location		  [218, 634, 542, 873]
-	  Open			  on
+	  Open			  off
 	  NumInputPorts		  "1"
-	  ZoomMode		  "xonly"
+	  List {
+	    ListType		    AxesTitles
+	    axes1		    "%<SignalLabel>"
+	  }
+	  List {
+	    ListType		    ScopeGraphics
+	    FigureColor		    "[0.5 0.5 0.5]"
+	    AxesColor		    "[0 0 0]"
+	    AxesTickColor	    "[1 1 1]"
+	    LineColors		    "[1 1 0;1 0 1;0 1 1;1 0 0;0 1 0;0 0 1]"
+	    LineStyles		    "-|-|-|-|-|-"
+	    LineWidths		    "[0.5 0.5 0.5 0.5 0.5 0.5]"
+	    MarkerStyles	    "none|none|none|none|none|none"
+	  }
+	  ShowLegends		  off
+	  YMin			  "3.8"
+	  YMax			  "4.2"
+	  SaveName		  "ScopeData5"
+	  DataFormat		  "StructureWithTime"
+	  SampleTime		  "0"
+	}
+	Block {
+	  BlockType		  Scope
+	  Name			  "totBackTracks"
+	  SID			  "392"
+	  Ports			  [1]
+	  Position		  [620, 854, 650, 886]
+	  ZOrder		  -3
+	  Floating		  off
+	  Location		  [218, 634, 542, 873]
+	  Open			  off
+	  NumInputPorts		  "1"
+	  ZoomMode		  "yonly"
 	  List {
 	    ListType		    AxesTitles
 	    axes1		    "%<SignalLabel>"
@@ -2452,7 +2556,7 @@ Model {
 	  ShowLegends		  off
 	  YMin			  "0.95"
 	  YMax			  "1.05"
-	  SaveName		  "ScopeData5"
+	  SaveName		  "ScopeData9"
 	  DataFormat		  "StructureWithTime"
 	  SampleTime		  "0"
 	}
@@ -2464,8 +2568,8 @@ Model {
 	  Position		  [1120, 254, 1150, 286]
 	  ZOrder		  -3
 	  Floating		  off
-	  Location		  [5, 49, 1199, 795]
-	  Open			  off
+	  Location		  [6, 49, 1200, 795]
+	  Open			  on
 	  NumInputPorts		  "1"
 	  ZoomMode		  "yonly"
 	  List {
@@ -2486,6 +2590,38 @@ Model {
 	  YMin			  "-0.25"
 	  YMax			  "2.5"
 	  SaveName		  "ScopeData7"
+	  DataFormat		  "StructureWithTime"
+	  SampleTime		  "0"
+	}
+	Block {
+	  BlockType		  Scope
+	  Name			  "z"
+	  SID			  "396"
+	  Ports			  [1]
+	  Position		  [620, 1039, 650, 1071]
+	  ZOrder		  -3
+	  Floating		  off
+	  Location		  [192, 634, 516, 873]
+	  Open			  on
+	  NumInputPorts		  "1"
+	  List {
+	    ListType		    AxesTitles
+	    axes1		    "%<SignalLabel>"
+	  }
+	  List {
+	    ListType		    ScopeGraphics
+	    FigureColor		    "[0.5 0.5 0.5]"
+	    AxesColor		    "[0 0 0]"
+	    AxesTickColor	    "[1 1 1]"
+	    LineColors		    "[1 1 0;1 0 1;0 1 1;1 0 0;0 1 0;0 0 1]"
+	    LineStyles		    "-|-|-|-|-|-"
+	    LineWidths		    "[0.5 0.5 0.5 0.5 0.5 0.5]"
+	    MarkerStyles	    "none|none|none|none|none|none"
+	  }
+	  ShowLegends		  off
+	  YMin			  "1.65436e-24"
+	  YMax			  "2.75e-08"
+	  SaveName		  "ScopeData10"
 	  DataFormat		  "StructureWithTime"
 	  SampleTime		  "0"
 	}
@@ -2517,11 +2653,6 @@ Model {
 	  SrcPort		  1
 	  Points		  [0, -35; 35, 0]
 	  Branch {
-	    Points		    [0, 625]
-	    DstBlock		    "Previous Solution"
-	    DstPort		    1
-	  }
-	  Branch {
 	    DstBlock		    "First Input"
 	    DstPort		    1
 	  }
@@ -2529,6 +2660,24 @@ Model {
 	    Labels		    [0, 0]
 	    DstBlock		    "Calculate Cost"
 	    DstPort		    3
+	  }
+	  Branch {
+	    Points		    [0, 235]
+	    Branch {
+	      Points		      [0, 390]
+	      Branch {
+		DstBlock		"Previous Solution"
+		DstPort			1
+	      }
+	      Branch {
+		DstBlock		"z"
+		DstPort			1
+	      }
+	    }
+	    Branch {
+	      DstBlock		      "Pz"
+	      DstPort		      1
+	    }
 	  }
 	}
 	Line {
@@ -2568,8 +2717,16 @@ Model {
 	Line {
 	  SrcBlock		  "Add"
 	  SrcPort		  1
-	  DstBlock		  "Embedded\nMATLAB Function"
-	  DstPort		  4
+	  Points		  [80, 0]
+	  Branch {
+	    DstBlock		    "Embedded\nMATLAB Function"
+	    DstPort		    4
+	  }
+	  Branch {
+	    Points		    [0, -130; 185, 0; 0, 425; 190, 0]
+	    DstBlock		    "Pz-h"
+	    DstPort		    2
+	  }
 	}
 	Line {
 	  SrcBlock		  "x_u"
@@ -2672,7 +2829,6 @@ Model {
 	Line {
 	  SrcBlock		  "Embedded\nMATLAB Function"
 	  SrcPort		  2
-	  Points		  [0, -65]
 	  DstBlock		  "Demux"
 	  DstPort		  1
 	}
@@ -2737,7 +2893,7 @@ Model {
 	    }
 	    Branch {
 	      Points		      [0, -55; -805, 0; 0, 385]
-	      DstBlock		      "bx*x1"
+	      DstBlock		      "bd*d"
 	      DstPort		      1
 	    }
 	  }
@@ -2771,7 +2927,7 @@ Model {
 	    Points		    [0, -90; -655, 0]
 	    Branch {
 	      Points		      [-295, 0]
-	      DstBlock		      "hx*x3"
+	      DstBlock		      "gt*xt"
 	      DstPort		      1
 	    }
 	    Branch {
@@ -2799,11 +2955,12 @@ Model {
 	Line {
 	  SrcBlock		  "g"
 	  SrcPort		  1
+	  Points		  [0, -10]
 	  DstBlock		  "Add4"
 	  DstPort		  2
 	}
 	Line {
-	  SrcBlock		  "hx*x3"
+	  SrcBlock		  "gt*xt"
 	  SrcPort		  1
 	  Points		  [5, 0; 0, 25]
 	  DstBlock		  "Add4"
@@ -2823,7 +2980,7 @@ Model {
 	  DstPort		  1
 	}
 	Line {
-	  SrcBlock		  "bx*x1"
+	  SrcBlock		  "bd*d"
 	  SrcPort		  1
 	  Points		  [10, 0]
 	  DstBlock		  "Add5"
@@ -2851,6 +3008,24 @@ Model {
 	  SrcBlock		  "Calculate Cost"
 	  SrcPort		  1
 	  DstBlock		  "cost"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  4
+	  DstBlock		  "totBackTracks"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Pz"
+	  SrcPort		  1
+	  DstBlock		  "Pz-h"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Pz-h"
+	  SrcPort		  1
+	  DstBlock		  "infeas"
 	  DstPort		  1
 	}
       }
@@ -2903,9 +3078,9 @@ Model {
       Position		      [505, 54, 535, 86]
       ZOrder		      -13
       PulseType		      "Time based"
-      Amplitude		      "-0.2*0"
+      Amplitude		      "0.1"
       Period		      "200"
-      PhaseDelay	      "120"
+      PhaseDelay	      "101"
     }
     Block {
       BlockType		      RandomNumber
@@ -2913,7 +3088,7 @@ Model {
       SID		      "358"
       Position		      [660, 345, 690, 375]
       ZOrder		      -15
-      Variance		      "0.000000001"
+      Variance		      "0.000000001*0"
       SampleTime	      "dt"
     }
     Block {
@@ -2929,6 +3104,17 @@ Model {
       SID		      "391"
       Position		      [555, 49, 585, 91]
       ZOrder		      -10
+    }
+    Block {
+      BlockType		      Saturate
+      Name		      "Saturation"
+      SID		      "394"
+      Ports		      [1, 1]
+      Position		      [510, 265, 540, 295]
+      ZOrder		      -10
+      InputPortMap	      "u0"
+      UpperLimit	      "0.0999"
+      LowerLimit	      "-0.0999"
     }
     Block {
       BlockType		      SubSystem
@@ -3054,8 +3240,8 @@ Model {
       }
       ShowLegends	      off
       TimeRange		      "200             "
-      YMin		      "-1"
-      YMax		      "14"
+      YMin		      "-0.2"
+      YMax		      "1.1"
       DataFormat	      "StructureWithTime"
       SampleTime	      "0"
     }
@@ -3066,7 +3252,7 @@ Model {
       Position		      [505, 130, 535, 160]
       ZOrder		      -22
       Time		      "100"
-      After		      "0.01"
+      After		      "0.01*0"
       SampleTime	      "0"
     }
     Block {
@@ -3162,7 +3348,7 @@ Model {
       ZOrder		      -29
       Floating		      off
       Location		      [652, 517, 1275, 882]
-      Open		      off
+      Open		      on
       NumInputPorts	      "1"
       List {
 	ListType		AxesTitles
@@ -3245,30 +3431,8 @@ Model {
     Line {
       SrcBlock		      "Sum"
       SrcPort		      1
-      Points		      [60, 0]
-      Branch {
-	Points			[0, 70]
-	Branch {
-	  DstBlock		  "Unit Delay"
-	  DstPort		  1
-	}
-	Branch {
-	  Points		  [25, 0]
-	  Branch {
-	    DstBlock		    "Control"
-	    DstPort		    1
-	  }
-	  Branch {
-	    Points		    [0, 145]
-	    DstBlock		    "Mux2"
-	    DstPort		    3
-	  }
-	}
-      }
-      Branch {
-	DstBlock		"Rate Transition1"
-	DstPort			1
-      }
+      DstBlock		      "Saturation"
+      DstPort		      1
     }
     Line {
       SrcBlock		      "Unit Delay"
@@ -3366,6 +3530,34 @@ Model {
       DstBlock		      "Sum3"
       DstPort		      1
     }
+    Line {
+      SrcBlock		      "Saturation"
+      SrcPort		      1
+      Points		      [10, 0]
+      Branch {
+	Points			[0, 70]
+	Branch {
+	  DstBlock		  "Unit Delay"
+	  DstPort		  1
+	}
+	Branch {
+	  Points		  [25, 0]
+	  Branch {
+	    DstBlock		    "Control"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 145]
+	    DstBlock		    "Mux2"
+	    DstPort		    3
+	  }
+	}
+      }
+      Branch {
+	DstBlock		"Rate Transition1"
+	DstPort			1
+      }
+    }
     Annotation {
       SID		      "196"
       Name		      "u(k)=u(k-1)+delta_u(k)"
@@ -3387,6 +3579,8 @@ Stateflow {
     created		    "02-Feb-2011 17:25:45"
     isLibrary		    0
     firstTarget		    30
+    debug {
+    }
     sfVersion		    76014001.00040001
   }
   chart {
@@ -3429,211 +3623,218 @@ Stateflow {
       "hes - Structural exploitations\n% 1 - xC\n% 2 - xP\n% 3 - xPs\n% 4 - xPs'\n% 5 - xC'\n% 6 - Ax\n% 7 - xA'\n% 8 -"
       " Bx\n% 9 - xB'\n\n% ,check_d, checkRp, checkPhiInv, checkY, checkBeta, checkL, check_t, check_dnu, checkNewton, "
       "checkInv\n\ncheck_d = 0;\ncheckRp = 0;\ncheckPhiInv = 0;\ncheckY = 0;\ncheckBeta = 0;\ncheckL = 0;\ncheck_t = 0;"
-      "\ncheck_dnu = 0;\ncheckNewton = 0;\ncheckInv = 0;\n\nmeanBackTracks = 0;\n\n% sizes\nn = size(A,1); % number of "
-      "states in system\nm = size(B,2); % number of inputs to system\nnz = length(g); % number of decision variables in"
-      " z\nne = length(b); % number of equalities in Cz=b\nni = length(h); % number of inequalities Pz<=h\nns = length("
-      "hs); % number of soft constraints Ps*z<=hs (if possible)\nell = size(Fx,1); % number of inequalities per time st"
-      "ep, Fx*x + Fu*u <= f\n% ells = size(Fxs,1); % number of soft constraints per time step, Fxs*x + Fus*u <= fs\nell"
-      "f = size(Ff,1); % number of terminal inequalities\nellef = size(Ef,1); % number of terminal equalities\n\n% impo"
-      "rtant to take T (the horizon) from here\n% if you pass it in as a signal, code generator gets upset\n% as it thi"
-      "nks its matrices could vary in size\nT = (ne-ellef)/size(A,1);\n\nells = size(Fxs,1); % number of soft constrain"
-      "ts per time step, Fxs*x + Fus*u <= fs\n\n% list of slack variables\nif m==3,\n    slackList = kron(ones(1,T),[2 "
-      "3]) + kron((1:T)-1,[6 6]);\nelseif m==2,\n    slackList = (2:5:(T*5));\nend\n\n%% process options\n\n% number of"
-      " options passed in\nnop = length(opts);\n\n% option 1 - assume Phi is diagonal if > 0\nif nop>=1,\n    flagPhiIs"
-      "Diag = opts(1)>0; % turns on or off assumptions about diagonal Phi\nelse\n    flagPhiIsDiag = false; % default s"
-      "etting does not assume diagonal\nend\n\n% option 2 - set number of Newton iterations\nif nop>=2,\n    numNewtonI"
-      "ters = opts(2);\nelse\n    numNewtonIters = 10;\nend\n\n% option 3 - use KS function for soft constraints if >0\n"
-      "if nop>=3,\n    flagUseSoftCons = opts(3)>0;\nelse\n    flagUseSoftCons = false; % default - ignore\nend\n\n% op"
-      "tion 4 - enable massive amount of checking (slow) if >0\nif nop>=4,\n    flagChecking = opts(4)>0;\nelse\n    fl"
-      "agChecking = false; % default - ignore\nend\n\n% option 5 - disable the Pade approximation if >0\nif nop>=5,\n  "
-      "  flagNoPade = opts(5)>0;\nelse\n    flagNoPade = false; % default - use Pade\nend\n\n% option 6 - disable the u"
-      "se of sparse matrix structure if >0\nif nop>=6,\n    switches = [1 1 1 1 1 0 0 0 0]*(1-(opts(6)>0));\nelse\n    "
-      "switches = [1 1 1 1 1 0 0 0 0]; % default - use standard structure\nend\n\n\n%% settings\n\n% single fixed barri"
-      "er weight\nkappa = 0.002;\n\n% fixed parameter for KS-function\nrho=10;\n\n%% precalculations\n\n% preform to av"
-      "oid later work\nkappaPt = kappa*P';\nkappaPtSq = kappaPt.*P';\nrhoPstSq = rho*Ps'.*Ps';\ndiagTwoH = diag(2*H);\n"
-      "% helpful to avoid lots of blkdiag calls later\n% blkQR = blkdiag(Q,R); % can't call blkQR in embedded matlab 20"
-      "11b\nblkQR = zeros(size(Q) + size(R));\nblkQR(1:length(Q),1:length(Q)) = Q;\nblkQR(length(Q)+(1:length(R)),lengt"
-      "h(Q)+(1:length(R))) = R;\nFxsT = Fxs';\nFusT = Fus';\nAT = A';\nBT = B';\nCT = C';\nEfT = Ef';\nPsT = Ps';\n\n% "
-      "pre-allocate for KS residuals\nes = hs;\nds = hs;\ndsNew = ds;\nesNew = es;\n\n% pre-assignment to keep coder ha"
-      "ppy\ndz = zeros(nz,1);\nphi = zeros(nz);\ndhats = zeros(ns,1);\n\n%% form initial solution\n\n% form the tail of"
-      " the previous solution\n% plus a step of zero control on the end\nif m==1, % hack - catch the slack case\n    % "
-      "no slacks - ok for zeros at end\n    zTail = [z0((m+n+1):nz); zeros(m,1); preMultByA(z0(nz - n + (1:n)),A,switch"
-      "es)]; %A*z0(nz - n + (1:n))];\nelse,\n    % slacks = can't be exactly zero\n    zTail = [z0((m+n+1):nz); [0; 0.0"
-      "001*zeros(m-1,1) ]; preMultByA(z0(nz - n + (1:n)),A,switches)]; %A*z0(nz - n + (1:n))];\n%     max(abs(preMultBy"
-      "A(z0(nz - n + (1:n)),A) - A*z0(nz - n + (1:n))))\nend\n\n% check if tail works as an initializer\nif all(P*zTail"
-      "<h),\n    \n    % tail is feasible\n    z = zTail;\n    initSolChoice = 1;\n    \nelse\n    \n    % try fiddling"
-      " with the slack variables\n    z = zTail;\n    \n    % catch just the slack case\n    if m>1,\n        z(slackLi"
-      "st) = -1.0001*min(P*z - h);\n    end\n    \n    % now check if that worked\n    if all(P*z<h),\n        \n      "
-      "  % worked\n        initSolChoice = 4;\n        \n    elseif all(P*z0<h),\n        \n        % try last solution"
-      " unchanged\n        z = z0;\n        initSolChoice = 2;\n        \n    elseif all(0<h),\n        \n        % in "
-      "this case, start with zeros\n        z = zeros(size(z0));\n        initSolChoice = 3;\n        \n    else\n     "
-      "   \n        % out of ideas - zeros anyway\n        z = zeros(size(z0));\n        initSolChoice = 0;\n        \n"
-      "    end\n    \nend\n\n%% initialization\n\n% initial lagrange multipliers\nnu = zeros(ne,1);\n\n% precalculate d"
-      "\nd = 1./(h - multByP(z,P,Fx,Fu,Ff,T,n,m,ell,ellf,switches));\n\n% calculate residuals for first iteration\nrp ="
-      " calcRp(z,b,A,B,C,Ef,T,n,m,ellef,switches); %C*z - b;\nrpMag = norm(rp);\nrd = diagTwoH.*z + g + kappaPt*d + mul"
-      "tByCT(nu,CT,AT,BT,EfT,T,n,m,ellef,switches); %C'*nu;\n\n% checkCT = max(abs(multByCT(nu,AT,BT,EfT,T,n,m,ellef) -"
-      " C'*nu))\n\n% optional soft constraint info\nif flagUseSoftCons,\n    \n    % evaluate soft version of d\n    [d"
-      "s,es]=calcDs(z,Ps,Fxs,Fus,T,n,m,ells,hs,rho,flagNoPade,switches);\n    \n    % add to residual\n    rd = rd + mu"
-      "ltByPsT(ds,PsT,FxsT,FusT,T,n,m,ells,switches); %Ps'*ds;\n    \n    if 0\n        checkPsT = abs(max(multByPsT(ds"
-      ",PsT,FxsT,FusT,T,n,m,ells,switches) - Ps'*ds))\n    else\n        checkPsT = 0;\n    end\n    \nend\n\nrdMag = n"
-      "orm(rd);\nrMag = norm([rdMag;rpMag]);\n\n%% main solution loop for Newton's method\nfor kk=1:numNewtonIters,\n  "
-      "  \n    % check the P multiplier\n    if flagChecking\n        check_d = norm(d - (1./(h - P*z)))\n    else\n   "
-      "     check_d = 0;\n    end\n    \n    % check residual calc\n    if flagChecking\n        checkRp = norm(C*z - b"
-      " - rp)\n    else\n        checkRp = 0;\n    end\n    \n    % if using soft cons with KS\n    if flagUseSoftCons,"
-      "\n        % need the \"d-hat\" for the second derivatives of the KS functions\n        dhats = (es ./ ((1+es).*("
-      "1+es)));\n    end\n    \n    % first form inverse of Phi\n    if flagPhiIsDiag,\n        \n        % form the di"
-      "agonals of Phi\n        diagPhi = diagTwoH + kappaPtSq*(d.*d);\n        \n        % plus soft cons if used\n    "
-      "    if flagUseSoftCons,\n            diagPhi = diagPhi + rhoPstSq*dhats;\n        end\n        \n        % \"inv"
-      "ert\" it\n        phiInv = diag(1./diagPhi);\n        \n    else\n        \n        % preallocate to avoid slowd"
-      "own\n        phiInv = zeros(nz);\n        \n        % build the blocks of Phi inverse\n        if flagUseSoftCon"
-      "s,\n            phiInv(1:m,1:m) = mySymPDinv(2*R + kappa*Fu'*diag(d(1:ell).*d(1:ell))*Fu + rho*Fus'*diag(dhats(1"
-      ":ells))*Fus,flagChecking);\n        else\n            phiInv(1:m,1:m) = mySymPDinv(2*R + kappa*Fu'*diag(d(1:ell)"
-      ".*d(1:ell))*Fu,flagChecking);\n        end\n        for ii=1:(T-1),\n            if flagUseSoftCons,\n          "
-      "      blkInv = mySymPDinv(2*blkQR + kappa*[Fx Fu]'*diag(d(ii*ell + (1:ell)).*d(ii*ell + (1:ell)))*[Fx Fu] + ...\n"
-      "                    rho*[Fxs Fus]'*diag(dhats(ii*ells + (1:ells)))*[Fxs Fus],flagChecking);\n            else\n "
-      "               blkInv = mySymPDinv(2*blkQR + kappa*[Fx Fu]'*diag(d(ii*ell + (1:ell)).*d(ii*ell + (1:ell)))*[Fx F"
-      "u],flagChecking);\n            end\n            phiInv(m+(ii-1)*(n+m)+(1:(n+m)),m+(ii-1)*(n+m)+(1:(n+m))) = blkI"
-      "nv; % [Q-tilde S-tilde; S-tilde' R-tilde]\n        end\n        phiInv(nz-n+(1:n),nz-n+(1:n)) = mySymPDinv(2*Qf "
-      "+ kappa*Ff'*diag(d(T*ell + (1:ellf)).*d(T*ell + (1:ellf)))*Ff,flagChecking);\n        \n    end\n    \n    % che"
-      "ck phi inverted correctly\n    if flagChecking,\n        phi = 2*H + kappa*P'*diag(d)*diag(d)*P;\n        if fla"
-      "gUseSoftCons,\n            phi = phi+rho*Ps'*diag(es ./ ((1+es).*(1+es)))*Ps;\n        end\n        %checkPhiInv"
-      " = norm(phi*phiInv - eye(nz))\n        checkPhiInv = max(max((phi*phiInv - eye(nz))))\n    else\n        checkPh"
-      "iInv = 0;\n    end\n    \n    % preallocate Y\n    Y = zeros(ne);\n    \n    % form the block elements of Y = C*"
-      "phiInv*C'\n    Y(1:n,1:n) = B*Rtil(phiInv,0,n,m)*B' + Qtil(phiInv,1,n,m);\n    for ii=1:T,\n        if ii<T,\n% "
-      "            Y((ii-1)*n+(1:n),ii*n+(1:n)) = -Qtil(phiInv,ii,n,m)*A' - Stil(phiInv,ii,n,m)*B'; %Yabove(:,:,ii)\n  "
-      "          Y((ii-1)*n+(1:n),ii*n+(1:n)) = -multByAT(Qtil(phiInv,ii,n,m),AT,switches) - Stil(phiInv,ii,n,m)*B'; %Y"
-      "above(:,:,ii)\n            Y(ii*n+(1:n),(ii-1)*n+(1:n)) = Y((ii-1)*n+(1:n),ii*n+(1:n))';\n        end\n        i"
-      "f ii>1,\n%             tmp = A*Stil(phiInv,ii-1,n,m)*B';\n            tmp = preMultByA(Stil(phiInv,ii-1,n,m),A,s"
-      "witches)*B';\n%             Y((ii-1)*n+(1:n),(ii-1)*n+(1:n)) = A*Qtil(phiInv,ii-1,n,m)*A' + tmp + tmp' + B*Rtil("
-      "phiInv,ii-1,n,m)*B' + Qtil(phiInv,ii,n,m);\n%             Y((ii-1)*n+(1:n),(ii-1)*n+(1:n)) = preMultByA(Qtil(phi"
-      "Inv,ii-1,n,m),A)*A' + tmp + tmp' + B*Rtil(phiInv,ii-1,n,m)*B' + Qtil(phiInv,ii,n,m);\n            Y((ii-1)*n+(1:"
-      "n),(ii-1)*n+(1:n)) = multByAT(preMultByA(Qtil(phiInv,ii-1,n,m),A,switches),AT,switches) + tmp + tmp' + B*Rtil(ph"
-      "iInv,ii-1,n,m)*B' + Qtil(phiInv,ii,n,m);\n        end\n    end\n    \n%     % -------- DO ALL THE Y STUFF AGAIN "
-      "-------- %\n%     \n%     % preallocate Y\n%     Y2 = zeros(ne);\n%     \n%     % form the block elements of Y ="
-      " C*phiInv*C'\n%     Y2(1:n,1:n) = B*Rtil(phiInv,0,n,m)*B' + Qtil(phiInv,1,n,m);\n%     for ii=1:T,\n%         if"
-      " ii<T,\n%             Y2((ii-1)*n+(1:n),ii*n+(1:n)) = -Qtil(phiInv,ii,n,m)*A' - Stil(phiInv,ii,n,m)*B'; %Yabove("
-      ":,:,ii)\n%             Y2(ii*n+(1:n),(ii-1)*n+(1:n)) = Y2((ii-1)*n+(1:n),ii*n+(1:n))';\n%         end\n%        "
-      " if ii>1,\n%             tmp = A*Stil(phiInv,ii-1,n,m)*B';\n%             Y2((ii-1)*n+(1:n),(ii-1)*n+(1:n)) = A*"
-      "Qtil(phiInv,ii-1,n,m)*A' + tmp + tmp' + B*Rtil(phiInv,ii-1,n,m)*B' + Qtil(phiInv,ii,n,m);\n%         end\n%     "
-      "end\n%     \n%     % -------- DO ALL THE Y STUFF AGAIN -------- %\n    \n    % add terms for terminal equality c"
-      "ons\n    if ellef>0,\n        Y((T-1)*n+(1:n),T*n+(1:ellef)) = Qtil(phiInv,T,n,m)*Ef';\n        Y(T*n+(1:ellef),"
-      "(T-1)*n+(1:n)) = Y((T-1)*n+(1:n),T*n+(1:ellef))';\n        Y(T*n+(1:ellef),T*n+(1:ellef)) = Ef*Y((T-1)*n+(1:n),T"
-      "*n+(1:ellef));\n    end\n    \n    % now check that Y was constructed correctly\n    if flagChecking\n        ch"
-      "eckY = norm(Y - C*phiInv*C')\n    else\n        checkY = 0;\n    end\n    \n    % now form PhiInv * rd in prepar"
-      "ation for making the RHS (-beta)\n    PhiInvRd = zeros(nz,1);\n    PhiInvRd(1:m,:) = Rtil(phiInv,0,n,m)*rd(1:m);"
-      "\n    for ii=1:(T-1),\n        PhiInvRd(m + (ii-1)*(m+n) + (1:(m+n)),:) = [Qtil(phiInv,ii,n,m) Stil(phiInv,ii,n,"
-      "m); Stil(phiInv,ii,n,m)' Rtil(phiInv,ii,n,m)]*rd(m + (ii-1)*(m+n) + (1:(m+n)),:);\n    end\n    PhiInvRd(m + (T-"
-      "1)*(m+n) +(1:n),:) = Qtil(phiInv,T,n,m)*rd(m + (T-1)*(m+n) +(1:n));\n    \n    % and the RHS, -beta = rp - C*phi"
-      "Inv*rd\n    rhs = rp - multByC(PhiInvRd,A,B,C,Ef,T,n,m,ellef,switches);\n    \n    % check it\n    if flagChecki"
-      "ng\n        checkBeta = norm(rhs - (rp - C*phiInv*rd))\n    else\n        checkBeta = 0;\n    end\n    \n    % n"
-      "ow find the blocks of the lower triangular Cholesky factorization of Y\n    L = zeros(ne);\n    L(1:n,1:n) = cho"
-      "l(getSqBlk(Y,1,1,n),'lower');\n    for ii=2:T,\n        L((ii-1)*n+(1:n),(ii-2)*n+(1:n)) = linsolve(getSqBlk(L,i"
-      "i-1,ii-1,n),getSqBlk(Y,ii-1,ii,n),struct('LT',true))';\n        L((ii-1)*n+(1:n),(ii-1)*n+(1:n)) = chol(getSqBlk"
-      "(Y,ii,ii,n) - getSqBlk(L,ii,ii-1,n)*getSqBlk(L,ii,ii-1,n)','lower');\n    end\n    \n    % and the extra bits fo"
-      "r terminal equality cons\n    if ellef>0,\n        L(T*n+(1:ellef),(T-1)*n+(1:n)) = linsolve(getSqBlk(L,T,T,n),Y"
-      "((T-1)*n+(1:n),T*n+(1:ellef)),struct('LT',true))';\n        L(T*n+(1:ellef),T*n+(1:ellef)) = chol(Y(T*n+(1:ellef"
-      "),T*n+(1:ellef)) - L(T*n+(1:ellef),(T-1)*n+(1:n))*L(T*n+(1:ellef),(T-1)*n+(1:n))','lower');\n    end\n    \n    "
-      "% now check the thing\n    if flagChecking,\n        checkL = norm(L*L'-Y)\n    else\n        checkL = 0;\n    e"
-      "nd\n    \n    % solve (L*L')*dnu=rhs: part one: solve for t=L'*dnu\n    t = zeros(ne,1);\n    t(1:n) = linsolve("
-      "getSqBlk(L,1,1,n),rhs(1:n),struct('LT',true));\n    for ii=1:(T-1),\n        t(ii*n + (1:n)) = linsolve(getSqBlk"
-      "(L,ii+1,ii+1,n),rhs(ii*n + (1:n)) - getSqBlk(L,ii+1,ii,n)*t((ii-1)*n + (1:n)),struct('LT',true));\n    end\n    "
-      "% final elements for terminal equalities\n    if ellef>0,\n        t(T*n + (1:ellef)) = linsolve(L(T*n+(1:ellef)"
-      ",T*n+(1:ellef)),rhs(T*n + (1:ellef)) - L(T*n+(1:ellef),(T-1)*n+(1:n))*t((T-1)*n + (1:n)),struct('LT',true));\n  "
-      "  end\n    \n    % check solve process\n    if flagChecking\n        check_t = norm(L*t - rhs)\n    else\n      "
-      "  check_t = 0;\n    end\n    \n    % now solve part two: L'*dnu = t;\n    dnu = zeros(ne,1);\n    % different st"
-      "art for terminal equality case\n    if ellef>0,\n        dnu(T*n + (1:ellef)) = linsolve(L(T*n+(1:ellef),T*n+(1:"
-      "ellef))',t(T*n + (1:ellef)),struct('UT',true));\n        dnu((T-1)*n + (1:n)) = linsolve(getSqBlk(L,T,T,n)',t((T"
-      "-1)*n + (1:n)) - L(T*n+(1:ellef),(T-1)*n+(1:n))'*dnu(T*n + (1:ellef)),struct('UT',true));\n    else\n        dnu"
-      "((T-1)*n + (1:n)) = linsolve(getSqBlk(L,T,T,n)',t((T-1)*n + (1:n)),struct('UT',true));\n    end\n    for ii=(T-1"
-      "):-1:1,\n        dnu((ii-1)*n + (1:n)) = linsolve(getSqBlk(L,ii,ii,n)',t((ii-1)*n + (1:n)) - getSqBlk(L,ii+1,ii,"
-      "n)'*dnu((ii)*n + (1:n)),struct('UT',true));\n    end\n    \n    % check the whole solve worked\n    if flagCheck"
-      "ing\n        check_dnu = norm(Y*dnu - rhs)\n    else\n        check_dnu = 0;\n    end\n    \n%     % -----------"
-      "------- DOUBLE THE LINSOLVE -------------------- %\n%     \n%     \n%     % now find the blocks of the lower tri"
-      "angular Cholesky factorization of Y\n%     L2 = zeros(ne);\n%     L2(1:n,1:n) = chol(getSqBlk(Y,1,1,n),'lower');"
-      "\n%     for ii=2:T,\n%         L2((ii-1)*n+(1:n),(ii-2)*n+(1:n)) = linsolve(getSqBlk(L2,ii-1,ii-1,n),getSqBlk(Y,"
-      "ii-1,ii,n),struct('LT',true))';\n%         L2((ii-1)*n+(1:n),(ii-1)*n+(1:n)) = chol(getSqBlk(Y,ii,ii,n) - getSqB"
-      "lk(L2,ii,ii-1,n)*getSqBlk(L2,ii,ii-1,n)','lower');\n%     end\n%     \n%     % and the extra bits for terminal e"
-      "quality cons\n%     if ellef>0,\n%         L2(T*n+(1:ellef),(T-1)*n+(1:n)) = linsolve(getSqBlk(L2,T,T,n),Y((T-1)"
-      "*n+(1:n),T*n+(1:ellef)),struct('LT',true))';\n%         L2(T*n+(1:ellef),T*n+(1:ellef)) = chol(Y(T*n+(1:ellef),T"
-      "*n+(1:ellef)) - L2(T*n+(1:ellef),(T-1)*n+(1:n))*L2(T*n+(1:ellef),(T-1)*n+(1:n))','lower');\n%     end\n%     \n%"
-      "     % solve (L*L')*dnu=rhs: part one: solve for t=L'*dnu\n%     t2 = zeros(ne,1);\n%     t2(1:n) = linsolve(get"
-      "SqBlk(L2,1,1,n),rhs(1:n),struct('LT',true));\n%     for ii=1:(T-1),\n%         t2(ii*n + (1:n)) = linsolve(getSq"
-      "Blk(L2,ii+1,ii+1,n),rhs(ii*n + (1:n)) - getSqBlk(L2,ii+1,ii,n)*t2((ii-1)*n + (1:n)),struct('LT',true));\n%     e"
-      "nd\n%     % final elements for terminal equalities\n%     if ellef>0,\n%         t2(T*n + (1:ellef)) = linsolve("
-      "L2(T*n+(1:ellef),T*n+(1:ellef)),rhs(T*n + (1:ellef)) - L2(T*n+(1:ellef),(T-1)*n+(1:n))*t2((T-1)*n + (1:n)),struc"
-      "t('LT',true));\n%     end\n%     \n%     % now solve part two: L'*dnu = t;\n%     dnu2 = zeros(ne,1);\n%     % d"
-      "ifferent start for terminal equality case\n%     if ellef>0,\n%         dnu2(T*n + (1:ellef)) = linsolve(L2(T*n+"
-      "(1:ellef),T*n+(1:ellef))',t2(T*n + (1:ellef)),struct('UT',true));\n%         dnu2((T-1)*n + (1:n)) = linsolve(ge"
-      "tSqBlk(L2,T,T,n)',t2((T-1)*n + (1:n)) - L2(T*n+(1:ellef),(T-1)*n+(1:n))'*dnu2(T*n + (1:ellef)),struct('UT',true)"
-      ");\n%     else\n%         dnu2((T-1)*n + (1:n)) = linsolve(getSqBlk(L2,T,T,n)',t2((T-1)*n + (1:n)),struct('UT',t"
-      "rue));\n%     end\n%     for ii=(T-1):-1:1,\n%         dnu2((ii-1)*n + (1:n)) = linsolve(getSqBlk(L2,ii,ii,n)',t"
-      "2((ii-1)*n + (1:n)) - getSqBlk(L2,ii+1,ii,n)'*dnu2((ii)*n + (1:n)),struct('UT',true));\n%     end\n%     \n%    "
-      " % ------------------ END OF DOUBLE THE LINSOLVE ---------------%\n    \n    % now solve for dz\n    if flagPhiI"
-      "sDiag,\n        \n        % solve for dz assuming PhiInv diagonal\n        dz = diag(phiInv).*(-rd-multByCT(dnu,"
-      "CT,AT,BT,EfT,T,n,m,ellef,switches)); %C'*dnu);\n        \n    else\n        \n        % form the vector to be mu"
-      "ltiplied, for shorthand\n        v = (-rd-multByCT(dnu,CT,AT,BT,EfT,T,n,m,ellef,switches)); %C'*dnu);\n        \n"
-      "        % now form PhiInv * rd in preparation for making the RHS (-beta)\n        dz(1:m,:) = Rtil(phiInv,1,n,m)"
-      "*v(1:m);\n        for ii=1:(T-1),\n            dz(m + (ii-1)*(m+n) + (1:(m+n)),:) = [Qtil(phiInv,ii,n,m) Stil(ph"
-      "iInv,ii,n,m); Stil(phiInv,ii,n,m)' Rtil(phiInv,ii,n,m)]*v(m + (ii-1)*(m+n) + (1:(m+n)),:);\n        end\n       "
-      " dz(m + (T-1)*(m+n) +(1:n),:) = Qtil(phiInv,T,n,m)*v(m + (T-1)*(m+n) +(1:n));\n        \n    end\n    \n    % ch"
-      "eck computation of Newton step\n    if flagChecking\n        checkNewton = norm([phi C';C zeros(ne)]*[dz;dnu] + "
-      "[rd; rp])\n    else\n        checkNewton = 0;\n    end\n    \n    % line search\n    sMax = 1.0;\n    \n    % pa"
-      "rt 1 - reduce until feasible\n    for jj=1:10,\n        \n        zFar = z + sMax*dz;\n        iFar = h - multBy"
-      "P(zFar,P,Fx,Fu,Ff,T,n,m,ell,ellf,switches);\n        \n        if all(iFar>0),\n            break\n        end\n"
-      "        \n        sMax = sMax*0.5;\n        \n    end\n    \n    % part 2 take a tiny step just to get the slope"
-      "\n    s = sMax/100;\n    zNew = z + s*dz;\n    nuNew = nu + s*dnu;\n    iNew = h - multByP(zNew,P,Fx,Fu,Ff,T,n,m"
-      ",ell,ellf,switches);\n    % new residuals\n    dNew = 1./iNew;\n    rdNew = diagTwoH.*zNew + g + kappaPt*dNew + "
-      "multByCT(nuNew,CT,AT,BT,EfT,T,n,m,ellef,switches); %C'*nuNew;\n    if flagUseSoftCons,\n        [dsNew,esNew] = "
-      "calcDs(zNew,Ps,Fxs,Fus,T,n,m,ells,hs,rho,flagNoPade,switches);\n        rdNew = rdNew + multByPsT(dsNew,PsT,FxsT"
-      ",FusT,T,n,m,ells,switches); %Ps'*dsNew;\n        \n%         checkPsT = max(abs(multByPsT(dsNew,FxsT,FusT,T,n,m,"
-      "ells) - Ps'*dsNew))\n    end\n    rpNew = calcRp(zNew,b,A,B,C,Ef,T,n,m,ellef,switches);\n    rdMagNew = norm(rdN"
-      "ew);\n    rpMagNew = norm(rpNew);\n    rMagNew = norm([rdMagNew;rpMagNew]);\n    gradRmag = 100*(rMagNew-rMag);\n"
-      "    \n%     % Fix for doubling backtracking operation\n%     z2 = z;\n%     nu2 = nu;\n%     rMag2 = rMag;\n%   "
-      "  dsNew2 = dsNew;\n%     esNew2 = esNew;\n%     rdNew2 = rdNew;\n%     rpNew2 = rpNew;\n%     rpMagNew2 = rpMagN"
-      "ew;\n%     rdMagNew2 = rdMagNew;\n%     rMagNew2 = rMagNew;\n    \n    % part 3 - backtracking\n    s = sMax;\n "
-      "   for jj=1:10,\n        \n        zNew = z + s*dz;\n        nuNew = nu + s*dnu;\n        iNew = h - multByP(zNe"
-      "w,P,Fx,Fu,Ff,T,n,m,ell,ellf,switches);\n        \n        % new residuals\n        dNew = 1./iNew;\n        rdNe"
-      "w = diagTwoH.*zNew + g + kappaPt*dNew + multByCT(nuNew,CT,AT,BT,EfT,T,n,m,ellef,switches); %C'*nuNew;\n        i"
-      "f flagUseSoftCons,\n            [dsNew,esNew] = calcDs(zNew,Ps,Fxs,Fus,T,n,m,ells,hs,rho,flagNoPade,switches);\n"
-      "            rdNew = rdNew + multByPsT(dsNew,PsT,FxsT,FusT,T,n,m,ells,switches); %Ps'*dsNew;\n        end\n      "
-      "  rpNew = calcRp(zNew,b,A,B,C,Ef,T,n,m,ellef,switches);\n        rdMagNew = norm(rdNew);\n        rpMagNew = nor"
-      "m(rpNew);\n        rMagNew = norm([rdMagNew;rpMagNew]);\n        \n        % test\n        if rMagNew < rMag + 0"
-      ".5*s*gradRmag,\n            \n            % update\n            z = zNew;\n            nu = nuNew;\n            "
-      "d = dNew;\n            rd = rdNew;\n            rp = rpNew;\n            rpMag = rpMagNew;\n            rdMag = "
-      "rdMagNew;\n            rMag = rMagNew;\n            \n            if flagUseSoftCons,\n                \n       "
-      "         ds = dsNew;\n                es = esNew;\n                \n            end\n            \n            "
-      "% do nothing\n            % lineSearchPass=[kk jj s norm(rdNew) norm(rpNew)]\n            break\n            \n "
-      "       else\n            \n            %covg = false\n            s = s*0.7;\n            \n        end\n       "
-      " \n    end\n        \n%     % DO PART 3 AGAIN\n%     % part 3 - backtracking\n%     s = sMax;\n%     for jj=1:10"
-      ",\n%         zNew2 = z2 + s*dz;\n%         nuNew2 = nu2 + s*dnu;\n%         iNew2 = h - multByP(zNew2,Fx,Fu,Ff,T"
-      ",n,m,ell,ellf);\n%         \n%         % new residuals\n%         dNew2 = 1./iNew2;\n%         rdNew2 = diagTwoH"
-      ".*zNew2 + g + kappaPt*dNew2 + C'*nuNew2;\n%         if flagUseSoftCons,\n%             [dsNew2,esNew2] = calcDs("
-      "zNew2,Ps,hs,rho,flagNoPade);\n%             rdNew2 = rdNew2 + Ps'*dsNew2;\n%         end\n%         rpNew2 = cal"
-      "cRp(zNew2,b,A,B,Ef,T,n,m,ellef);\n%         rdMagNew2 = norm(rdNew2);\n%         rpMagNew2 = norm(rpNew2);\n%   "
-      "      rMagNew2 = norm([rdMagNew2;rpMagNew2]);\n%         \n%         % test\n%         if rMagNew2 < rMag2 + 0.5"
-      "*s*gradRmag,\n%             \n%             % update\n%             z2 = zNew2;\n%             nu2 = nuNew2;\n% "
-      "            d2 = dNew2;\n%             rd2 = rdNew2;\n%             rp2 = rpNew2;\n%             rpMag2 = rpMagN"
-      "ew2;\n%             rdMag2 = rdMagNew2;\n%             rMag2 = rMagNew2;\n%             \n%             if flagU"
-      "seSoftCons,\n%                 \n%                 ds2 = dsNew2;\n%                 es2 = esNew2;\n%            "
-      "     \n%             end\n%             \n%             % do nothing\n%             % lineSearchPass=[kk jj s no"
-      "rm(rdNew) norm(rpNew)]\n%             break\n%             \n%         else\n%             \n%             %covg"
-      " = false\n%             s = s*0.7;\n%             \n%         end\n%     end\n%     % END OF DO PART 3 AGAIN\n  "
-      "  \n    meanBackTracks = meanBackTracks + jj/numNewtonIters;\n    \nend\n\n% information for output\ninfo = [rpM"
-      "ag; % primal residual, i.e. norm(C*z-b)\n    rdMag; % dual residual, i.e. grad z\n    initSolChoice; % which ini"
-      "tial solution did I use?\n    meanBackTracks]; % Average number of backtracks performed\n\nend\n\n% some functio"
-      "ns to get block terms Q,R and S out of phi-inverse easily\nfunction Qt = Qtil(phiInv,ii,n,m)\nQt = phiInv(m + (m"
-      "+n)*(ii-1) + (1:n),m + (m+n)*(ii-1) + (1:n));\nend\n\nfunction Rt = Rtil(phiInv,ii,n,m)\nRt = phiInv((m+n)*ii + "
-      "(1:m),(m+n)*ii + (1:m));\nend\n\nfunction St = Stil(phiInv,ii,n,m)\nSt = phiInv(m + (m+n)*(ii-1) + (1:n),(m+n)*i"
-      "i + (1:m));\nend\n\n% another function to get n x n square block elements\nfunction Y = getSqBlk(U,ii,jj,n)\nY ="
-      " U((ii-1)*n + (1:n), (jj-1)*n + (1:n));\nend\n\nfunction Minv = mySymPDinv(M,flagChecking)\n%\n% utility for qui"
-      "ck inversion of a symmetric positive definite matrix\n%\n\ncholM = chol(M,'lower');\nT = linsolve(cholM,eye(size"
-      "(M,1)),struct('LT',true));\nMinv = linsolve(cholM',T,struct('UT',true));\n\n% if flagChecking,\n%     checkInv ="
-      " norm(Minv*M - eye(size(M,1)))\n% else\n%     checkInv = 0;\n% end\n\nend\n\nfunction [ds,es]=calcDs(z,Ps,Fxs,Fu"
-      "s,T,n,m,ells,hs,rho,flagNoPade,switches)\n\n% pre-assign to help coder\nes = hs;\nds = hs;\n\n% residuals\n% rs "
-      "= Ps*z - hs;\nrs = multByPs(z,Ps,Fxs,Fus,T,n,m,ells,switches) - hs;\n\nif 0,\n    checkPs = max(abs(rs - Ps*z + "
-      "hs))\nelse\n    checkPs = 0;\nend\n\n\n\nfor ii=1:length(hs),\n    \n    if rs(ii)>0,\n        es(ii,1) = myexp("
-      "-rho*rs(ii),flagNoPade);\n        ds(ii,1) = 1/(1+es(ii,1));\n    else\n        es(ii,1) = myexp(rho*rs(ii),flag"
-      "NoPade);\n        ds(ii,1) = es(ii,1)/(1+es(ii,1));\n    end\nend\n\nend\n\nfunction y = myexp(u,flagNoPade)\n\n"
+      "\ncheck_dnu = 0;\ncheckNewton = 0;\ncheckInv = 0;\n\ntotBackTracks = 0;\n\n% sizes\nn = size(A,1); % number of s"
+      "tates in system\nm = size(B,2); % number of inputs to system\nnz = length(g); % number of decision variables in "
+      "z\nne = length(b); % number of equalities in Cz=b\nni = length(h); % number of inequalities Pz<=h\nns = length(h"
+      "s); % number of soft constraints Ps*z<=hs (if possible)\nell = size(Fx,1); % number of inequalities per time ste"
+      "p, Fx*x + Fu*u <= f\n% ells = size(Fxs,1); % number of soft constraints per time step, Fxs*x + Fus*u <= fs\nellf"
+      " = size(Ff,1); % number of terminal inequalities\n\n% check for terminal equality cons\nif size(Ef,2) == n,\n   "
+      " ellef = size(Ef,1); % number of terminal equalities\nelse\n    ellef = 0;\nend\n\n% important to take T (the ho"
+      "rizon) from here\n% if you pass it in as a signal, code generator gets upset\n% as it thinks its matrices could "
+      "vary in size\nT = (ne-ellef)/size(A,1);\n\nells = size(Fxs,1); % number of soft constraints per time step, Fxs*x"
+      " + Fus*u <= fs\n\n% list of slack variables\nif m==3,\n    slackList = kron(ones(1,T),[2 3]) + kron((1:T)-1,[6 6"
+      "]);\nelseif m==2,\n    slackList = (2:5:(T*5));\nend\n\n%% barrier settings\n\n% single fixed barrier weight\nka"
+      "ppa = 0.005;\n\n% fixed parameter for KS-function\nrho=10;\n\n%% process options\n\n% number of options passed i"
+      "n\nnop = length(opts);\n\n% option 1 - assume Phi is diagonal if > 0\nif nop>=1,\n    flagPhiIsDiag = opts(1)>0;"
+      " % turns on or off assumptions about diagonal Phi\nelse\n    flagPhiIsDiag = false; % default setting does not a"
+      "ssume diagonal\nend\n\n% option 2 - set number of Newton iterations\nif nop>=2,\n    numNewtonIters = opts(2);\n"
+      "else\n    numNewtonIters = 10;\nend\n\n% option 3 - use KS function for soft constraints if >0\nif nop>=3,\n    "
+      "flagUseSoftCons = opts(3)>0;\nelse\n    flagUseSoftCons = false; % default - ignore\nend\n\n% option 4 - enable "
+      "massive amount of checking (slow) if >0\nif nop>=4,\n    flagChecking = opts(4)>0;\nelse\n    flagChecking = fal"
+      "se; % default - ignore\nend\n\n% option 5 - disable the Pade approximation if >0\nif nop>=5,\n    flagNoPade = o"
+      "pts(5)>0;\nelse\n    flagNoPade = false; % default - use Pade\nend\n\n% option 6 - disable the use of sparse mat"
+      "rix structure if >0\nif nop>=6,\n    switches = [1 1 1 1 1 0 0 0 0]*(1-(opts(6)>0));\nelse\n    switches = [1 1 "
+      "1 1 1 0 0 0 0]; % default - use standard structure\nend\n\n% option 7 - optional setting of barrier weight kappa"
+      " from outside\nif nop>=7,\n    if opts(7)>0,\n        kappa = opts(7);\n    end\nend\n\n%% precalculations\n\n% "
+      "preform to avoid later work\nkappaPt = kappa*P';\nkappaPtSq = kappaPt.*P';\nrhoPstSq = rho*Ps'.*Ps';\ndiagTwoH ="
+      " diag(2*H);\n% helpful to avoid lots of blkdiag calls later\n% blkQR = blkdiag(Q,R); % can't call blkQR in embed"
+      "ded matlab 2011b\nblkQR = zeros(size(Q) + size(R));\nblkQR(1:length(Q),1:length(Q)) = Q;\nblkQR(length(Q)+(1:len"
+      "gth(R)),length(Q)+(1:length(R))) = R;\nFxsT = Fxs';\nFusT = Fus';\nAT = A';\nBT = B';\nCT = C';\nEfT = Ef';\nPsT"
+      " = Ps';\n\n% pre-allocate for KS residuals\nes = hs;\nds = hs;\ndsNew = ds;\nesNew = es;\n\n% pre-assignment to "
+      "keep coder happy\ndz = zeros(nz,1);\nphi = zeros(nz);\ndhats = zeros(ns,1);\n\n%% form initial solution\n\n% for"
+      "m the tail of the previous solution\n% plus a step of zero control on the end\nif m==1, % hack - catch the slack"
+      " case\n    % no slacks - ok for zeros at end\n    zTail = [z0((m+n+1):nz); zeros(m,1); preMultByA(z0(nz - n + (1"
+      ":n)),A,switches)]; %A*z0(nz - n + (1:n))];\nelse,\n    % slacks = can't be exactly zero\n    zTail = [z0((m+n+1)"
+      ":nz); [0; 0.0001*ones(m-1,1) ]; preMultByA(z0(nz - n + (1:n)),A,switches)]; %A*z0(nz - n + (1:n))];\n%     max(a"
+      "bs(preMultByA(z0(nz - n + (1:n)),A) - A*z0(nz - n + (1:n))))\nend\n\n% check if tail works as an initializer\nif"
+      " all(P*zTail<h),\n    \n    % tail is feasible\n    z = zTail;\n    initSolChoice = 1;\n    \nelse\n    \n    % "
+      "show the problem\n    %P*zTail-h\n    \n    % try fiddling with the slack variables\n    z = zTail;\n    \n    %"
+      " catch just the slack case\n    if m>1,\n        z(slackList) = -1.0001*min(P*z - h);\n    end\n    \n    % now "
+      "check if that worked\n    if all(P*z<h),\n        \n        % worked\n        initSolChoice = 4;\n        \n    "
+      "elseif all(P*z0<h),\n        \n        % try last solution unchanged\n        z = z0;\n        initSolChoice = 2"
+      ";\n        \n    elseif all(0<h),\n        \n        % in this case, start with zeros\n        z = zeros(size(z0"
+      "));\n        initSolChoice = 3;\n        \n    else\n        \n        % out of ideas - zeros anyway, plus a bit"
+      " for slacks\n        z = zeros(size(z0))+0.0001;\n        initSolChoice = 0;\n        \n    end\n    \nend\n\n% "
+      "if checking enabled, display solution choice\nif flagChecking,\n    initSolChoice = initSolChoice\nend\n\n%% ini"
+      "tialization\n\n% initial lagrange multipliers\nnu = zeros(ne,1);\n\n% precalculate d\nd = 1./(h - multByP(z,P,Fx"
+      ",Fu,Ff,T,n,m,ell,ellf,switches));\n\n% calculate residuals for first iteration\nrp = calcRp(z,b,A,B,C,Ef,T,n,m,e"
+      "llef,switches); %C*z - b;\nrpMag = norm(rp);\nrd = diagTwoH.*z + g + kappaPt*d + multByCT(nu,CT,AT,BT,EfT,T,n,m,"
+      "ellef,switches); %C'*nu;\n\n% checkCT = max(abs(multByCT(nu,AT,BT,EfT,T,n,m,ellef) - C'*nu))\n\n% optional soft "
+      "constraint info\nif flagUseSoftCons,\n    \n    % evaluate soft version of d\n    [ds,es]=calcDs(z,Ps,Fxs,Fus,T,"
+      "n,m,ells,hs,rho,flagNoPade,switches);\n    \n    % add to residual\n    rd = rd + multByPsT(ds,PsT,FxsT,FusT,T,n"
+      ",m,ells,switches); %Ps'*ds;\n    \n    if 0\n        checkPsT = abs(max(multByPsT(ds,PsT,FxsT,FusT,T,n,m,ells,sw"
+      "itches) - Ps'*ds))\n    else\n        checkPsT = 0;\n    end\n    \nend\n\nrdMag = norm(rd);\nrMag = norm([rdMag"
+      ";rpMag]);\n\n%% main solution loop for Newton's method\nfor kk=1:numNewtonIters,\n    \n    % check the P multip"
+      "lier\n    if flagChecking\n        check_d = norm(d - (1./(h - P*z)))\n    else\n        check_d = 0;\n    end\n"
+      "    \n    % check residual calc\n    if flagChecking\n        checkRp = norm(C*z - b - rp)\n    else\n        ch"
+      "eckRp = 0;\n    end\n    \n    % if using soft cons with KS\n    if flagUseSoftCons,\n        % need the \"d-hat"
+      "\" for the second derivatives of the KS functions\n        dhats = (es ./ ((1+es).*(1+es)));\n    end\n    \n   "
+      " % first form inverse of Phi\n    if flagPhiIsDiag,\n        \n        % form the diagonals of Phi\n        diag"
+      "Phi = diagTwoH + kappaPtSq*(d.*d);\n        \n        % plus soft cons if used\n        if flagUseSoftCons,\n   "
+      "         diagPhi = diagPhi + rhoPstSq*dhats;\n        end\n        \n        % \"invert\" it\n        phiInv = d"
+      "iag(1./diagPhi);\n        \n    else\n        \n        % preallocate to avoid slowdown\n        phiInv = zeros("
+      "nz);\n        \n        % build the blocks of Phi inverse\n        if flagUseSoftCons,\n            phiInv(1:m,1"
+      ":m) = mySymPDinv(2*R + kappa*Fu'*diag(d(1:ell).*d(1:ell))*Fu + rho*Fus'*diag(dhats(1:ells))*Fus,flagChecking);\n"
+      "        else\n            phiInv(1:m,1:m) = mySymPDinv(2*R + kappa*Fu'*diag(d(1:ell).*d(1:ell))*Fu,flagChecking)"
+      ";\n        end\n        for ii=1:(T-1),\n            if flagUseSoftCons,\n                blkInv = mySymPDinv(2*"
+      "blkQR + kappa*[Fx Fu]'*diag(d(ii*ell + (1:ell)).*d(ii*ell + (1:ell)))*[Fx Fu] + ...\n                    rho*[Fx"
+      "s Fus]'*diag(dhats(ii*ells + (1:ells)))*[Fxs Fus],flagChecking);\n            else\n                blkInv = myS"
+      "ymPDinv(2*blkQR + kappa*[Fx Fu]'*diag(d(ii*ell + (1:ell)).*d(ii*ell + (1:ell)))*[Fx Fu],flagChecking);\n        "
+      "    end\n            phiInv(m+(ii-1)*(n+m)+(1:(n+m)),m+(ii-1)*(n+m)+(1:(n+m))) = blkInv; % [Q-tilde S-tilde; S-t"
+      "ilde' R-tilde]\n        end\n        phiInv(nz-n+(1:n),nz-n+(1:n)) = mySymPDinv(2*Qf + kappa*Ff'*diag(d(T*ell + "
+      "(1:ellf)).*d(T*ell + (1:ellf)))*Ff,flagChecking);\n        \n    end\n    \n    % check phi inverted correctly\n"
+      "    if flagChecking,\n        phi = 2*H + kappa*P'*diag(d)*diag(d)*P;\n        if flagUseSoftCons,\n            "
+      "phi = phi+rho*Ps'*diag(es ./ ((1+es).*(1+es)))*Ps;\n        end\n        %checkPhiInv = norm(phi*phiInv - eye(nz"
+      "))\n        checkPhiInv = max(max((phi*phiInv - eye(nz))))\n    else\n        checkPhiInv = 0;\n    end\n    \n "
+      "   % preallocate Y\n    Y = zeros(ne);\n    \n    % form the block elements of Y = C*phiInv*C'\n    Y(1:n,1:n) ="
+      " B*Rtil(phiInv,0,n,m)*B' + Qtil(phiInv,1,n,m);\n    for ii=1:T,\n        if ii<T,\n%             Y((ii-1)*n+(1:n"
+      "),ii*n+(1:n)) = -Qtil(phiInv,ii,n,m)*A' - Stil(phiInv,ii,n,m)*B'; %Yabove(:,:,ii)\n            Y((ii-1)*n+(1:n),"
+      "ii*n+(1:n)) = -multByAT(Qtil(phiInv,ii,n,m),AT,switches) - Stil(phiInv,ii,n,m)*B'; %Yabove(:,:,ii)\n            "
+      "Y(ii*n+(1:n),(ii-1)*n+(1:n)) = Y((ii-1)*n+(1:n),ii*n+(1:n))';\n        end\n        if ii>1,\n%             tmp "
+      "= A*Stil(phiInv,ii-1,n,m)*B';\n            tmp = preMultByA(Stil(phiInv,ii-1,n,m),A,switches)*B';\n%            "
+      " Y((ii-1)*n+(1:n),(ii-1)*n+(1:n)) = A*Qtil(phiInv,ii-1,n,m)*A' + tmp + tmp' + B*Rtil(phiInv,ii-1,n,m)*B' + Qtil("
+      "phiInv,ii,n,m);\n%             Y((ii-1)*n+(1:n),(ii-1)*n+(1:n)) = preMultByA(Qtil(phiInv,ii-1,n,m),A)*A' + tmp +"
+      " tmp' + B*Rtil(phiInv,ii-1,n,m)*B' + Qtil(phiInv,ii,n,m);\n            Y((ii-1)*n+(1:n),(ii-1)*n+(1:n)) = multBy"
+      "AT(preMultByA(Qtil(phiInv,ii-1,n,m),A,switches),AT,switches) + tmp + tmp' + B*Rtil(phiInv,ii-1,n,m)*B' + Qtil(ph"
+      "iInv,ii,n,m);\n        end\n    end\n    \n%     % -------- DO ALL THE Y STUFF AGAIN -------- %\n%     \n%     %"
+      " preallocate Y\n%     Y2 = zeros(ne);\n%     \n%     % form the block elements of Y = C*phiInv*C'\n%     Y2(1:n,"
+      "1:n) = B*Rtil(phiInv,0,n,m)*B' + Qtil(phiInv,1,n,m);\n%     for ii=1:T,\n%         if ii<T,\n%             Y2((i"
+      "i-1)*n+(1:n),ii*n+(1:n)) = -Qtil(phiInv,ii,n,m)*A' - Stil(phiInv,ii,n,m)*B'; %Yabove(:,:,ii)\n%             Y2(i"
+      "i*n+(1:n),(ii-1)*n+(1:n)) = Y2((ii-1)*n+(1:n),ii*n+(1:n))';\n%         end\n%         if ii>1,\n%             tm"
+      "p = A*Stil(phiInv,ii-1,n,m)*B';\n%             Y2((ii-1)*n+(1:n),(ii-1)*n+(1:n)) = A*Qtil(phiInv,ii-1,n,m)*A' + "
+      "tmp + tmp' + B*Rtil(phiInv,ii-1,n,m)*B' + Qtil(phiInv,ii,n,m);\n%         end\n%     end\n%     \n%     % ------"
+      "-- DO ALL THE Y STUFF AGAIN -------- %\n    \n    % add terms for terminal equality cons\n    if ellef>0,\n     "
+      "   Y((T-1)*n+(1:n),T*n+(1:ellef)) = Qtil(phiInv,T,n,m)*Ef';\n        Y(T*n+(1:ellef),(T-1)*n+(1:n)) = Y((T-1)*n+"
+      "(1:n),T*n+(1:ellef))';\n        Y(T*n+(1:ellef),T*n+(1:ellef)) = Ef*Y((T-1)*n+(1:n),T*n+(1:ellef));\n    end\n  "
+      "  \n    % now check that Y was constructed correctly\n    if flagChecking\n        checkY = norm(Y - C*phiInv*C'"
+      ")\n    else\n        checkY = 0;\n    end\n    \n    % now form PhiInv * rd in preparation for making the RHS (-"
+      "beta)\n    PhiInvRd = zeros(nz,1);\n    PhiInvRd(1:m,:) = Rtil(phiInv,0,n,m)*rd(1:m);\n    for ii=1:(T-1),\n    "
+      "    PhiInvRd(m + (ii-1)*(m+n) + (1:(m+n)),:) = [Qtil(phiInv,ii,n,m) Stil(phiInv,ii,n,m); Stil(phiInv,ii,n,m)' Rt"
+      "il(phiInv,ii,n,m)]*rd(m + (ii-1)*(m+n) + (1:(m+n)),:);\n    end\n    PhiInvRd(m + (T-1)*(m+n) +(1:n),:) = Qtil(p"
+      "hiInv,T,n,m)*rd(m + (T-1)*(m+n) +(1:n));\n    \n    % and the RHS, -beta = rp - C*phiInv*rd\n    rhs = rp - mult"
+      "ByC(PhiInvRd,A,B,C,Ef,T,n,m,ellef,switches);\n    \n    % check it\n    if flagChecking\n        checkBeta = nor"
+      "m(rhs - (rp - C*phiInv*rd))\n    else\n        checkBeta = 0;\n    end\n    \n    % now find the blocks of the l"
+      "ower triangular Cholesky factorization of Y\n    L = zeros(ne);\n    L(1:n,1:n) = chol(getSqBlk(Y,1,1,n),'lower'"
+      ");\n    for ii=2:T,\n        L((ii-1)*n+(1:n),(ii-2)*n+(1:n)) = linsolve(getSqBlk(L,ii-1,ii-1,n),getSqBlk(Y,ii-1"
+      ",ii,n),struct('LT',true))';\n        L((ii-1)*n+(1:n),(ii-1)*n+(1:n)) = chol(getSqBlk(Y,ii,ii,n) - getSqBlk(L,ii"
+      ",ii-1,n)*getSqBlk(L,ii,ii-1,n)','lower');\n    end\n    \n    % and the extra bits for terminal equality cons\n "
+      "   if ellef>0,\n        L(T*n+(1:ellef),(T-1)*n+(1:n)) = linsolve(getSqBlk(L,T,T,n),Y((T-1)*n+(1:n),T*n+(1:ellef"
+      ")),struct('LT',true))';\n        L(T*n+(1:ellef),T*n+(1:ellef)) = chol(Y(T*n+(1:ellef),T*n+(1:ellef)) - L(T*n+(1"
+      ":ellef),(T-1)*n+(1:n))*L(T*n+(1:ellef),(T-1)*n+(1:n))','lower');\n    end\n    \n    % now check the thing\n    "
+      "if flagChecking,\n        checkL = norm(L*L'-Y)\n    else\n        checkL = 0;\n    end\n    \n    % solve (L*L'"
+      ")*dnu=rhs: part one: solve for t=L'*dnu\n    t = zeros(ne,1);\n    t(1:n) = linsolve(getSqBlk(L,1,1,n),rhs(1:n),"
+      "struct('LT',true));\n    for ii=1:(T-1),\n        t(ii*n + (1:n)) = linsolve(getSqBlk(L,ii+1,ii+1,n),rhs(ii*n + "
+      "(1:n)) - getSqBlk(L,ii+1,ii,n)*t((ii-1)*n + (1:n)),struct('LT',true));\n    end\n    % final elements for termin"
+      "al equalities\n    if ellef>0,\n        t(T*n + (1:ellef)) = linsolve(L(T*n+(1:ellef),T*n+(1:ellef)),rhs(T*n + ("
+      "1:ellef)) - L(T*n+(1:ellef),(T-1)*n+(1:n))*t((T-1)*n + (1:n)),struct('LT',true));\n    end\n    \n    % check so"
+      "lve process\n    if flagChecking\n        check_t = norm(L*t - rhs)\n    else\n        check_t = 0;\n    end\n  "
+      "  \n    % now solve part two: L'*dnu = t;\n    dnu = zeros(ne,1);\n    % different start for terminal equality c"
+      "ase\n    if ellef>0,\n        dnu(T*n + (1:ellef)) = linsolve(L(T*n+(1:ellef),T*n+(1:ellef))',t(T*n + (1:ellef))"
+      ",struct('UT',true));\n        dnu((T-1)*n + (1:n)) = linsolve(getSqBlk(L,T,T,n)',t((T-1)*n + (1:n)) - L(T*n+(1:e"
+      "llef),(T-1)*n+(1:n))'*dnu(T*n + (1:ellef)),struct('UT',true));\n    else\n        dnu((T-1)*n + (1:n)) = linsolv"
+      "e(getSqBlk(L,T,T,n)',t((T-1)*n + (1:n)),struct('UT',true));\n    end\n    for ii=(T-1):-1:1,\n        dnu((ii-1)"
+      "*n + (1:n)) = linsolve(getSqBlk(L,ii,ii,n)',t((ii-1)*n + (1:n)) - getSqBlk(L,ii+1,ii,n)'*dnu((ii)*n + (1:n)),str"
+      "uct('UT',true));\n    end\n    \n    % check the whole solve worked\n    if flagChecking\n        check_dnu = no"
+      "rm(Y*dnu - rhs)\n    else\n        check_dnu = 0;\n    end\n    \n%     % ------------------ DOUBLE THE LINSOLVE"
+      " -------------------- %\n%     \n%     \n%     % now find the blocks of the lower triangular Cholesky factorizat"
+      "ion of Y\n%     L2 = zeros(ne);\n%     L2(1:n,1:n) = chol(getSqBlk(Y,1,1,n),'lower');\n%     for ii=2:T,\n%     "
+      "    L2((ii-1)*n+(1:n),(ii-2)*n+(1:n)) = linsolve(getSqBlk(L2,ii-1,ii-1,n),getSqBlk(Y,ii-1,ii,n),struct('LT',true"
+      "))';\n%         L2((ii-1)*n+(1:n),(ii-1)*n+(1:n)) = chol(getSqBlk(Y,ii,ii,n) - getSqBlk(L2,ii,ii-1,n)*getSqBlk(L"
+      "2,ii,ii-1,n)','lower');\n%     end\n%     \n%     % and the extra bits for terminal equality cons\n%     if elle"
+      "f>0,\n%         L2(T*n+(1:ellef),(T-1)*n+(1:n)) = linsolve(getSqBlk(L2,T,T,n),Y((T-1)*n+(1:n),T*n+(1:ellef)),str"
+      "uct('LT',true))';\n%         L2(T*n+(1:ellef),T*n+(1:ellef)) = chol(Y(T*n+(1:ellef),T*n+(1:ellef)) - L2(T*n+(1:e"
+      "llef),(T-1)*n+(1:n))*L2(T*n+(1:ellef),(T-1)*n+(1:n))','lower');\n%     end\n%     \n%     % solve (L*L')*dnu=rhs"
+      ": part one: solve for t=L'*dnu\n%     t2 = zeros(ne,1);\n%     t2(1:n) = linsolve(getSqBlk(L2,1,1,n),rhs(1:n),st"
+      "ruct('LT',true));\n%     for ii=1:(T-1),\n%         t2(ii*n + (1:n)) = linsolve(getSqBlk(L2,ii+1,ii+1,n),rhs(ii*"
+      "n + (1:n)) - getSqBlk(L2,ii+1,ii,n)*t2((ii-1)*n + (1:n)),struct('LT',true));\n%     end\n%     % final elements "
+      "for terminal equalities\n%     if ellef>0,\n%         t2(T*n + (1:ellef)) = linsolve(L2(T*n+(1:ellef),T*n+(1:ell"
+      "ef)),rhs(T*n + (1:ellef)) - L2(T*n+(1:ellef),(T-1)*n+(1:n))*t2((T-1)*n + (1:n)),struct('LT',true));\n%     end\n"
+      "%     \n%     % now solve part two: L'*dnu = t;\n%     dnu2 = zeros(ne,1);\n%     % different start for terminal"
+      " equality case\n%     if ellef>0,\n%         dnu2(T*n + (1:ellef)) = linsolve(L2(T*n+(1:ellef),T*n+(1:ellef))',t"
+      "2(T*n + (1:ellef)),struct('UT',true));\n%         dnu2((T-1)*n + (1:n)) = linsolve(getSqBlk(L2,T,T,n)',t2((T-1)*"
+      "n + (1:n)) - L2(T*n+(1:ellef),(T-1)*n+(1:n))'*dnu2(T*n + (1:ellef)),struct('UT',true));\n%     else\n%         d"
+      "nu2((T-1)*n + (1:n)) = linsolve(getSqBlk(L2,T,T,n)',t2((T-1)*n + (1:n)),struct('UT',true));\n%     end\n%     fo"
+      "r ii=(T-1):-1:1,\n%         dnu2((ii-1)*n + (1:n)) = linsolve(getSqBlk(L2,ii,ii,n)',t2((ii-1)*n + (1:n)) - getSq"
+      "Blk(L2,ii+1,ii,n)'*dnu2((ii)*n + (1:n)),struct('UT',true));\n%     end\n%     \n%     % ------------------ END O"
+      "F DOUBLE THE LINSOLVE ---------------%\n    \n    % going to need -(rd + C'*dnu) in next bit\n    v = (-rd-multB"
+      "yCT(dnu,CT,AT,BT,EfT,T,n,m,ellef,switches)); \n\n    % check computation of Newton step\n    if flagChecking\n  "
+      "      %ellef\n        %problem = [v+rd  (-C'*dnu)]\n        checkV = norm(v - (-rd-C'*dnu))\n    else\n        c"
+      "heckV = 0;\n    end\n    \n    % now solve for dz\n    if flagPhiIsDiag,\n        \n        % solve for dz assum"
+      "ing PhiInv diagonal\n        dz = diag(phiInv).*(-rd-multByCT(dnu,CT,AT,BT,EfT,T,n,m,ellef,switches)); %C'*dnu);"
+      "\n        \n    else\n        \n        % form the vector to be multiplied, for shorthand\n        v = (-rd-mult"
+      "ByCT(dnu,CT,AT,BT,EfT,T,n,m,ellef,switches)); %C'*dnu);\n        \n        % now form PhiInv * rd in preparation"
+      " for making the RHS (-beta)\n        dz(1:m,:) = Rtil(phiInv,0,n,m)*v(1:m);\n        for ii=1:(T-1),\n          "
+      "  dz(m + (ii-1)*(m+n) + (1:(m+n)),:) = [Qtil(phiInv,ii,n,m) Stil(phiInv,ii,n,m); Stil(phiInv,ii,n,m)' Rtil(phiIn"
+      "v,ii,n,m)]*v(m + (ii-1)*(m+n) + (1:(m+n)),:);\n        end\n        dz(m + (T-1)*(m+n) +(1:n),:) = Qtil(phiInv,T"
+      ",n,m)*v(m + (T-1)*(m+n) +(1:n));\n        \n    end\n    \n    % check computation of Newton step\n    if flagCh"
+      "ecking\n        %problem = [phi C';C zeros(ne)]*[dz;dnu] + [rd; rp]\n        checkNewton = norm([phi C';C zeros("
+      "ne)]*[dz;dnu] + [rd; rp])\n    else\n        checkNewton = 0;\n    end\n    \n    % line search\n    sMax = 1.0;"
+      "\n    \n    % part 1 - reduce until feasible\n    for jj=1:10,\n        \n        zFar = z + sMax*dz;\n        i"
+      "Far = h - multByP(zFar,P,Fx,Fu,Ff,T,n,m,ell,ellf,switches);\n        \n        if all(iFar>0),\n            brea"
+      "k\n        end\n        \n        sMax = sMax*0.5;\n        \n    end\n    \n    % part 2 take a tiny step just "
+      "to get the slope\n    s = sMax/100;\n    zNew = z + s*dz;\n    nuNew = nu + s*dnu;\n    iNew = h - multByP(zNew,"
+      "P,Fx,Fu,Ff,T,n,m,ell,ellf,switches);\n    % new residuals\n    dNew = 1./iNew;\n    rdNew = diagTwoH.*zNew + g +"
+      " kappaPt*dNew + multByCT(nuNew,CT,AT,BT,EfT,T,n,m,ellef,switches); %C'*nuNew;\n    if flagUseSoftCons,\n        "
+      "[dsNew,esNew] = calcDs(zNew,Ps,Fxs,Fus,T,n,m,ells,hs,rho,flagNoPade,switches);\n        rdNew = rdNew + multByPs"
+      "T(dsNew,PsT,FxsT,FusT,T,n,m,ells,switches); %Ps'*dsNew;\n        \n%         checkPsT = max(abs(multByPsT(dsNew,"
+      "FxsT,FusT,T,n,m,ells) - Ps'*dsNew))\n    end\n    rpNew = calcRp(zNew,b,A,B,C,Ef,T,n,m,ellef,switches);\n    rdM"
+      "agNew = norm(rdNew);\n    rpMagNew = norm(rpNew);\n    rMagNew = norm([rdMagNew;rpMagNew]);\n    gradRmag = 100*"
+      "(rMagNew-rMag);\n    \n%     % Fix for doubling backtracking operation\n%     z2 = z;\n%     nu2 = nu;\n%     rM"
+      "ag2 = rMag;\n%     dsNew2 = dsNew;\n%     esNew2 = esNew;\n%     rdNew2 = rdNew;\n%     rpNew2 = rpNew;\n%     r"
+      "pMagNew2 = rpMagNew;\n%     rdMagNew2 = rdMagNew;\n%     rMagNew2 = rMagNew;\n    \n    % part 3 - backtracking\n"
+      "    s = sMax;\n    for jj=1:10,\n        \n        zNew = z + s*dz;\n        nuNew = nu + s*dnu;\n        iNew ="
+      " h - multByP(zNew,P,Fx,Fu,Ff,T,n,m,ell,ellf,switches);\n        \n        % new residuals\n        dNew = 1./iNe"
+      "w;\n        rdNew = diagTwoH.*zNew + g + kappaPt*dNew + multByCT(nuNew,CT,AT,BT,EfT,T,n,m,ellef,switches); %C'*n"
+      "uNew;\n        if flagUseSoftCons,\n            [dsNew,esNew] = calcDs(zNew,Ps,Fxs,Fus,T,n,m,ells,hs,rho,flagNoP"
+      "ade,switches);\n            rdNew = rdNew + multByPsT(dsNew,PsT,FxsT,FusT,T,n,m,ells,switches); %Ps'*dsNew;\n   "
+      "     end\n        rpNew = calcRp(zNew,b,A,B,C,Ef,T,n,m,ellef,switches);\n        rdMagNew = norm(rdNew);\n      "
+      "  rpMagNew = norm(rpNew);\n        rMagNew = norm([rdMagNew;rpMagNew]);\n        \n        % test\n        if rM"
+      "agNew < rMag + 0.5*s*gradRmag,\n            \n            % update\n            z = zNew;\n            nu = nuNe"
+      "w;\n            d = dNew;\n            rd = rdNew;\n            rp = rpNew;\n            rpMag = rpMagNew;\n    "
+      "        rdMag = rdMagNew;\n            rMag = rMagNew;\n            \n            if flagUseSoftCons,\n         "
+      "       \n                ds = dsNew;\n                es = esNew;\n                \n            end\n          "
+      "  \n            % do nothing\n            % lineSearchPass=[kk jj s norm(rdNew) norm(rpNew)]\n            break\n"
+      "            \n        else\n            \n            %covg = false\n            s = s*0.7;\n            \n     "
+      "   end\n        \n    end\n        \n%     % DO PART 3 AGAIN\n%     % part 3 - backtracking\n%     s = sMax;\n% "
+      "    for jj=1:10,\n%         zNew2 = z2 + s*dz;\n%         nuNew2 = nu2 + s*dnu;\n%         iNew2 = h - multByP(z"
+      "New2,Fx,Fu,Ff,T,n,m,ell,ellf);\n%         \n%         % new residuals\n%         dNew2 = 1./iNew2;\n%         rd"
+      "New2 = diagTwoH.*zNew2 + g + kappaPt*dNew2 + C'*nuNew2;\n%         if flagUseSoftCons,\n%             [dsNew2,es"
+      "New2] = calcDs(zNew2,Ps,hs,rho,flagNoPade);\n%             rdNew2 = rdNew2 + Ps'*dsNew2;\n%         end\n%      "
+      "   rpNew2 = calcRp(zNew2,b,A,B,Ef,T,n,m,ellef);\n%         rdMagNew2 = norm(rdNew2);\n%         rpMagNew2 = norm"
+      "(rpNew2);\n%         rMagNew2 = norm([rdMagNew2;rpMagNew2]);\n%         \n%         % test\n%         if rMagNew"
+      "2 < rMag2 + 0.5*s*gradRmag,\n%             \n%             % update\n%             z2 = zNew2;\n%             nu"
+      "2 = nuNew2;\n%             d2 = dNew2;\n%             rd2 = rdNew2;\n%             rp2 = rpNew2;\n%             "
+      "rpMag2 = rpMagNew2;\n%             rdMag2 = rdMagNew2;\n%             rMag2 = rMagNew2;\n%             \n%      "
+      "       if flagUseSoftCons,\n%                 \n%                 ds2 = dsNew2;\n%                 es2 = esNew2;"
+      "\n%                 \n%             end\n%             \n%             % do nothing\n%             % lineSearchP"
+      "ass=[kk jj s norm(rdNew) norm(rpNew)]\n%             break\n%             \n%         else\n%             \n%   "
+      "          %covg = false\n%             s = s*0.7;\n%             \n%         end\n%     end\n%     % END OF DO P"
+      "ART 3 AGAIN\n    \n    totBackTracks = totBackTracks + jj;\n    \nend\n\n% information for output\ninfo = [rpMag"
+      "; % primal residual, i.e. norm(C*z-b)\n    rdMag; % dual residual, i.e. grad z\n    initSolChoice; % which initi"
+      "al solution did I use?\n    totBackTracks]; % Average number of backtracks performed\n\nend\n\n% some functions "
+      "to get block terms Q,R and S out of phi-inverse easily\nfunction Qt = Qtil(phiInv,ii,n,m)\nQt = phiInv(m + (m+n)"
+      "*(ii-1) + (1:n),m + (m+n)*(ii-1) + (1:n));\nend\n\nfunction Rt = Rtil(phiInv,ii,n,m)\nRt = phiInv((m+n)*ii + (1:"
+      "m),(m+n)*ii + (1:m));\nend\n\nfunction St = Stil(phiInv,ii,n,m)\nSt = phiInv(m + (m+n)*(ii-1) + (1:n),(m+n)*ii +"
+      " (1:m));\nend\n\n% another function to get n x n square block elements\nfunction Y = getSqBlk(U,ii,jj,n)\nY = U("
+      "(ii-1)*n + (1:n), (jj-1)*n + (1:n));\nend\n\nfunction Minv = mySymPDinv(M,flagChecking)\n%\n% utility for quick "
+      "inversion of a symmetric positive definite matrix\n%\n\ncholM = chol(M,'lower');\ntmp = linsolve(cholM,eye(size("
+      "M,1)),struct('LT',true));\nMinv = linsolve(cholM',tmp,struct('UT',true));\n\n% if flagChecking,\n%     checkInv "
+      "= norm(Minv*M - eye(size(M,1)))\n% else\n%     checkInv = 0;\n% end\n\nend\n\nfunction [ds,es]=calcDs(z,Ps,Fxs,F"
+      "us,T,n,m,ells,hs,rho,flagNoPade,switches)\n\n% pre-assign to help coder\nes = hs;\nds = hs;\n\n% residuals\n% rs"
+      " = Ps*z - hs;\nrs = multByPs(z,Ps,Fxs,Fus,T,n,m,ells,switches) - hs;\n\nif 0,\n    checkPs = max(abs(rs - Ps*z +"
+      " hs))\nelse\n    checkPs = 0;\nend\n\n\n\nfor ii=1:length(hs),\n    \n    if rs(ii)>0,\n        es(ii,1) = myexp"
+      "(-rho*rs(ii),flagNoPade);\n        ds(ii,1) = 1/(1+es(ii,1));\n    else\n        es(ii,1) = myexp(rho*rs(ii),fla"
+      "gNoPade);\n        ds(ii,1) = es(ii,1)/(1+es(ii,1));\n    end\nend\n\nend\n\nfunction y = myexp(u,flagNoPade)\n\n"
       "% use built in exponential\nif flagNoPade,\n    y = exp(u);\nelse\n    % use pade approximant\n    di = ones(siz"
       "e(u));\n    ds = di;\n    for ii=1:3,\n        di = (-1/ii)*di.*u;\n        ds = ds+di;\n    end\n    y = 1./ds;"
       "\nend\n\nend\n\nfunction rp = calcRp(z,b,A,B,C,Ef,T,n,m,ellef,switches)\n    % calculate primal residual Cz-b\n\n"
@@ -3659,15 +3860,16 @@ Stateflow {
       "= 0\n        y = CT*nu;\n    else\n        y = zeros(T*(n+m),1);\n\n        y(1:m) = -BT*nu(1:n);\n        for i"
       "i=2:T\n        %     y(m+(1:n)+(ii-2)*(n+m)) = nu((1:n) + (ii-2)*n) - AT*nu((1:n) + (ii-1)*n);\n            y(m+"
       "(1:n)+(ii-2)*(n+m)) = nu((1:n) + (ii-2)*n) - preMultByA(nu((1:n) + (ii-1)*n),AT,switches);\n            y(m+n+(1"
-      ":m)+(ii-2)*(n+m)) = -BT*nu((1:n) + (ii-1)*n);\n        end\n\n        if ellef>0,\n            y(1+m+(T-1)*(m+n)"
-      ":(T*(n+m))) = nu((1:n) + (T-1)*n) + EfT*nu((1:ellef) + T*n);\n        end\n    end\nend\n\nfunction y = preMultB"
-      "yA(M,A,switches)\n    % \n    % returns A*M\n    %\n\n    if switches(6) == 0\n        y = A*M;\n    else\n     "
-      "   % Define n in this instance as a half the number of states (i.e. per axis)\n        n = size(A,1)/2;\n\n     "
-      "   y = zeros(size(A,1),size(M,2));\n\n        for ii=1:2\n            y((1:n)+(ii-1)*n,:) = A(1:n,1:n)*M((1:n)+("
-      "ii-1)*n,:);\n        end\n    end\nend\n\nfunction y = multByAT(M,AT,switches)\n    % \n    % returns M*AT\n    "
-      "%\n\n    if switches(7) == 0\n        y = M*AT;\n    else\n        % Define n in this instance as a half the num"
-      "ber of states (i.e. per axis)\n        n = size(AT,1)/2;\n\n        y = zeros(size(M,1),size(AT,2));\n\n        "
-      "for ii=1:2\n            y(:,(1:n)+(ii-1)*n) = M(:,(1:n)+(ii-1)*n)*AT(1:n,1:n);\n        end\n    end\nend"
+      ":m)+(ii-2)*(n+m)) = -BT*nu((1:n) + (ii-1)*n);\n        end\n        y((T-1)*(n+m)+m+(1:n)) = nu((1:n) + (T-1)*n)"
+      ";\n        \n        if ellef>0,\n            y(1+m+(T-1)*(m+n):(T*(n+m))) = nu((1:n) + (T-1)*n) + EfT*nu((1:ell"
+      "ef) + T*n);\n        end\n    end\nend\n\nfunction y = preMultByA(M,A,switches)\n    % \n    % returns A*M\n    "
+      "%\n\n    if switches(6) == 0\n        y = A*M;\n    else\n        % Define n in this instance as a half the numb"
+      "er of states (i.e. per axis)\n        n = size(A,1)/2;\n\n        y = zeros(size(A,1),size(M,2));\n\n        for"
+      " ii=1:2\n            y((1:n)+(ii-1)*n,:) = A(1:n,1:n)*M((1:n)+(ii-1)*n,:);\n        end\n    end\nend\n\nfunctio"
+      "n y = multByAT(M,AT,switches)\n    % \n    % returns M*AT\n    %\n\n    if switches(7) == 0\n        y = M*AT;\n"
+      "    else\n        % Define n in this instance as a half the number of states (i.e. per axis)\n        n = size(A"
+      "T,1)/2;\n\n        y = zeros(size(M,1),size(AT,2));\n\n        for ii=1:2\n            y(:,(1:n)+(ii-1)*n) = M(:"
+      ",(1:n)+(ii-1)*n)*AT(1:n,1:n);\n        end\n    end\nend"
       editorLayout	      "100 M4x1[10 5 700 500]"
     }
   }

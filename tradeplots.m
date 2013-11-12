@@ -5,9 +5,9 @@ load('QP.mat','simout')
 uqp = simout(:,4);
 
 % also grab the time results
-load('KS_NS_10.mat')
+load('KS_NS_12.mat')
 
-iters=(3:10);
+%iters=(3:12);
 
 for ii=1:length(iters),
     
@@ -22,9 +22,11 @@ for ii=1:length(iters),
 end
 
 figure
-plot(ksTimes,ksdiffs,'o-',slackTimes,sldiffs,'x-')
+plot(ksNpTimes,ksdiffs,'o-',slackTimes,sldiffs,'x-')
 legend('K-S','Slacks','Location','NorthWest')
-axis([0 15 0 1.5])
+axis([0 18 0 1.5])
+
+
 
 print -depsc trades.eps
 

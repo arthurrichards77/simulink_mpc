@@ -4,7 +4,7 @@ close all
 clear all
 
 % list of Newton iteration values
-iters = (3:10);
+iters = (3:12);
 
 %% slack method
 for ii=1:length(iters),

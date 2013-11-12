@@ -1,4 +1,4 @@
-load KS_NS_10.mat
+load KS_NS_12.mat
 
 figure
 plot(iters,ksTimes,'o-',iters,ksFmTimes,'v-',iters,ksNpTimes,'s-',iters,slackTimes,'x-')
@@ -19,3 +19,13 @@ legend('K-S','K-S w/o diagonal','K-S w/o Pade','Not Sparse','Slacks','Location',
 axis([2 11 0 15])
 
 print -depsc simtimes2.eps
+
+figure
+plot(iters,ksNpTimes,'o-',iters,ksFmTimes,'v-',iters,slackTimes,'x-')
+xlabel('Number of Newton iterations')
+ylabel('Total simulation run time')
+legend('K-S','K-S w/o diagonal','Slacks','Location','NorthWest')
+
+axis([2 11 0 15])
+
+print -depsc simtimes3.eps
