@@ -201,7 +201,7 @@ gt = kron(ones(T,1),[zeros(2,n); -2*Q]);
 
 %% options for quadprog
 qpopts = optimset();
-qpopts = optimset('Algorithm','interior-point-convex');
+%qpopts = optimset('Algorithm','interior-point-convex');
 
 %% options
 opts(1)=0; % 1 = assume diagonal Phi when solving

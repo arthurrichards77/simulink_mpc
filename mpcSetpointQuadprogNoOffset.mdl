@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.367"
+    ComputedModelVersion    "1.368"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -38,9 +38,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "aeagr"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Nov 12 17:26:06 2013"
-  RTWModifiedTimeStamp	  306177835
-  ModelVersionFormat	  "1.%<AutoIncrement:367>"
+  LastModifiedDate	  "Tue Nov 12 18:09:20 2013"
+  RTWModifiedTimeStamp	  306180557
+  ModelVersionFormat	  "1.%<AutoIncrement:368>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -683,6 +683,38 @@ Model {
       VectorParams1D	      on
     }
     Block {
+      BlockType		      DiscreteTransferFcn
+      NumeratorSource	      "Dialog"
+      Numerator		      "[1]"
+      DenominatorSource	      "Dialog"
+      Denominator	      "[1 0.5]"
+      InitialStatesSource     "Dialog"
+      InitialStates	      "0"
+      InputProcessing	      "Elements as channels (sample based)"
+      ExternalReset	      "None"
+      SampleTime	      "-1"
+      a0EqualsOne	      off
+      NumCoefMin	      "[]"
+      NumCoefMax	      "[]"
+      DenCoefMin	      "[]"
+      DenCoefMax	      "[]"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      StateDataTypeStr	      "Inherit: Same as input"
+      NumCoefDataTypeStr      "Inherit: Inherit via internal rule"
+      DenCoefDataTypeStr      "Inherit: Inherit via internal rule"
+      NumProductDataTypeStr   "Inherit: Inherit via internal rule"
+      DenProductDataTypeStr   "Inherit: Inherit via internal rule"
+      NumAccumDataTypeStr     "Inherit: Inherit via internal rule"
+      DenAccumDataTypeStr     "Inherit: Inherit via internal rule"
+      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+      LockScale		      off
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	off
+      StateMustResolveToSignalObject off
+      RTWStateStorageClass    "Auto"
+    }
+    Block {
       BlockType		      Gain
       Gain		      "1"
       Multiplication	      "Element-wise(K.*u)"
@@ -779,6 +811,21 @@ Model {
       OutPortSampleTimeOpt    "Specify"
       OutPortSampleTimeMultiple	"1"
       OutPortSampleTime	      "-1"
+    }
+    Block {
+      BlockType		      Saturate
+      UpperLimitSource	      "Dialog"
+      UpperLimit	      "0.5"
+      LowerLimitSource	      "Dialog"
+      LowerLimit	      "-0.5"
+      LinearizeAsGain	      on
+      ZeroCross		      on
+      SampleTime	      "-1"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: Same as input"
+      LockScale		      off
+      RndMeth		      "Floor"
     }
     Block {
       BlockType		      Scope
@@ -889,7 +936,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "371"
+    SIDHighWatermark	    "373"
     Block {
       BlockType		      Clock
       Name		      "Clock"
@@ -905,7 +952,7 @@ Model {
       Position		      [545, 299, 575, 331]
       Floating		      off
       Location		      [648, 71, 1271, 436]
-      Open		      on
+      Open		      off
       NumInputPorts	      "1"
       List {
 	ListType		AxesTitles
@@ -947,7 +994,7 @@ Model {
       System {
 	Name			"MPC"
 	Location		[264, 122, 1151, 864]
-	Open			off
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -998,6 +1045,17 @@ Model {
 	  SaturateOnIntegerOverflow off
 	}
 	Block {
+	  BlockType		  DiscreteTransferFcn
+	  Name			  "Discrete\nTransfer Fcn"
+	  SID			  "373"
+	  Ports			  [1, 1]
+	  Position		  [380, 312, 435, 348]
+	  ZOrder		  -2
+	  InputPortMap		  "u0"
+	  Numerator		  "[0.5]"
+	  Denominator		  "[1 -0.5]"
+	}
+	Block {
 	  BlockType		  Selector
 	  Name			  "First Input"
 	  SID			  "204"
@@ -1013,7 +1071,7 @@ Model {
 	  Name			  "Interpreted MATLAB\nFunction"
 	  SID			  "328"
 	  Ports			  [1, 1]
-	  Position		  [525, 190, 595, 220]
+	  Position		  [590, 190, 660, 220]
 	  ZOrder		  -2
 	  MATLABFcn		  "quadprog(2*H,g+gt*u(7:9),P,hx*u(1:3)+hc,C,b+bx*u(1:3)+bd*u(4:6),[],[],[],qpopts)"
 	}
@@ -1022,7 +1080,7 @@ Model {
 	  Name			  "Mux"
 	  SID			  "352"
 	  Ports			  [3, 1]
-	  Position		  [475, 186, 480, 224]
+	  Position		  [540, 186, 545, 224]
 	  ZOrder		  -16
 	  ShowName		  off
 	  Inputs		  "3"
@@ -1033,7 +1091,7 @@ Model {
 	  Name			  "Mux1"
 	  SID			  "358"
 	  Ports			  [2, 1]
-	  Position		  [405, 251, 410, 289]
+	  Position		  [470, 251, 475, 289]
 	  ZOrder		  -16
 	  ShowName		  off
 	  Inputs		  "2"
@@ -1059,7 +1117,7 @@ Model {
 	  Name			  "Scope"
 	  SID			  "350"
 	  Ports			  [1]
-	  Position		  [390, 314, 420, 346]
+	  Position		  [455, 314, 485, 346]
 	  ZOrder		  -3
 	  Floating		  off
 	  Location		  [171, 452, 613, 830]
@@ -1091,7 +1149,7 @@ Model {
 	  Name			  "Scope2"
 	  SID			  "359"
 	  Ports			  [1]
-	  Position		  [525, 254, 555, 286]
+	  Position		  [590, 254, 620, 286]
 	  ZOrder		  -3
 	  Floating		  off
 	  Location		  [43, 453, 485, 831]
@@ -1146,7 +1204,7 @@ Model {
 	  BlockType		  Gain
 	  Name			  "hxs*x2"
 	  SID			  "356"
-	  Position		  [425, 255, 455, 285]
+	  Position		  [490, 255, 520, 285]
 	  ZOrder		  -11
 	  Gain			  "pinv([eye(3)-A; 1 0 0])"
 	  Multiplication	  "Matrix(K*u)"
@@ -1242,23 +1300,8 @@ Model {
 	Line {
 	  SrcBlock		  "Add2"
 	  SrcPort		  1
-	  Points		  [10, 0]
-	  Branch {
-	    DstBlock		    "Scope"
-	    DstPort		    1
-	  }
-	  Branch {
-	    Points		    [0, -70]
-	    Branch {
-	      Points		      [0, -55]
-	      DstBlock		      "Mux"
-	      DstPort		      2
-	    }
-	    Branch {
-	      DstBlock		      "Mux1"
-	      DstPort		      1
-	    }
-	  }
+	  DstBlock		  "Discrete\nTransfer Fcn"
+	  DstPort		  1
 	}
 	Line {
 	  SrcBlock		  "r"
@@ -1284,6 +1327,27 @@ Model {
 	    Points		    [-5, 0]
 	    DstBlock		    "Mux"
 	    DstPort		    3
+	  }
+	}
+	Line {
+	  SrcBlock		  "Discrete\nTransfer Fcn"
+	  SrcPort		  1
+	  Points		  [0, 0]
+	  Branch {
+	    DstBlock		    "Scope"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, -70]
+	    Branch {
+	      Points		      [0, -55]
+	      DstBlock		      "Mux"
+	      DstPort		      2
+	    }
+	    Branch {
+	      DstBlock		      "Mux1"
+	      DstPort		      1
+	    }
 	  }
 	}
       }
@@ -1351,6 +1415,17 @@ Model {
       SID		      "366"
       Position		      [480, 14, 510, 56]
       ZOrder		      -10
+    }
+    Block {
+      BlockType		      Saturate
+      Name		      "Saturation"
+      SID		      "372"
+      Ports		      [1, 1]
+      Position		      [450, 230, 480, 260]
+      ZOrder		      -10
+      InputPortMap	      "u0"
+      UpperLimit	      "0.0999"
+      LowerLimit	      "-0.0999"
     }
     Block {
       BlockType		      SubSystem
@@ -1451,7 +1526,7 @@ Model {
       Position		      [860, 254, 890, 286]
       Floating		      off
       Location		      [577, 503, 1196, 886]
-      Open		      off
+      Open		      on
       NumInputPorts	      "1"
       ZoomMode		      "yonly"
       List {
@@ -1656,30 +1731,8 @@ Model {
     Line {
       SrcBlock		      "Sum"
       SrcPort		      1
-      Points		      [70, 0]
-      Branch {
-	Points			[0, 70]
-	Branch {
-	  DstBlock		  "Unit Delay"
-	  DstPort		  1
-	}
-	Branch {
-	  Points		  [15, 0]
-	  Branch {
-	    DstBlock		    "Control"
-	    DstPort		    1
-	  }
-	  Branch {
-	    Points		    [0, 145]
-	    DstBlock		    "Mux2"
-	    DstPort		    3
-	  }
-	}
-      }
-      Branch {
-	DstBlock		"Sum1"
-	DstPort			2
-      }
+      DstBlock		      "Saturation"
+      DstPort		      1
     }
     Line {
       SrcBlock		      "Unit Delay"
@@ -1770,6 +1823,34 @@ Model {
       Points		      [70, 0]
       DstBlock		      "Sum2"
       DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Saturation"
+      SrcPort		      1
+      Points		      [20, 0]
+      Branch {
+	Points			[0, 70]
+	Branch {
+	  DstBlock		  "Unit Delay"
+	  DstPort		  1
+	}
+	Branch {
+	  Points		  [15, 0]
+	  Branch {
+	    DstBlock		    "Control"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 145]
+	    DstBlock		    "Mux2"
+	    DstPort		    3
+	  }
+	}
+      }
+      Branch {
+	DstBlock		"Sum1"
+	DstPort			2
+      }
     }
     Annotation {
       SID		      "196"
