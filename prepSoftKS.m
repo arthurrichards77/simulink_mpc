@@ -170,7 +170,7 @@ gt = kron(ones(T,1),[zeros(1,n); -2*Q]);
 
 %% options
 opts=[];
-opts(1)=0; % 1 = assume diagonal Phi when solving
+opts(1)=1; % 1 = assume diagonal Phi when solving
 opts(2)=5; % Newton iterations
 opts(3)=1; % 1 = use soft constraints
 opts(4)=0; % 1 = checking on

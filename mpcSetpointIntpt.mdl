@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.468"
+    ComputedModelVersion    "1.469"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -38,9 +38,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "aeagr"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Oct 04 12:48:40 2013"
-  RTWModifiedTimeStamp	  302791357
-  ModelVersionFormat	  "1.%<AutoIncrement:468>"
+  LastModifiedDate	  "Thu May 29 11:31:28 2014"
+  RTWModifiedTimeStamp	  323263846
+  ModelVersionFormat	  "1.%<AutoIncrement:469>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -984,8 +984,8 @@ Model {
       Position		      [600, 334, 630, 366]
       ZOrder		      -5
       Floating		      off
-      Location		      [1299, 515, 1922, 880]
-      Open		      off
+      Location		      [1292, 515, 1915, 880]
+      Open		      on
       NumInputPorts	      "1"
       List {
 	ListType		AxesTitles
@@ -1031,7 +1031,7 @@ Model {
       System {
 	Name			"MPC"
 	Location		[336, 133, 1595, 999]
-	Open			off
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -2240,7 +2240,7 @@ Model {
 	  Position		  [780, 74, 810, 106]
 	  ZOrder		  -3
 	  Floating		  off
-	  Location		  [950, 149, 2096, 927]
+	  Location		  [769, 149, 1915, 927]
 	  Open			  on
 	  NumInputPorts		  "1"
 	  ZoomMode		  "yonly"
@@ -3407,7 +3407,7 @@ Stateflow {
     chartFileNumber	    2
     disableImplicitCasting  1
     eml {
-      name		      "mpcsolve"
+      name		      "mpcsolve_simk"
     }
   }
   state {
@@ -3424,152 +3424,9 @@ Stateflow {
     decomposition	    CLUSTER_STATE
     eml {
       isEML		      1
-      script		      "function [z,info] = mpcsolve(H,g,P,h,C,b,z0,A,B,Fx,Fu,Ff,Q,R,Qf,opts,Ps,hs,Ef,Fxs,Fus)\n%#codegen"
-      "\n\n% sizes\nn = size(A,1); % number of states in system\nm = size(B,2); % number of inputs to system\nnz = leng"
-      "th(g); % number of decision variables in z\nne = length(b); % number of equalities in Cz=b\nni = length(h); % nu"
-      "mber of inequalities Pz<=h\nns = length(hs); % number of soft constraints Ps*z<=hs (if possible)\nell = size(Fx,"
-      "1); % number of inequalities per time step, Fx*x + Fu*u <= f\nells = size(Fxs,1); % number of soft constraints p"
-      "er time step, Fxs*x + Fus*u <= fs\nellf = size(Ff,1); % number of terminal inequalities\nellef = size(Ef,1); % n"
-      "umber of terminal equalities\n\n% important to take T (the horizon) from here\n% if you pass it in as a signal, "
-      "code generator gets upset\n% as it thinks its matrices could vary in size\nT = (ne-ellef)/size(A,1);\n\n% list o"
-      "f slack variables\nif m==3,\n    slackList = kron(ones(1,T),[2 3]) + kron((1:T)-1,[6 6]);\nelseif m==2,\n    sla"
-      "ckList = (2:5:(T*5));\nend\n\n%% process options\n\n% number of options passed in\nnop = length(opts);\n\n% opti"
-      "on 1 - assume Phi is diagonal if > 0\nif nop>=1,\n    flagPhiIsDiag = opts(1)>0; % turns on or off assumptions a"
-      "bout diagonal Phi\nelse\n    flagPhiIsDiag = false; % default setting does not assume diagonal\nend\n\n% option "
-      "2 - set number of Newton iterations\nif nop>=2,\n    numNewtonIters = opts(2);\nelse\n    numNewtonIters = 10;\n"
-      "end\n\n% option 3 - use KS function for soft constraints if >0\nif nop>=3,\n    flagUseSoftCons = opts(3)>0;\nel"
-      "se\n    flagUseSoftCons = false; % default - ignore\nend\n\n% option 4 - enable massive amount of checking (slow"
-      ") if >0\nif nop>=4,\n    flagChecking = opts(4)>0;\nelse\n    flagChecking = false; % default - ignore\nend\n\n%"
-      " option 5 - disable the Pade approximation if >0\nif nop>=5,\n    flagNoPade = opts(5)>0;\nelse\n    flagNoPade "
-      "= false; % default - use Pade\nend\n\n%% settings\n\n% single fixed barrier weight\nkappa = 0.002;\n\n% fixed pa"
-      "rameter for KS-function\nrho=10;\n\n%% precalculations\n\n% preform to avoid later work\nkappaPt = kappa*P';\nka"
-      "ppaPtSq = kappaPt.*P';\nrhoPstSq = rho*Ps'.*Ps';\ndiagTwoH = diag(2*H);\n% helpful to avoid lots of blkdiag call"
-      "s later\nblkQR = blkdiag(Q,R);\n\n% pre-allocate for KS residuals\nes = hs;\nds = hs;\ndsNew = ds;\nesNew = es;\n"
-      "\n% pre-assignment to keep coder happy\ndz = zeros(nz,1);\nphi = zeros(nz);\ndhats = zeros(ns,1);\n\n%% form ini"
-      "tial solution\n\n% form the tail of the previous solution\n% plus a step of zero control on the end\nif m==1, % "
-      "hack - catch the slack case\n    % no slacks - ok for zeros at end\n    zTail = [z0((m+n+1):nz); zeros(m,1); A*z"
-      "0(nz - n + (1:n))];\nelse,\n    % slacks = can't be exactly zero\n    zTail = [z0((m+n+1):nz); [0; 0.0001*zeros("
-      "m-1,1) ]; A*z0(nz - n + (1:n))];\nend\n\n% check if tail works as an initializer\nif all(P*zTail<h),\n    \n    "
-      "% tail is feasible\n    z = zTail;\n    initSolChoice = 1;\n    \nelse\n    \n    % try fiddling with the slack "
-      "variables\n    z = zTail;\n    \n    % catch just the slack case\n    if m>1,\n        z(slackList) = -1.0001*mi"
-      "n(P*z - h);\n    end\n    \n    % now check if that worked\n    if all(P*z<h),\n        \n        % worked\n    "
-      "    initSolChoice = 4;\n        \n    elseif all(P*z0<h),\n        \n        % try last solution unchanged\n    "
-      "    z = z0;\n        initSolChoice = 2;\n        \n    elseif all(0<h),\n        \n        % in this case, start"
-      " with zeros\n        z = zeros(size(z0));\n        initSolChoice = 3;\n        \n    else\n        \n        % o"
-      "ut of ideas - zeros anyway\n        z = zeros(size(z0));\n        initSolChoice = 0;\n        \n    end\n    \ne"
-      "nd\n\n%% initialization\n\n% initial lagrange multipliers\nnu = zeros(ne,1);\n\n% precalculate d\nd = 1./(h - mu"
-      "ltByP(z,Fx,Fu,Ff,T,n,m,ell,ellf));\n\n% calculate residuals for first iteration\nrp = calcRp(z,b,A,B,Ef,T,n,m,el"
-      "lef); %C*z - b;\nrpMag = norm(rp);\nrd = diagTwoH.*z + g + kappaPt*d + C'*nu;\n\n% optional soft constraint info"
-      "\nif flagUseSoftCons,\n    \n    % evaluate soft version of d\n    [ds,es]=calcDs(z,Ps,hs,rho,flagNoPade);\n    "
-      "\n    % add to residual\n    rd = rd + Ps'*ds;\n    \nend\n\nrdMag = norm(rd);\nrMag = norm([rdMag;rpMag]);\n\n%"
-      "% main solution loop for Newton's method\nfor kk=1:numNewtonIters,\n    \n    % check the P multiplier\n    if f"
-      "lagChecking\n        check_d = norm(d - (1./(h - P*z)))\n    end\n    \n    % check residual calc\n    if flagCh"
-      "ecking\n        checkRp = norm(C*z - b - rp)\n    end\n    \n    % if using soft cons with KS\n    if flagUseSof"
-      "tCons,\n        % need the \"d-hat\" for the second derivatives of the KS functions\n        dhats = (es ./ ((1+"
-      "es).*(1+es)));\n    end\n    \n    % first form inverse of Phi\n    if flagPhiIsDiag,\n        \n        % form "
-      "the diagonals of Phi\n        diagPhi = diagTwoH + kappaPtSq*(d.*d);\n        \n        % plus soft cons if used"
-      "\n        if flagUseSoftCons,\n            diagPhi = diagPhi + rhoPstSq*dhats;\n        end\n        \n        %"
-      " \"invert\" it\n        phiInv = diag(1./diagPhi);\n        \n    else\n        \n        % preallocate to avoid"
-      " slowdown\n        phiInv = zeros(nz);\n        \n        % build the blocks of Phi inverse\n        if flagUseS"
-      "oftCons,\n            phiInv(1:m,1:m) = mySymPDinv(2*R + kappa*Fu'*diag(d(1:ell).*d(1:ell))*Fu + rho*Fus'*diag(d"
-      "hats(1:ells))*Fus,flagChecking);\n        else\n            phiInv(1:m,1:m) = mySymPDinv(2*R + kappa*Fu'*diag(d("
-      "1:ell).*d(1:ell))*Fu,flagChecking);\n        end\n        for ii=1:(T-1),\n            if flagUseSoftCons,\n    "
-      "            blkInv = mySymPDinv(2*blkQR + kappa*[Fx Fu]'*diag(d(ii*ell + (1:ell)).*d(ii*ell + (1:ell)))*[Fx Fu] "
-      "+ ...\n                    rho*[Fxs Fus]'*diag(dhats(ii*ells + (1:ells)))*[Fxs Fus],flagChecking);\n            "
-      "else\n                blkInv = mySymPDinv(2*blkQR + kappa*[Fx Fu]'*diag(d(ii*ell + (1:ell)).*d(ii*ell + (1:ell))"
-      ")*[Fx Fu],flagChecking);\n            end\n            phiInv(m+(ii-1)*(n+m)+(1:(n+m)),m+(ii-1)*(n+m)+(1:(n+m)))"
-      " = blkInv; % [Q-tilde S-tilde; S-tilde' R-tilde]\n        end\n        phiInv(nz-n+(1:n),nz-n+(1:n)) = mySymPDin"
-      "v(2*Qf + kappa*Ff'*diag(d(T*ell + (1:ellf)).*d(T*ell + (1:ellf)))*Ff,flagChecking);\n        \n    end\n    \n  "
-      "  % check phi inverted correctly\n    if flagChecking,\n        phi = 2*H + kappa*P'*diag(d)*diag(d)*P;\n       "
-      " if flagUseSoftCons,\n            phi = phi+rho*Ps'*diag(es ./ ((1+es).*(1+es)))*Ps;\n        end\n        %chec"
-      "kPhiInv = norm(phi*phiInv - eye(nz))\n        checkPhiInv = (phi*phiInv - eye(nz))\n    end\n    \n    % preallo"
-      "cate Y\n    Y = zeros(ne);\n    \n    % form the block elements of Y = C*phiInv*C'\n    Y(1:n,1:n) = B*Rtil(phiI"
-      "nv,0,n,m)*B' + Qtil(phiInv,1,n,m);\n    for ii=1:T,\n        if ii<T,\n            Y((ii-1)*n+(1:n),ii*n+(1:n)) "
-      "= -Qtil(phiInv,ii,n,m)*A' - Stil(phiInv,ii,n,m)*B'; %Yabove(:,:,ii)\n            Y(ii*n+(1:n),(ii-1)*n+(1:n)) = "
-      "Y((ii-1)*n+(1:n),ii*n+(1:n))';\n        end\n        if ii>1,\n            tmp = A*Stil(phiInv,ii-1,n,m)*B';\n  "
-      "          Y((ii-1)*n+(1:n),(ii-1)*n+(1:n)) = A*Qtil(phiInv,ii-1,n,m)*A' + tmp + tmp' + B*Rtil(phiInv,ii-1,n,m)*B"
-      "' + Qtil(phiInv,ii,n,m);\n        end\n    end\n    \n    % add terms for terminal equality cons\n    if ellef>0"
-      ",\n        Y((T-1)*n+(1:n),T*n+(1:ellef)) = Qtil(phiInv,T,n,m)*Ef';\n        Y(T*n+(1:ellef),(T-1)*n+(1:n)) = Y("
-      "(T-1)*n+(1:n),T*n+(1:ellef))';\n        Y(T*n+(1:ellef),T*n+(1:ellef)) = Ef*Y((T-1)*n+(1:n),T*n+(1:ellef));\n   "
-      " end\n    \n    % now check that Y was constructed correctly\n    if flagChecking\n        checkY = norm(Y - C*p"
-      "hiInv*C')\n    end\n    \n    % now form PhiInv * rd in preparation for making the RHS (-beta)\n    PhiInvRd = z"
-      "eros(nz,1);\n    PhiInvRd(1:m,:) = Rtil(phiInv,0,n,m)*rd(1:m);\n    for ii=1:(T-1),\n        PhiInvRd(m + (ii-1)"
-      "*(m+n) + (1:(m+n)),:) = [Qtil(phiInv,ii,n,m) Stil(phiInv,ii,n,m); Stil(phiInv,ii,n,m)' Rtil(phiInv,ii,n,m)]*rd(m"
-      " + (ii-1)*(m+n) + (1:(m+n)),:);\n    end\n    PhiInvRd(m + (T-1)*(m+n) +(1:n),:) = Qtil(phiInv,T,n,m)*rd(m + (T-"
-      "1)*(m+n) +(1:n));\n    \n    % and the RHS, -beta = rp - C*phiInv*rd\n    rhs = rp - multByC(PhiInvRd,A,B,Ef,T,n"
-      ",m,ellef);\n    \n    % check it\n    if flagChecking\n        checkBeta = norm(rhs - (rp - C*phiInv*rd))\n    e"
-      "nd\n    \n    % now find the blocks of the lower triangular Cholesky factorization of Y\n    L = zeros(ne);\n   "
-      " L(1:n,1:n) = chol(getSqBlk(Y,1,1,n),'lower');\n    for ii=2:T,\n        L((ii-1)*n+(1:n),(ii-2)*n+(1:n)) = lins"
-      "olve(getSqBlk(L,ii-1,ii-1,n),getSqBlk(Y,ii-1,ii,n),struct('LT',true))';\n        L((ii-1)*n+(1:n),(ii-1)*n+(1:n)"
-      ") = chol(getSqBlk(Y,ii,ii,n) - getSqBlk(L,ii,ii-1,n)*getSqBlk(L,ii,ii-1,n)','lower');\n    end\n    \n    % and "
-      "the extra bits for terminal equality cons\n    if ellef>0,\n        L(T*n+(1:ellef),(T-1)*n+(1:n)) = linsolve(ge"
-      "tSqBlk(L,T,T,n),Y((T-1)*n+(1:n),T*n+(1:ellef)),struct('LT',true))';\n        L(T*n+(1:ellef),T*n+(1:ellef)) = ch"
-      "ol(Y(T*n+(1:ellef),T*n+(1:ellef)) - L(T*n+(1:ellef),(T-1)*n+(1:n))*L(T*n+(1:ellef),(T-1)*n+(1:n))','lower');\n  "
-      "  end\n    \n    % now check the thing\n    if flagChecking,\n        checkL = norm(L*L'-Y)\n    end\n    \n    "
-      "% solve (L*L')*dnu=rhs: part one: solve for t=L'*dnu\n    t = zeros(ne,1);\n    t(1:n) = linsolve(getSqBlk(L,1,1"
-      ",n),rhs(1:n),struct('LT',true));\n    for ii=1:(T-1),\n        t(ii*n + (1:n)) = linsolve(getSqBlk(L,ii+1,ii+1,n"
-      "),rhs(ii*n + (1:n)) - getSqBlk(L,ii+1,ii,n)*t((ii-1)*n + (1:n)),struct('LT',true));\n    end\n    % final elemen"
-      "ts for terminal equalities\n    if ellef>0,\n        t(T*n + (1:ellef)) = linsolve(L(T*n+(1:ellef),T*n+(1:ellef)"
-      "),rhs(T*n + (1:ellef)) - L(T*n+(1:ellef),(T-1)*n+(1:n))*t((T-1)*n + (1:n)),struct('LT',true));\n    end\n    \n "
-      "   % check solve process\n    if flagChecking\n        check_t = norm(L*t - rhs)\n    end\n    \n    % now solve"
-      " part two: L'*dnu = t;\n    dnu = zeros(ne,1);\n    % different start for terminal equality case\n    if ellef>0"
-      ",\n        dnu(T*n + (1:ellef)) = linsolve(L(T*n+(1:ellef),T*n+(1:ellef))',t(T*n + (1:ellef)),struct('UT',true))"
-      ";\n        dnu((T-1)*n + (1:n)) = linsolve(getSqBlk(L,T,T,n)',t((T-1)*n + (1:n)) - L(T*n+(1:ellef),(T-1)*n+(1:n)"
-      ")'*dnu(T*n + (1:ellef)),struct('UT',true));\n    else\n        dnu((T-1)*n + (1:n)) = linsolve(getSqBlk(L,T,T,n)"
-      "',t((T-1)*n + (1:n)),struct('UT',true));\n    end\n    for ii=(T-1):-1:1,\n        dnu((ii-1)*n + (1:n)) = linso"
-      "lve(getSqBlk(L,ii,ii,n)',t((ii-1)*n + (1:n)) - getSqBlk(L,ii+1,ii,n)'*dnu((ii)*n + (1:n)),struct('UT',true));\n "
-      "   end\n    \n    % check the whole solve worked\n    if flagChecking\n        check_dnu = norm(Y*dnu - rhs)\n  "
-      "  end\n    \n    % now solve for dz\n    if flagPhiIsDiag,\n        \n        % solve for dz assuming PhiInv dia"
-      "gonal\n        dz = diag(phiInv).*(-rd-C'*dnu);\n        \n    else\n        \n        % form the vector to be m"
-      "ultiplied, for shorthand\n        v = (-rd-C'*dnu);\n        \n        % now form PhiInv * rd in preparation for"
-      " making the RHS (-beta)\n        dz(1:m,:) = Rtil(phiInv,1,n,m)*v(1:m);\n        for ii=1:(T-1),\n            dz"
-      "(m + (ii-1)*(m+n) + (1:(m+n)),:) = [Qtil(phiInv,ii,n,m) Stil(phiInv,ii,n,m); Stil(phiInv,ii,n,m)' Rtil(phiInv,ii"
-      ",n,m)]*v(m + (ii-1)*(m+n) + (1:(m+n)),:);\n        end\n        dz(m + (T-1)*(m+n) +(1:n),:) = Qtil(phiInv,T,n,m"
-      ")*v(m + (T-1)*(m+n) +(1:n));\n        \n    end\n    \n    % check computation of Newton step\n    if flagChecki"
-      "ng\n        checkNewton = norm([phi C';C zeros(ne)]*[dz;dnu] + [rd; rp])\n    end\n    \n    % line search\n    "
-      "sMax = 1.0;\n    \n    % part 1 - reduce until feasible\n    for jj=1:10,\n        \n        zFar = z + sMax*dz;"
-      "\n        iFar = h - multByP(zFar,Fx,Fu,Ff,T,n,m,ell,ellf);\n        \n        if all(iFar>0),\n            brea"
-      "k\n        end\n        \n        sMax = sMax*0.5;\n        \n    end\n    \n    % part 2 take a tiny step just "
-      "to get the slope\n    s = sMax/100;\n    zNew = z + s*dz;\n    nuNew = nu + s*dnu;\n    iNew = h - multByP(zNew,"
-      "Fx,Fu,Ff,T,n,m,ell,ellf);\n    % new residuals\n    dNew = 1./iNew;\n    rdNew = diagTwoH.*zNew + g + kappaPt*dN"
-      "ew + C'*nuNew;\n    if flagUseSoftCons,\n        [dsNew,esNew] = calcDs(zNew,Ps,hs,rho,flagNoPade);\n        rdN"
-      "ew = rdNew + Ps'*dsNew;\n    end\n    rpNew = calcRp(zNew,b,A,B,Ef,T,n,m,ellef);\n    rdMagNew = norm(rdNew);\n "
-      "   rpMagNew = norm(rpNew);\n    rMagNew = norm([rdMagNew;rpMagNew]);\n    gradRmag = 100*(rMagNew-rMag);\n    \n"
-      "    % part 3 - backtracking\n    s = sMax;\n    for jj=1:10,\n        \n        zNew = z + s*dz;\n        nuNew "
-      "= nu + s*dnu;\n        iNew = h - multByP(zNew,Fx,Fu,Ff,T,n,m,ell,ellf);\n        \n        % new residuals\n   "
-      "     dNew = 1./iNew;\n        rdNew = diagTwoH.*zNew + g + kappaPt*dNew + C'*nuNew;\n        if flagUseSoftCons,"
-      "\n            [dsNew,esNew] = calcDs(zNew,Ps,hs,rho,flagNoPade);\n            rdNew = rdNew + Ps'*dsNew;\n      "
-      "  end\n        rpNew = calcRp(zNew,b,A,B,Ef,T,n,m,ellef);\n        rdMagNew = norm(rdNew);\n        rpMagNew = n"
-      "orm(rpNew);\n        rMagNew = norm([rdMagNew;rpMagNew]);\n        \n        % test\n        if rMagNew < rMag +"
-      " 0.5*s*gradRmag,\n            \n            % update\n            z = zNew;\n            nu = nuNew;\n          "
-      "  d = dNew;\n            rd = rdNew;\n            rp = rpNew;\n            rpMag = rpMagNew;\n            rdMag "
-      "= rdMagNew;\n            rMag = rMagNew;\n            \n            if flagUseSoftCons,\n                \n     "
-      "           ds = dsNew;\n                es = esNew;\n                \n            end\n            \n          "
-      "  % do nothing\n            % lineSearchPass=[kk jj s norm(rdNew) norm(rpNew)]\n            break\n            \n"
-      "        else\n            \n            %covg = false\n            s = s*0.7;\n            \n        end\n      "
-      "  \n    end\n    \nend\n\n% information for output\ninfo = [rpMag; % primal residual, i.e. norm(C*z-b)\n    rdMa"
-      "g; % dual residual, i.e. grad z\n    initSolChoice]; % which initial solution did I use?\n\nend\n\n% some functi"
-      "ons to get block terms Q,R and S out of phi-inverse easily\nfunction Qt = Qtil(phiInv,ii,n,m)\nQt = phiInv(m + ("
-      "m+n)*(ii-1) + (1:n),m + (m+n)*(ii-1) + (1:n));\nend\n\nfunction Rt = Rtil(phiInv,ii,n,m)\nRt = phiInv((m+n)*ii +"
-      " (1:m),(m+n)*ii + (1:m));\nend\n\nfunction St = Stil(phiInv,ii,n,m)\nSt = phiInv(m + (m+n)*(ii-1) + (1:n),(m+n)*"
-      "ii + (1:m));\nend\n\n% another function to get n x n square block elements\nfunction Y = getSqBlk(U,ii,jj,n)\nY "
-      "= U((ii-1)*n + (1:n), (jj-1)*n + (1:n));\nend\n\nfunction Minv = mySymPDinv(M,flagChecking)\n%\n% utility for qu"
-      "ick inversion of a symmetric positive definite matrix\n%\n\ncholM = chol(M,'lower');\nT = linsolve(cholM,eye(siz"
-      "e(M,1)),struct('LT',true));\nMinv = linsolve(cholM',T,struct('UT',true));\n\nif flagChecking,\n   checkInv = nor"
-      "m(Minv*M - eye(size(M,1)))\nend\n\nend\n\nfunction [ds,es]=calcDs(z,Ps,hs,rho,flagNoPade)\n\n% pre-assign to hel"
-      "p coder\nes = hs;\nds = hs;\n\n% residuals\nrs = Ps*z - hs;\n\nfor ii=1:length(hs),\n    \n    if rs(ii)>0,\n   "
-      "     es(ii,1) = myexp(-rho*rs(ii),flagNoPade);\n        ds(ii,1) = 1/(1+es(ii,1));\n    else\n        es(ii,1) ="
-      " myexp(rho*rs(ii),flagNoPade);\n        ds(ii,1) = es(ii,1)/(1+es(ii,1));\n    end\nend\n\nend\n\nfunction y = m"
-      "yexp(u,flagNoPade)\n\n% use built in exponential\nif flagNoPade,\n    y = exp(u);\nelse\n    % use pade approxim"
-      "ant\n    di = ones(size(u));\n    ds = di;\n    for ii=1:3,\n        di = (-1/ii)*di.*u;\n        ds = ds+di;\n "
-      "   end\n    y = 1./ds;\nend\n\nend\n\nfunction rp = calcRp(z,b,A,B,Ef,T,n,m,ellef)\n% calculate primal residual "
-      "Cz-b\n\nrp = multByC(z,A,B,Ef,T,n,m,ellef) - b;\n\nend\n\nfunction y = multByC(z,A,B,Ef,T,n,m,ellef)\n%\n% retur"
-      "n C*z\n%\n\ny = zeros(T*n+ellef,1);\n\ny(1:n) = z(m+(1:n)) - B*z(1:m);\nfor ii=2:T,\n    y(n*(ii-1)+(1:n)) = z(m"
-      "+(ii-1)*(n+m)+(1:n)) - A*z(m+(ii-2)*(n+m)+(1:n)) - B*z((ii-1)*(n+m)+(1:m));\nend\n\nif ellef>0,\n    y(T*n + (1:"
-      "ellef)) = Ef*z(m+(T-1)*(n+m)+(1:n));\nend\n\nend\n\nfunction y = multByP(z,Fx,Fu,Ff,T,n,m,ell,ellf)\n%\n% return"
-      " P*z\n%\n\ny = zeros(T*ell+ellf,1);\n\ny(1:ell) = Fu*z(1:m);\nfor ii=2:T,\n    y(ell*(ii-1)+(1:ell)) = Fx*z(m+(i"
-      "i-2)*(n+m)+(1:n)) + Fu*z((ii-1)*(n+m)+(1:m));\nend\nif ellf>0,\n    y(T*ell + (1:ellf)) = Ff*z(m+(T-1)*(n+m)+(1:"
-      "n));\nend\n\nend"
+      script		      "function [z,info] = mpcsolve_simk(H,g,P,h,C,b,z0,A,B,Fx,Fu,Ff,Q,R,Qf,opts,Ps,hs,Ef,Fxs,Fus)\n%#co"
+      "degen\n\n% just call to the Matlab version\n[z,info] = mpcsolve(H,g,P,h,C,b,z0,A,B,Fx,Fu,Ff,Q,R,Qf,opts,Ps,hs,Ef"
+      ",Fxs,Fus);"
       editorLayout	      "100 M4x1[10 5 700 500]"
     }
   }
