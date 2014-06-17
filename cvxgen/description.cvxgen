@@ -1,0 +1,54 @@
+# Produced by CVXGEN, 2014-06-17 12:56:05 -0400.
+# CVXGEN is Copyright (C) 2006-2012 Jacob Mattingley, jem@cvxgen.com.
+# The code in this file is Copyright (C) 2006-2012 Jacob Mattingley.
+# CVXGEN, or solvers produced by CVXGEN, cannot be used for commercial
+# applications without prior written permission from Jacob Mattingley.
+
+# Filename: description.cvxgen.
+# Description: A description of the CVXGEN problem.
+
+dimensions
+  m = 1  # inputs.
+  n = 3  # states.
+  nh = 4 # hard constraints
+  ns = 4 # soft constraints
+  nf = 4 # terminal constraints
+  ne = 2 # terminal equality cons
+  T = 9  # horizon.
+end
+
+parameters
+  A (n,n)  # dynamics matrix.
+  B (n,m)  # transfer matrix.
+  Q (n,n) psd  # state cost.
+  Q_final (n,n) psd  # final state cost.
+  R (m,m) psd  # input cost.
+  x[0] (n)  # initial state.
+  xt (n) # target state
+  d (n) # disturbance estimate
+  Fx (nh,n)
+  Fu (nh,m)
+  f (nh) # hard constraints
+  Fxs (ns,n)
+  Fus (ns,m)
+  fs (ns) # soft constraints
+  Ff (nf,n)
+  ff (nf) # terminal constraints
+  Ef (ne,n)
+  Ed (ne,n)
+  ef (ne) # terminal eq cons
+end
+
+variables
+  x[t] (n), t=1..T+1  # state.
+  u[t] (m), t=0..T  # input.
+end
+
+minimize
+  sum[t=0..T](quad(x[t]-xt, Q) + quad(u[t], R) + sum(pos(Fxs*x[t]+Fus*u[t]-fs))) + quad(x[T+1]-xt, Q_final)
+subject to
+  x[t+1] == A*x[t] + B*u[t] + d, t=0..T  # dynamics constraints.
+  Fx*x[t] + Fu*u[t] <= f, t=0..T # hard constraints
+  Ff*x[T+1] <= ff
+  Ef*x[T+1] + Ed*d == ef
+end

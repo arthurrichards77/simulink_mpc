@@ -65,10 +65,11 @@ f = [0.1 ; % control <= 0.1
 Ff = 0.00001*[eye(2) [0;0]; -eye(2) [0;0]];
 ff = ones(4,1); % effectively relaxed
 
-% terminal equality constraints Ef*x(N)==ef
+% terminal equality constraints Ef*x(N) + Ed*d == ef
 Ef = eye(3)-A;
+Ed = -eye(3);
 Ef = Ef(1:2,:); % otherwise just get a zero row
-%Ef = [0 1 0; 0 0 1];
+Ed = Ed(1:2,:);
 ef = [0;0];
 
 % cost 
@@ -157,7 +158,7 @@ hcs = [repmat(fs,T,1)];
 hxs = [-Fxs; zeros((T-1)*ells,n)];
 
 % extra bit for offset free tracking
-bd = [kron(ones(T,1),eye(n)); [1 0 0; 0 1 0]];
+bd = [kron(ones(T,1),eye(n)); -Ed];
 %bd = 0*bd;
 gt = kron(ones(T,1),[zeros(1,n); -2*Q]);
 
