@@ -65,6 +65,13 @@ else
     flagNoPade = false; % default - use Pade
 end
 
+% option 6 - norm tolerance for early stopping
+if nop>=6,
+    termTol = opts(6);
+else
+    termTol = 0; % effectively use all iters
+end
+
 %% settings
 
 % single fixed barrier weight
@@ -179,6 +186,7 @@ rdMag = norm(rd);
 rMag = norm([rdMag;rpMag]);
 
 %% main solution loop for Newton's method
+iterCount = numNewtonIters;
 for kk=1:numNewtonIters,
     
     % check the P multiplier
@@ -241,8 +249,8 @@ for kk=1:numNewtonIters,
         if flagUseSoftCons,
             phi = phi+rho*Ps'*diag(es ./ ((1+es).*(1+es)))*Ps;
         end
-        %checkPhiInv = norm(phi*phiInv - eye(nz))
-        checkPhiInv = (phi*phiInv - eye(nz))
+        checkPhiInv = norm(phi*phiInv - eye(nz))
+        %checkPhiInv = (phi*phiInv - eye(nz))
     end
     
     % preallocate Y
@@ -364,6 +372,7 @@ for kk=1:numNewtonIters,
     
     % check computation of Newton step
     if flagChecking
+        checkPD = min(eig(phi))
         checkNewton = norm([phi C';C zeros(ne)]*[dz;dnu] + [rd; rp])
     end
     
@@ -385,7 +394,7 @@ for kk=1:numNewtonIters,
     end
     
     % part 2 take a tiny step just to get the slope
-    s = sMax/100;
+    s = sMax/100000;
     zNew = z + s*dz;
     nuNew = nu + s*dnu;
     iNew = h - multByP(zNew,Fx,Fu,Ff,T,n,m,ell,ellf);
@@ -400,11 +409,35 @@ for kk=1:numNewtonIters,
     rdMagNew = norm(rdNew);
     rpMagNew = norm(rpNew);
     rMagNew = norm([rdMagNew;rpMagNew]);
-    gradRmag = 100*(rMagNew-rMag);
+    gradRmag = 100000*(rMagNew-rMag);
+    
+    % debug - plot the darned thing
+%     dbgii=0;
+%     for s = linspace(-1.5*sMax,1.5*sMax,100),
+%         dbgii = dbgii+1;
+%         zNew = z + s*dz;
+%         nuNew = nu + s*dnu;
+%         iNew = h - multByP(zNew,Fx,Fu,Ff,T,n,m,ell,ellf);
+%         % new residuals
+%         dNew = 1./iNew;
+%         rdNew = diagTwoH.*zNew + g + kappaPt*dNew + C'*nuNew;
+%         if flagUseSoftCons,
+%             [dsNew,esNew] = calcDs(zNew,Ps,hs,rho,flagNoPade);
+%             rdNew = rdNew + Ps'*dsNew;
+%         end
+%         rpNew = calcRp(zNew,b,A,B,Ef,T,n,m,ellef);
+%         rdMagNew = norm(rdNew);
+%         rpMagNew = norm(rpNew);
+%         rMagNew = norm([rdMagNew;rpMagNew]);
+%         dbgs(dbgii)=s;
+%         dbgr(dbgii,:)=[rdNew' rpNew'];
+%     end
+%     figure(kk)
+%     plot(dbgs,dbgr)
     
     % part 3 - backtracking
     s = sMax;
-    for jj=1:10,
+    for jj=1:20,
         
         zNew = z + s*dz;
         nuNew = nu + s*dnu;
@@ -422,8 +455,10 @@ for kk=1:numNewtonIters,
         rpMagNew = norm(rpNew);
         rMagNew = norm([rdMagNew;rpMagNew]);
         
+        %[kk jj rMagNew  (rMag + 0.4*s*gradRmag)]
+        
         % test
-        if rMagNew < rMag + 0.5*s*gradRmag,
+        if rMagNew < rMag + 0.6*s*gradRmag,
             
             % update
             z = zNew;
@@ -443,16 +478,22 @@ for kk=1:numNewtonIters,
             end
             
             % do nothing
-            % lineSearchPass=[kk jj s norm(rdNew) norm(rpNew)]
+            % lineSearchPass=[kk jj s rpMagNew rdMagNew]
             break
             
         else
             
             %covg = false
-            s = s*0.7;
+            s = s*0.6;
             
         end
         
+    end
+    
+    % optional early termination
+    if rMag < termTol,
+        iterCount = kk;
+        break
     end
     
 end
@@ -460,7 +501,8 @@ end
 % information for output
 info = [rpMag; % primal residual, i.e. norm(C*z-b)
     rdMag; % dual residual, i.e. grad z
-    initSolChoice]; % which initial solution did I use?
+    initSolChoice; % which initial solution did I use?
+    iterCount]; % how many Newton iterations did I need?
 
 end
 
@@ -492,7 +534,7 @@ T = linsolve(cholM,eye(size(M,1)),struct('LT',true));
 Minv = linsolve(cholM',T,struct('UT',true));
 
 if flagChecking,
-   checkInv = norm(Minv*M - eye(size(M,1)))
+    checkInv = norm(Minv*M - eye(size(M,1)))
 end
 
 end

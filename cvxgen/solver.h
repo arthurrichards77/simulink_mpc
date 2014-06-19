@@ -1,4 +1,4 @@
-/* Produced by CVXGEN, 2014-06-17 12:56:09 -0400.  */
+/* Produced by CVXGEN, 2014-06-19 05:28:55 -0400.  */
 /* CVXGEN is Copyright (C) 2006-2012 Jacob Mattingley, jem@cvxgen.com. */
 /* The code in this file is Copyright (C) 2006-2012 Jacob Mattingley. */
 /* CVXGEN, or solvers produced by CVXGEN, cannot be used for commercial */
@@ -39,9 +39,9 @@ typedef struct Params_t {
   double A[9];
   double B[3];
   double d[3];
-  double Fx[12];
-  double Fu[4];
-  double f[4];
+  double Fx[6];
+  double Fu[2];
+  double f[2];
   double Ff[12];
   double ff[4];
   double Ef[6];
@@ -84,25 +84,25 @@ typedef struct Vars_t {
   double *x[11];
 } Vars;
 typedef struct Workspace_t {
-  double h[124];
-  double s_inv[124];
-  double s_inv_z[124];
+  double h[104];
+  double s_inv[104];
+  double s_inv_z[104];
   double b[32];
   double q[80];
-  double rhs[360];
-  double x[360];
+  double rhs[320];
+  double x[320];
   double *s;
   double *z;
   double *y;
-  double lhs_aff[360];
-  double lhs_cc[360];
-  double buffer[360];
-  double buffer2[360];
-  double KKT[977];
-  double L[813];
-  double d[360];
-  double v[360];
-  double d_inv[360];
+  double lhs_aff[320];
+  double lhs_cc[320];
+  double buffer[320];
+  double buffer2[320];
+  double KKT[843];
+  double L[719];
+  double d[320];
+  double v[320];
+  double d_inv[320];
   double gap;
   double optval;
   double ineq_resid_squared;
@@ -134,6 +134,21 @@ extern Vars vars;
 extern Params params;
 extern Workspace work;
 extern Settings settings;
+/* Function definitions in testsolver.c: */
+int main(int argc, char **argv);
+void load_default_data(void);
+
+/* Function definitions in util.c: */
+void tic(void);
+float toc(void);
+float tocq(void);
+void printmatrix(char *name, double *A, int m, int n, int sparse);
+double unif(double lower, double upper);
+float ran1(long*idum, int reset);
+float randn_internal(long *idum, int reset);
+double randn(void);
+void reset_rand(void);
+
 /* Function definitions in ldl.c: */
 void ldl_solve(double *target, double *var);
 void ldl_factor(void);
@@ -170,20 +185,5 @@ double calc_eq_resid_squared(void);
 void better_start(void);
 void fillrhs_start(void);
 long solve(void);
-
-/* Function definitions in testsolver.c: */
-int main(int argc, char **argv);
-void load_default_data(void);
-
-/* Function definitions in util.c: */
-void tic(void);
-float toc(void);
-float tocq(void);
-void printmatrix(char *name, double *A, int m, int n, int sparse);
-double unif(double lower, double upper);
-float ran1(long*idum, int reset);
-float randn_internal(long *idum, int reset);
-double randn(void);
-void reset_rand(void);
 
 #endif

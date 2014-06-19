@@ -34,4 +34,4 @@ us = [vars.u_0 cell2mat(vars.u')]; % column of inputs
 zs = [us; xs]; % combine
 z = reshape(zs,prod(size(zs)),1);
 
-info = status.converged;
+info = [status.converged;status.steps;status.gap;status.optval];

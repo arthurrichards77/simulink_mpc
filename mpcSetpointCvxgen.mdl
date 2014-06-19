@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.481"
+    ComputedModelVersion    "1.486"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -38,9 +38,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "aeagr"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Jun 17 18:00:36 2014"
-  RTWModifiedTimeStamp	  324911079
-  ModelVersionFormat	  "1.%<AutoIncrement:481>"
+  LastModifiedDate	  "Thu Jun 19 11:03:23 2014"
+  RTWModifiedTimeStamp	  325075007
+  ModelVersionFormat	  "1.%<AutoIncrement:486>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -968,7 +968,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "394"
+    SIDHighWatermark	    "399"
     Block {
       BlockType		      Clock
       Name		      "Clock"
@@ -1448,6 +1448,16 @@ Model {
 	      DstPort		      1
 	    }
 	  }
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  "Demux"
+	  SID			  "395"
+	  Ports			  [1, 4]
+	  Position		  [545, 843, 550, 927]
+	  ZOrder		  -7
+	  ShowName		  off
+	  DisplayOption		  "bar"
 	}
 	Block {
 	  BlockType		  SubSystem
@@ -2055,7 +2065,7 @@ Model {
 	  Name			  "First Input"
 	  SID			  "204"
 	  Ports			  [1, 1]
-	  Position		  [575, 253, 620, 607]
+	  Position		  [575, 343, 620, 697]
 	  ZOrder		  -22
 	  InputPortWidth	  "T*(n+m)"
 	  IndexOptions		  "Index vector (dialog)"
@@ -2122,6 +2132,17 @@ Model {
 	  Value			  "fs"
 	}
 	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "To Workspace"
+	  SID			  "399"
+	  Ports			  [1]
+	  Position		  [605, 1030, 665, 1060]
+	  ZOrder		  -7
+	  VariableName		  "info_cvx"
+	  MaxDataPoints		  "inf"
+	  SampleTime		  "-1"
+	}
+	Block {
 	  BlockType		  Gain
 	  Name			  "calc target"
 	  SID			  "356"
@@ -2135,6 +2156,39 @@ Model {
 	}
 	Block {
 	  BlockType		  Scope
+	  Name			  "conv"
+	  SID			  "315"
+	  Ports			  [1]
+	  Position		  [670, 799, 700, 831]
+	  ZOrder		  -3
+	  Floating		  off
+	  Location		  [192, 634, 516, 873]
+	  Open			  on
+	  NumInputPorts		  "1"
+	  ZoomMode		  "yonly"
+	  List {
+	    ListType		    AxesTitles
+	    axes1		    "%<SignalLabel>"
+	  }
+	  List {
+	    ListType		    ScopeGraphics
+	    FigureColor		    "[0.5 0.5 0.5]"
+	    AxesColor		    "[0 0 0]"
+	    AxesTickColor	    "[1 1 1]"
+	    LineColors		    "[1 1 0;1 0 1;0 1 1;1 0 0;0 1 0;0 0 1]"
+	    LineStyles		    "-|-|-|-|-|-"
+	    LineWidths		    "[0.5 0.5 0.5 0.5 0.5 0.5]"
+	    MarkerStyles	    "none|none|none|none|none|none"
+	  }
+	  ShowLegends		  off
+	  YMin			  "1.65436e-24"
+	  YMax			  "2.75e-08"
+	  SaveName		  "ScopeData3"
+	  DataFormat		  "StructureWithTime"
+	  SampleTime		  "0"
+	}
+	Block {
+	  BlockType		  Scope
 	  Name			  "cost"
 	  SID			  "376"
 	  Ports			  [1]
@@ -2142,7 +2196,7 @@ Model {
 	  ZOrder		  -3
 	  Floating		  off
 	  Location		  [88, 152, 1234, 930]
-	  Open			  on
+	  Open			  off
 	  NumInputPorts		  "1"
 	  ZoomMode		  "yonly"
 	  List {
@@ -2208,23 +2262,11 @@ Model {
 	  Value			  "g"
 	}
 	Block {
-	  BlockType		  Gain
-	  Name			  "hx*x3"
-	  SID			  "352"
-	  Position		  [165, 60, 195, 90]
-	  ZOrder		  -11
-	  Gain			  "gt"
-	  Multiplication	  "Matrix(K*u)"
-	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
-	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
-	  SaturateOnIntegerOverflow off
-	}
-	Block {
 	  BlockType		  Scope
-	  Name			  "rp"
-	  SID			  "315"
+	  Name			  "gap"
+	  SID			  "397"
 	  Ports			  [1]
-	  Position		  [580, 809, 610, 841]
+	  Position		  [670, 914, 700, 946]
 	  ZOrder		  -3
 	  Floating		  off
 	  Location		  [192, 634, 516, 873]
@@ -2248,7 +2290,85 @@ Model {
 	  ShowLegends		  off
 	  YMin			  "1.65436e-24"
 	  YMax			  "2.75e-08"
-	  SaveName		  "ScopeData3"
+	  SaveName		  "ScopeData5"
+	  DataFormat		  "StructureWithTime"
+	  SampleTime		  "0"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "hx*x3"
+	  SID			  "352"
+	  Position		  [165, 60, 195, 90]
+	  ZOrder		  -11
+	  Gain			  "gt"
+	  Multiplication	  "Matrix(K*u)"
+	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Scope
+	  Name			  "optval"
+	  SID			  "398"
+	  Ports			  [1]
+	  Position		  [670, 969, 700, 1001]
+	  ZOrder		  -3
+	  Floating		  off
+	  Location		  [1235, 480, 1559, 719]
+	  Open			  off
+	  NumInputPorts		  "1"
+	  ZoomMode		  "yonly"
+	  List {
+	    ListType		    AxesTitles
+	    axes1		    "%<SignalLabel>"
+	  }
+	  List {
+	    ListType		    ScopeGraphics
+	    FigureColor		    "[0.5 0.5 0.5]"
+	    AxesColor		    "[0 0 0]"
+	    AxesTickColor	    "[1 1 1]"
+	    LineColors		    "[1 1 0;1 0 1;0 1 1;1 0 0;0 1 0;0 0 1]"
+	    LineStyles		    "-|-|-|-|-|-"
+	    LineWidths		    "[0.5 0.5 0.5 0.5 0.5 0.5]"
+	    MarkerStyles	    "none|none|none|none|none|none"
+	  }
+	  ShowLegends		  off
+	  YMin			  "1.65436e-24"
+	  YMax			  "2.75e-08"
+	  SaveName		  "ScopeData9"
+	  DataFormat		  "StructureWithTime"
+	  SampleTime		  "0"
+	}
+	Block {
+	  BlockType		  Scope
+	  Name			  "steps"
+	  SID			  "396"
+	  Ports			  [1]
+	  Position		  [670, 854, 700, 886]
+	  ZOrder		  -3
+	  Floating		  off
+	  Location		  [192, 634, 516, 873]
+	  Open			  on
+	  NumInputPorts		  "1"
+	  ZoomMode		  "yonly"
+	  List {
+	    ListType		    AxesTitles
+	    axes1		    "%<SignalLabel>"
+	  }
+	  List {
+	    ListType		    ScopeGraphics
+	    FigureColor		    "[0.5 0.5 0.5]"
+	    AxesColor		    "[0 0 0]"
+	    AxesTickColor	    "[1 1 1]"
+	    LineColors		    "[1 1 0;1 0 1;0 1 1;1 0 0;0 1 0;0 0 1]"
+	    LineStyles		    "-|-|-|-|-|-"
+	    LineWidths		    "[0.5 0.5 0.5 0.5 0.5 0.5]"
+	    MarkerStyles	    "none|none|none|none|none|none"
+	  }
+	  ShowLegends		  off
+	  YMin			  "1.65436e-24"
+	  YMax			  "2.75e-08"
+	  SaveName		  "ScopeData4"
 	  DataFormat		  "StructureWithTime"
 	  SampleTime		  "0"
 	}
@@ -2289,7 +2409,7 @@ Model {
 	  BlockType		  Outport
 	  Name			  "delta-u"
 	  SID			  "208"
-	  Position		  [865, 423, 895, 437]
+	  Position		  [865, 513, 895, 527]
 	  ZOrder		  -47
 	  IconDisplay		  "Port number"
 	}
@@ -2303,7 +2423,7 @@ Model {
 	  }
 	  Branch {
 	    Labels		    [0, 0]
-	    Points		    [0, -155]
+	    Points		    [0, -245]
 	    DstBlock		    "Estimate Disturbance"
 	    DstPort		    2
 	  }
@@ -2311,7 +2431,7 @@ Model {
 	Line {
 	  SrcBlock		  "Embedded\nMATLAB Function"
 	  SrcPort		  1
-	  Points		  [0, -90; 15, 0]
+	  Points		  [15, 0]
 	  Branch {
 	    DstBlock		    "First Input"
 	    DstPort		    1
@@ -2397,13 +2517,6 @@ Model {
 	  SrcPort		  1
 	  DstBlock		  "Embedded\nMATLAB Function"
 	  DstPort		  6
-	}
-	Line {
-	  SrcBlock		  "Embedded\nMATLAB Function"
-	  SrcPort		  2
-	  Points		  [0, -60]
-	  DstBlock		  "rp"
-	  DstPort		  1
 	}
 	Line {
 	  SrcBlock		  "B4"
@@ -2541,6 +2654,48 @@ Model {
 	  SrcPort		  1
 	  DstBlock		  "Embedded\nMATLAB Function"
 	  DstPort		  19
+	}
+	Line {
+	  SrcBlock		  "Embedded\nMATLAB Function"
+	  SrcPort		  2
+	  Points		  [10, 0]
+	  Branch {
+	    DstBlock		    "Demux"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 160]
+	    DstBlock		    "To Workspace"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  1
+	  Points		  [50, 0; 0, -40]
+	  DstBlock		  "conv"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  2
+	  Points		  [50, 0; 0, -5]
+	  DstBlock		  "steps"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  3
+	  Points		  [50, 0; 0, 35]
+	  DstBlock		  "gap"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  4
+	  Points		  [40, 0; 0, 70]
+	  DstBlock		  "optval"
+	  DstPort		  1
 	}
       }
     }
@@ -3076,6 +3231,8 @@ Stateflow {
     created		    "02-Feb-2011 17:25:45"
     isLibrary		    0
     firstTarget		    28
+    debug {
+    }
     sfVersion		    76014001.00040001
   }
   chart {
@@ -3114,8 +3271,8 @@ Stateflow {
     eml {
       isEML		      1
       script		      "function [z,info] = mpcsolve_simk(x,xt,A,B,d,Fx,Fu,f,Ff,ff,Q,R,Qf,Ef,Ed,ef,Fxs,Fus,fs)\n%notcodeg"
-      "en\ncoder.extrinsic('cvxgenSolve')\n\nz=zeros(40,1);\ninfo = 0;\n\n% just call to the Matlab version\n[z,info] ="
-      " cvxgenSolve(x,xt,Q,R,Qf,A,B,d,Fx,Fu,f,Fxs,Fus,fs,Ef,Ed,ef,Ff,ff);"
+      "en\ncoder.extrinsic('cvxgenSolve')\n\nz = zeros(40,1);\ninfo = zeros(4,1);\n\n% just call to the Matlab version\n"
+      "[z,info] = cvxgenSolve(x,xt,Q,R,Qf,A,B,d,Fx,Fu,f,Fxs,Fus,fs,Ef,Ed,ef,Ff,ff);"
       editorLayout	      "100 M4x1[10 5 700 500]"
     }
   }

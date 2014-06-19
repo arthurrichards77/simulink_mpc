@@ -34,18 +34,26 @@ fs = [0.2; % vel <= 0.2
         0.1 ]*100; 
     
 % adding hard control constraints    
-Fx = [0 0 1 ;
-     0 0 -1 ;
-     0 0 0 ;
-     0 0 0 ];
-Fu = [0 ;
-    0 ;
-    1 ;
-    -1 ];
-f = [0.1 ; % control <= 0.1
-    0.1 ;
-    0.5 % move <= 0.5
-        0.5 ]; 
+% Fx = [0 0 1 ;
+%      0 0 -1 ;
+%      0 0 0 ;
+%      0 0 0 ];
+% Fu = [0 ;
+%     0 ;
+%     1 ;
+%     -1 ];
+% f = [0.1 ; % control <= 0.1
+%     0.1 ;
+%     0.5 % move <= 0.5
+%         0.5 ]; 
+    
+% removing soft control constraints
+% Fxs = [0 1 0; 
+%      0 -1 0]*100;
+% Fus = [0 ;
+%      0 ];
+% fs = [0.2; % vel <= 0.2
+%         0.2]*100; 
     
 % experimental constraints linking velocity with position   
 % Fxs = [0.1 1 0; 
@@ -172,6 +180,8 @@ gt = kron(ones(T,1),[zeros(1,n); -2*Q]);
 %% options
 opts=[];
 opts(1)=1; % 1 = assume diagonal Phi when solving
-opts(2)=5; % Newton iterations
+opts(2)=20; % Newton iterations
 opts(3)=1; % 1 = use soft constraints
 opts(4)=0; % 1 = checking on
+opts(5)=1; % 1 = Pade off
+opts(6)=1e-4; % termination tolerance

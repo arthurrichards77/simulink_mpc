@@ -1,4 +1,4 @@
-# Produced by CVXGEN, 2014-06-17 12:56:05 -0400.
+# Produced by CVXGEN, 2014-06-19 05:28:52 -0400.
 # CVXGEN is Copyright (C) 2006-2012 Jacob Mattingley, jem@cvxgen.com.
 # The code in this file is Copyright (C) 2006-2012 Jacob Mattingley.
 # CVXGEN, or solvers produced by CVXGEN, cannot be used for commercial
@@ -10,7 +10,7 @@
 dimensions
   m = 1  # inputs.
   n = 3  # states.
-  nh = 4 # hard constraints
+  nh = 2 # hard constraints
   ns = 4 # soft constraints
   nf = 4 # terminal constraints
   ne = 2 # terminal equality cons

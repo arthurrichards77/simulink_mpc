@@ -5,7 +5,16 @@ opts(4)=0;
 opts(1)=0;
 
 % number of iters
-opts(2)=10;
+opts(2)=11;
+
+% soft cons 1=on 0=ignore
+opts(3)=1;
+
+% checking
+opts(4)=0;
+
+% turn off Pade with opt 5 = 1
+opts(5)=1;
 
 % dummy state
 x = [0.1 0 0]';
@@ -25,4 +34,5 @@ h1 = hc + hx*x;
 b1 = bx*x + bd*d;
 hs1 = hxs*x + hcs;
 
-[z_ks,info] = mpcsolve(H,g1,P,h1,C,b1,z0,A,B,Fx,Fu,Ff,Q,R,Qf,opts,Ps,hs1,Ef,Fxs,Fus)
+[z_ks,info] = mpcsolve(H,g1,P,h1,C,b1,z0,A,B,Fx,Fu,Ff,Q,R,Qf,opts,Ps,hs1,Ef,Fxs,Fus);
+info

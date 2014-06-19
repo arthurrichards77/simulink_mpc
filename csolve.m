@@ -57,16 +57,16 @@
 %       Ed   2 x 3
 %       Ef   2 x 3
 %       Ff   4 x 3
-%       Fu   4 x 1
+%       Fu   2 x 1
 %      Fus   4 x 1
-%       Fx   4 x 3
+%       Fx   2 x 3
 %      Fxs   4 x 3
 %        Q   3 x 3    PSD
 %  Q_final   3 x 3    PSD
 %        R   1 x 1    PSD
 %        d   3 x 1
 %       ef   2 x 1
-%        f   4 x 1
+%        f   2 x 1
 %       ff   4 x 1
 %       fs   4 x 1
 %      x_0   3 x 1
@@ -81,7 +81,7 @@
 %
 % Specify params.A, ..., params.xt, then run
 %   [vars, status] = csolve(params, settings)
-% Produced by CVXGEN, 2014-06-17 12:56:05 -0400.
+% Produced by CVXGEN, 2014-06-19 05:28:51 -0400.
 % CVXGEN is Copyright (C) 2006-2012 Jacob Mattingley, jem@cvxgen.com.
 % The code in this file is Copyright (C) 2006-2012 Jacob Mattingley.
 % CVXGEN, or solvers produced by CVXGEN, cannot be used for commercial
