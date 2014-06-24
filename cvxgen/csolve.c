@@ -1,4 +1,4 @@
-/* Produced by CVXGEN, 2014-06-19 05:28:51 -0400.  */
+/* Produced by CVXGEN, 2014-06-24 11:44:03 -0400.  */
 /* CVXGEN is Copyright (C) 2006-2012 Jacob Mattingley, jem@cvxgen.com. */
 /* The code in this file is Copyright (C) 2006-2012 Jacob Mattingley. */
 /* CVXGEN, or solvers produced by CVXGEN, cannot be used for commercial */
@@ -128,70 +128,12 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
     }
   }
   this_var_errors = 0;
-  xm = mxGetField(prhs[0], 0, "Ed");
-  if (xm == NULL) {
-    printf("could not find params.Ed.\n");
-  } else {
-    if (!((mxGetM(xm) == 2) && (mxGetN(xm) == 3))) {
-      printf("Ed must be size (2,3), not (%d,%d).\n", mxGetM(xm), mxGetN(xm));
-      this_var_errors++;
-    }
-    if (mxIsComplex(xm)) {
-      printf("parameter Ed must be real.\n");
-      this_var_errors++;
-    }
-    if (!mxIsClass(xm, "double")) {
-      printf("parameter Ed must be a full matrix of doubles.\n");
-      this_var_errors++;
-    }
-    if (mxIsSparse(xm)) {
-      printf("parameter Ed must be a full matrix.\n");
-      this_var_errors++;
-    }
-    if (this_var_errors == 0) {
-      dest = params.Ed;
-      src = mxGetPr(xm);
-      for (i = 0; i < 6; i++)
-        *dest++ = *src++;
-      valid_vars++;
-    }
-  }
-  this_var_errors = 0;
-  xm = mxGetField(prhs[0], 0, "Ef");
-  if (xm == NULL) {
-    printf("could not find params.Ef.\n");
-  } else {
-    if (!((mxGetM(xm) == 2) && (mxGetN(xm) == 3))) {
-      printf("Ef must be size (2,3), not (%d,%d).\n", mxGetM(xm), mxGetN(xm));
-      this_var_errors++;
-    }
-    if (mxIsComplex(xm)) {
-      printf("parameter Ef must be real.\n");
-      this_var_errors++;
-    }
-    if (!mxIsClass(xm, "double")) {
-      printf("parameter Ef must be a full matrix of doubles.\n");
-      this_var_errors++;
-    }
-    if (mxIsSparse(xm)) {
-      printf("parameter Ef must be a full matrix.\n");
-      this_var_errors++;
-    }
-    if (this_var_errors == 0) {
-      dest = params.Ef;
-      src = mxGetPr(xm);
-      for (i = 0; i < 6; i++)
-        *dest++ = *src++;
-      valid_vars++;
-    }
-  }
-  this_var_errors = 0;
   xm = mxGetField(prhs[0], 0, "Ff");
   if (xm == NULL) {
     printf("could not find params.Ff.\n");
   } else {
-    if (!((mxGetM(xm) == 4) && (mxGetN(xm) == 3))) {
-      printf("Ff must be size (4,3), not (%d,%d).\n", mxGetM(xm), mxGetN(xm));
+    if (!((mxGetM(xm) == 2) && (mxGetN(xm) == 3))) {
+      printf("Ff must be size (2,3), not (%d,%d).\n", mxGetM(xm), mxGetN(xm));
       this_var_errors++;
     }
     if (mxIsComplex(xm)) {
@@ -209,7 +151,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
     if (this_var_errors == 0) {
       dest = params.Ff;
       src = mxGetPr(xm);
-      for (i = 0; i < 12; i++)
+      for (i = 0; i < 6; i++)
         *dest++ = *src++;
       valid_vars++;
     }
@@ -219,8 +161,8 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
   if (xm == NULL) {
     printf("could not find params.Fu.\n");
   } else {
-    if (!((mxGetM(xm) == 2) && (mxGetN(xm) == 1))) {
-      printf("Fu must be size (2,1), not (%d,%d).\n", mxGetM(xm), mxGetN(xm));
+    if (!((mxGetM(xm) == 4) && (mxGetN(xm) == 1))) {
+      printf("Fu must be size (4,1), not (%d,%d).\n", mxGetM(xm), mxGetN(xm));
       this_var_errors++;
     }
     if (mxIsComplex(xm)) {
@@ -238,7 +180,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
     if (this_var_errors == 0) {
       dest = params.Fu;
       src = mxGetPr(xm);
-      for (i = 0; i < 2; i++)
+      for (i = 0; i < 4; i++)
         *dest++ = *src++;
       valid_vars++;
     }
@@ -248,8 +190,8 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
   if (xm == NULL) {
     printf("could not find params.Fus.\n");
   } else {
-    if (!((mxGetM(xm) == 4) && (mxGetN(xm) == 1))) {
-      printf("Fus must be size (4,1), not (%d,%d).\n", mxGetM(xm), mxGetN(xm));
+    if (!((mxGetM(xm) == 2) && (mxGetN(xm) == 1))) {
+      printf("Fus must be size (2,1), not (%d,%d).\n", mxGetM(xm), mxGetN(xm));
       this_var_errors++;
     }
     if (mxIsComplex(xm)) {
@@ -267,7 +209,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
     if (this_var_errors == 0) {
       dest = params.Fus;
       src = mxGetPr(xm);
-      for (i = 0; i < 4; i++)
+      for (i = 0; i < 2; i++)
         *dest++ = *src++;
       valid_vars++;
     }
@@ -277,8 +219,8 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
   if (xm == NULL) {
     printf("could not find params.Fx.\n");
   } else {
-    if (!((mxGetM(xm) == 2) && (mxGetN(xm) == 3))) {
-      printf("Fx must be size (2,3), not (%d,%d).\n", mxGetM(xm), mxGetN(xm));
+    if (!((mxGetM(xm) == 4) && (mxGetN(xm) == 3))) {
+      printf("Fx must be size (4,3), not (%d,%d).\n", mxGetM(xm), mxGetN(xm));
       this_var_errors++;
     }
     if (mxIsComplex(xm)) {
@@ -296,7 +238,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
     if (this_var_errors == 0) {
       dest = params.Fx;
       src = mxGetPr(xm);
-      for (i = 0; i < 6; i++)
+      for (i = 0; i < 12; i++)
         *dest++ = *src++;
       valid_vars++;
     }
@@ -306,8 +248,8 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
   if (xm == NULL) {
     printf("could not find params.Fxs.\n");
   } else {
-    if (!((mxGetM(xm) == 4) && (mxGetN(xm) == 3))) {
-      printf("Fxs must be size (4,3), not (%d,%d).\n", mxGetM(xm), mxGetN(xm));
+    if (!((mxGetM(xm) == 2) && (mxGetN(xm) == 3))) {
+      printf("Fxs must be size (2,3), not (%d,%d).\n", mxGetM(xm), mxGetN(xm));
       this_var_errors++;
     }
     if (mxIsComplex(xm)) {
@@ -325,7 +267,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
     if (this_var_errors == 0) {
       dest = params.Fxs;
       src = mxGetPr(xm);
-      for (i = 0; i < 12; i++)
+      for (i = 0; i < 6; i++)
         *dest++ = *src++;
       valid_vars++;
     }
@@ -447,41 +389,12 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
     }
   }
   this_var_errors = 0;
-  xm = mxGetField(prhs[0], 0, "ef");
-  if (xm == NULL) {
-    printf("could not find params.ef.\n");
-  } else {
-    if (!((mxGetM(xm) == 2) && (mxGetN(xm) == 1))) {
-      printf("ef must be size (2,1), not (%d,%d).\n", mxGetM(xm), mxGetN(xm));
-      this_var_errors++;
-    }
-    if (mxIsComplex(xm)) {
-      printf("parameter ef must be real.\n");
-      this_var_errors++;
-    }
-    if (!mxIsClass(xm, "double")) {
-      printf("parameter ef must be a full matrix of doubles.\n");
-      this_var_errors++;
-    }
-    if (mxIsSparse(xm)) {
-      printf("parameter ef must be a full matrix.\n");
-      this_var_errors++;
-    }
-    if (this_var_errors == 0) {
-      dest = params.ef;
-      src = mxGetPr(xm);
-      for (i = 0; i < 2; i++)
-        *dest++ = *src++;
-      valid_vars++;
-    }
-  }
-  this_var_errors = 0;
   xm = mxGetField(prhs[0], 0, "f");
   if (xm == NULL) {
     printf("could not find params.f.\n");
   } else {
-    if (!((mxGetM(xm) == 2) && (mxGetN(xm) == 1))) {
-      printf("f must be size (2,1), not (%d,%d).\n", mxGetM(xm), mxGetN(xm));
+    if (!((mxGetM(xm) == 4) && (mxGetN(xm) == 1))) {
+      printf("f must be size (4,1), not (%d,%d).\n", mxGetM(xm), mxGetN(xm));
       this_var_errors++;
     }
     if (mxIsComplex(xm)) {
@@ -499,7 +412,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
     if (this_var_errors == 0) {
       dest = params.f;
       src = mxGetPr(xm);
-      for (i = 0; i < 2; i++)
+      for (i = 0; i < 4; i++)
         *dest++ = *src++;
       valid_vars++;
     }
@@ -509,8 +422,8 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
   if (xm == NULL) {
     printf("could not find params.ff.\n");
   } else {
-    if (!((mxGetM(xm) == 4) && (mxGetN(xm) == 1))) {
-      printf("ff must be size (4,1), not (%d,%d).\n", mxGetM(xm), mxGetN(xm));
+    if (!((mxGetM(xm) == 2) && (mxGetN(xm) == 1))) {
+      printf("ff must be size (2,1), not (%d,%d).\n", mxGetM(xm), mxGetN(xm));
       this_var_errors++;
     }
     if (mxIsComplex(xm)) {
@@ -528,7 +441,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
     if (this_var_errors == 0) {
       dest = params.ff;
       src = mxGetPr(xm);
-      for (i = 0; i < 4; i++)
+      for (i = 0; i < 2; i++)
         *dest++ = *src++;
       valid_vars++;
     }
@@ -538,8 +451,8 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
   if (xm == NULL) {
     printf("could not find params.fs.\n");
   } else {
-    if (!((mxGetM(xm) == 4) && (mxGetN(xm) == 1))) {
-      printf("fs must be size (4,1), not (%d,%d).\n", mxGetM(xm), mxGetN(xm));
+    if (!((mxGetM(xm) == 2) && (mxGetN(xm) == 1))) {
+      printf("fs must be size (2,1), not (%d,%d).\n", mxGetM(xm), mxGetN(xm));
       this_var_errors++;
     }
     if (mxIsComplex(xm)) {
@@ -557,7 +470,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
     if (this_var_errors == 0) {
       dest = params.fs;
       src = mxGetPr(xm);
-      for (i = 0; i < 4; i++)
+      for (i = 0; i < 2; i++)
         *dest++ = *src++;
       valid_vars++;
     }
@@ -620,8 +533,8 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
       valid_vars++;
     }
   }
-  if (valid_vars != 19) {
-    printf("Error: %d parameters are invalid.\n", 19 - valid_vars);
+  if (valid_vars != 16) {
+    printf("Error: %d parameters are invalid.\n", 16 - valid_vars);
     mexErrMsgTxt("invalid parameters found.");
   }
   if (prepare_for_c) {
@@ -634,11 +547,11 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
       printf("  params.Q[%d] = %.6g;\n", i, params.Q[i]);
     for (i = 0; i < 1; i++)
       printf("  params.R[%d] = %.6g;\n", i, params.R[i]);
-    for (i = 0; i < 12; i++)
+    for (i = 0; i < 6; i++)
       printf("  params.Fxs[%d] = %.6g;\n", i, params.Fxs[i]);
-    for (i = 0; i < 4; i++)
+    for (i = 0; i < 2; i++)
       printf("  params.Fus[%d] = %.6g;\n", i, params.Fus[i]);
-    for (i = 0; i < 4; i++)
+    for (i = 0; i < 2; i++)
       printf("  params.fs[%d] = %.6g;\n", i, params.fs[i]);
     for (i = 0; i < 9; i++)
       printf("  params.Q_final[%d] = %.6g;\n", i, params.Q_final[i]);
@@ -648,22 +561,16 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
       printf("  params.B[%d] = %.6g;\n", i, params.B[i]);
     for (i = 0; i < 3; i++)
       printf("  params.d[%d] = %.6g;\n", i, params.d[i]);
-    for (i = 0; i < 6; i++)
-      printf("  params.Fx[%d] = %.6g;\n", i, params.Fx[i]);
-    for (i = 0; i < 2; i++)
-      printf("  params.Fu[%d] = %.6g;\n", i, params.Fu[i]);
-    for (i = 0; i < 2; i++)
-      printf("  params.f[%d] = %.6g;\n", i, params.f[i]);
     for (i = 0; i < 12; i++)
-      printf("  params.Ff[%d] = %.6g;\n", i, params.Ff[i]);
+      printf("  params.Fx[%d] = %.6g;\n", i, params.Fx[i]);
     for (i = 0; i < 4; i++)
-      printf("  params.ff[%d] = %.6g;\n", i, params.ff[i]);
+      printf("  params.Fu[%d] = %.6g;\n", i, params.Fu[i]);
+    for (i = 0; i < 4; i++)
+      printf("  params.f[%d] = %.6g;\n", i, params.f[i]);
     for (i = 0; i < 6; i++)
-      printf("  params.Ef[%d] = %.6g;\n", i, params.Ef[i]);
-    for (i = 0; i < 6; i++)
-      printf("  params.Ed[%d] = %.6g;\n", i, params.Ed[i]);
+      printf("  params.Ff[%d] = %.6g;\n", i, params.Ff[i]);
     for (i = 0; i < 2; i++)
-      printf("  params.ef[%d] = %.6g;\n", i, params.ef[i]);
+      printf("  params.ff[%d] = %.6g;\n", i, params.ff[i]);
   }
   /* Perform the actual solve in here. */
   steps = solve();

@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.486"
+    ComputedModelVersion    "1.489"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -38,9 +38,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "aeagr"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Jun 19 11:03:23 2014"
-  RTWModifiedTimeStamp	  325075007
-  ModelVersionFormat	  "1.%<AutoIncrement:486>"
+  LastModifiedDate	  "Tue Jun 24 17:32:41 2014"
+  RTWModifiedTimeStamp	  325529537
+  ModelVersionFormat	  "1.%<AutoIncrement:489>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1149,7 +1149,7 @@ Model {
 	  SID			  "361"
 	  Position		  [300, 845, 330, 875]
 	  ZOrder		  -18
-	  Value			  "Ef"
+	  Value			  "Ef_block"
 	}
 	Block {
 	  BlockType		  Constant
@@ -1157,7 +1157,7 @@ Model {
 	  SID			  "243"
 	  Position		  [300, 925, 330, 955]
 	  ZOrder		  -19
-	  Value			  "ef"
+	  Value			  "ef_block"
 	}
 	Block {
 	  BlockType		  SubSystem
@@ -2097,7 +2097,7 @@ Model {
 	  SID			  "244"
 	  Position		  [255, 885, 285, 915]
 	  ZOrder		  -25
-	  Value			  "Ed"
+	  Value			  "Ed_block"
 	}
 	Block {
 	  BlockType		  Constant
@@ -2747,9 +2747,9 @@ Model {
       Position		      [505, 54, 535, 86]
       ZOrder		      -13
       PulseType		      "Time based"
-      Amplitude		      "-0.2"
+      Amplitude		      "0.1"
       Period		      "200"
-      PhaseDelay	      "120"
+      PhaseDelay	      "100"
     }
     Block {
       BlockType		      RandomNumber
@@ -3231,8 +3231,6 @@ Stateflow {
     created		    "02-Feb-2011 17:25:45"
     isLibrary		    0
     firstTarget		    28
-    debug {
-    }
     sfVersion		    76014001.00040001
   }
   chart {

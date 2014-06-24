@@ -1,4 +1,4 @@
-/* Produced by CVXGEN, 2014-06-19 05:28:55 -0400.  */
+/* Produced by CVXGEN, 2014-06-24 11:44:06 -0400.  */
 /* CVXGEN is Copyright (C) 2006-2012 Jacob Mattingley, jem@cvxgen.com. */
 /* The code in this file is Copyright (C) 2006-2012 Jacob Mattingley. */
 /* CVXGEN, or solvers produced by CVXGEN, cannot be used for commercial */
@@ -32,77 +32,74 @@ typedef struct Params_t {
   double xt[3];
   double Q[9];
   double R[1];
-  double Fxs[12];
-  double Fus[4];
-  double fs[4];
+  double Fxs[6];
+  double Fus[2];
+  double fs[2];
   double Q_final[9];
   double A[9];
   double B[3];
   double d[3];
-  double Fx[6];
-  double Fu[2];
-  double f[2];
-  double Ff[12];
-  double ff[4];
-  double Ef[6];
-  double Ed[6];
-  double ef[2];
+  double Fx[12];
+  double Fu[4];
+  double f[4];
+  double Ff[6];
+  double ff[2];
   double *x[1];
 } Params;
 typedef struct Vars_t {
   double *u_0; /* 1 rows. */
-  double *t_01; /* 4 rows. */
+  double *t_01; /* 2 rows. */
   double *x_1; /* 3 rows. */
   double *u_1; /* 1 rows. */
-  double *t_02; /* 4 rows. */
+  double *t_02; /* 2 rows. */
   double *x_2; /* 3 rows. */
   double *u_2; /* 1 rows. */
-  double *t_03; /* 4 rows. */
+  double *t_03; /* 2 rows. */
   double *x_3; /* 3 rows. */
   double *u_3; /* 1 rows. */
-  double *t_04; /* 4 rows. */
+  double *t_04; /* 2 rows. */
   double *x_4; /* 3 rows. */
   double *u_4; /* 1 rows. */
-  double *t_05; /* 4 rows. */
+  double *t_05; /* 2 rows. */
   double *x_5; /* 3 rows. */
   double *u_5; /* 1 rows. */
-  double *t_06; /* 4 rows. */
+  double *t_06; /* 2 rows. */
   double *x_6; /* 3 rows. */
   double *u_6; /* 1 rows. */
-  double *t_07; /* 4 rows. */
+  double *t_07; /* 2 rows. */
   double *x_7; /* 3 rows. */
   double *u_7; /* 1 rows. */
-  double *t_08; /* 4 rows. */
+  double *t_08; /* 2 rows. */
   double *x_8; /* 3 rows. */
   double *u_8; /* 1 rows. */
-  double *t_09; /* 4 rows. */
+  double *t_09; /* 2 rows. */
   double *x_9; /* 3 rows. */
   double *u_9; /* 1 rows. */
-  double *t_10; /* 4 rows. */
+  double *t_10; /* 2 rows. */
   double *x_10; /* 3 rows. */
   double *u[10];
   double *x[11];
 } Vars;
 typedef struct Workspace_t {
-  double h[104];
-  double s_inv[104];
-  double s_inv_z[104];
-  double b[32];
-  double q[80];
-  double rhs[320];
-  double x[320];
+  double h[82];
+  double s_inv[82];
+  double s_inv_z[82];
+  double b[30];
+  double q[60];
+  double rhs[254];
+  double x[254];
   double *s;
   double *z;
   double *y;
-  double lhs_aff[320];
-  double lhs_cc[320];
-  double buffer[320];
-  double buffer2[320];
-  double KKT[843];
-  double L[719];
-  double d[320];
-  double v[320];
-  double d_inv[320];
+  double lhs_aff[254];
+  double lhs_cc[254];
+  double buffer[254];
+  double buffer2[254];
+  double KKT[725];
+  double L[625];
+  double d[254];
+  double v[254];
+  double d_inv[254];
   double gap;
   double optval;
   double ineq_resid_squared;
@@ -134,21 +131,6 @@ extern Vars vars;
 extern Params params;
 extern Workspace work;
 extern Settings settings;
-/* Function definitions in testsolver.c: */
-int main(int argc, char **argv);
-void load_default_data(void);
-
-/* Function definitions in util.c: */
-void tic(void);
-float toc(void);
-float tocq(void);
-void printmatrix(char *name, double *A, int m, int n, int sparse);
-double unif(double lower, double upper);
-float ran1(long*idum, int reset);
-float randn_internal(long *idum, int reset);
-double randn(void);
-void reset_rand(void);
-
 /* Function definitions in ldl.c: */
 void ldl_solve(double *target, double *var);
 void ldl_factor(void);
@@ -185,5 +167,20 @@ double calc_eq_resid_squared(void);
 void better_start(void);
 void fillrhs_start(void);
 long solve(void);
+
+/* Function definitions in testsolver.c: */
+int main(int argc, char **argv);
+void load_default_data(void);
+
+/* Function definitions in util.c: */
+void tic(void);
+float toc(void);
+float tocq(void);
+void printmatrix(char *name, double *A, int m, int n, int sparse);
+double unif(double lower, double upper);
+float ran1(long*idum, int reset);
+float randn_internal(long *idum, int reset);
+double randn(void);
+void reset_rand(void);
 
 #endif

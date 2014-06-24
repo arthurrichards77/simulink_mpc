@@ -131,6 +131,12 @@ if nop>=8,
     end
 end
 
+% option 9 - norm tolerance for early stopping
+if nop>=9,
+    termTol = opts(9);
+else
+    termTol = 0; % effectively use all iters
+end
 %% precalculations
 
 % preform to avoid later work
@@ -264,6 +270,7 @@ rdMag = norm(rd);
 rMag = norm([rdMag;rpMag]);
 
 %% outer loop with varying barrier weights
+iterCount = 0;
 for ww=1:numBarrIters,
     
     %% main solution loop for Newton's method
@@ -710,8 +717,15 @@ for ww=1:numBarrIters,
         
         totBackTracks = totBackTracks + jj;
         
+        % optional early termination
+        if rMag < termTol,
+            break
+        end
+        
     end
     
+    iterCount = iterCount + kk;
+            
     kappa = kappa*0.2;
     rho = rho*5;
     
@@ -721,7 +735,7 @@ end
 info = [rpMag; % primal residual, i.e. norm(C*z-b)
     rdMag; % dual residual, i.e. grad z
     initSolChoice; % which initial solution did I use?
-    totBackTracks]; % Average number of backtracks performed
+    iterCount]; % iteration count
 
 end
 

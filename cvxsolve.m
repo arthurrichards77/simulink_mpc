@@ -1,4 +1,4 @@
-% Produced by CVXGEN, 2014-06-19 05:28:51 -0400.
+% Produced by CVXGEN, 2014-06-24 11:44:03 -0400.
 % CVXGEN is Copyright (C) 2006-2012 Jacob Mattingley, jem@cvxgen.com.
 % The code in this file is Copyright (C) 2006-2012 Jacob Mattingley.
 % CVXGEN, or solvers produced by CVXGEN, cannot be used for commercial
@@ -9,8 +9,6 @@
 function [vars, status] = cvxsolve(params, settings)
 A = params.A;
 B = params.B;
-Ed = params.Ed;
-Ef = params.Ef;
 Ff = params.Ff;
 Fu = params.Fu;
 Fus = params.Fus;
@@ -20,7 +18,6 @@ Q = params.Q;
 Q_final = params.Q_final;
 R = params.R;
 d = params.d;
-ef = params.ef;
 f = params.f;
 ff = params.ff;
 fs = params.fs;
@@ -72,7 +69,6 @@ cvx_begin
     Fx*x_8 + Fu*u_8 <= f;
     Fx*x_9 + Fu*u_9 <= f;
     Ff*x_10 <= ff;
-    Ef*x_10 + Ed*d == ef;
 cvx_end
 vars.u_0 = u_0;
 vars.u_1 = u_1;

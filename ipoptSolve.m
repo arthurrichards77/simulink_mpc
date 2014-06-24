@@ -164,7 +164,7 @@ else
 end
 
 %% set up functions
-funcs.objective = @(z) z'*sparse(H)*z + sparse(g)'*z + kappa*sum(-log(h - sparse(P)*z)) + sum(log(1+exp(rho*(sparse(Ps)*z - hs))))/rho;
+funcs.objective = @(z) objective(z,H,g,h,P,Ps,hs,kappa,rho);
 funcs.gradient = @(z) diagTwoH.*z + g + kappaPt*(1./(h - sparse(P)*z)) + sparse(Ps')*calcDs2(z,Ps,hs,rho,flagNoPade);
 funcs.constraints = @(z) sparse(C)*z;
 options.cu = b;
@@ -176,7 +176,17 @@ funcs.hessianstructure = @() sparse(H) + sparse(P)'*sparse(P) + sparse(Ps)'*spar
 options.ipopt.hessian_approximation = 'exact';
 
 %% solve the thing
-[z,info] = ipopt(z, funcs, options);
+[z,status] = ipopt(z, funcs, options);
+
+%% respond
+info = [status.status;status.iter;0;0];
+
+end
+
+% function for objective
+function J = objective(z,H,g,h,P,Ps,hs,kappa,rho)
+
+J = z'*sparse(H)*z + sparse(g)'*z + kappa*sum(-log(h - sparse(P)*z)) + sum(log(1+exp(rho*(sparse(Ps)*z - hs))))/rho
 
 end
 
@@ -185,7 +195,7 @@ function hess = hessian(z,sigma,~,H,P,h,Ps,hs,rho,kappa,ns,ni)
 
 [~,es]=calcDs(z,Ps,hs,rho,1);
 hess_full = sigma*(sparse(2*H) + kappa*sparse(P)'*spdiags(1./(h - sparse(P)*z).^2,0,ni,ni)*sparse(P) + rho*sparse(Ps)'*spdiags(es ./ ((1+es).*(1+es)),0,ns,ns)*sparse(Ps));
-hess = tril(hess_full)
+hess = tril(hess_full);
 
 end
 

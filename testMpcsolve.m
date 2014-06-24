@@ -18,7 +18,7 @@ x = [0.1 0 0]';
 z0 = 0*g + 0.01;
 
 % target state
-xt = [2 0 0]';
+xt = [0.2 0 0]';
 
 % estimated disturbance
 d = [0.1 0.6 2.4]'*0.001;

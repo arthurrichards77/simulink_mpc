@@ -1,4 +1,4 @@
-# Produced by CVXGEN, 2014-06-19 05:28:52 -0400.
+# Produced by CVXGEN, 2014-06-24 11:44:04 -0400.
 # CVXGEN is Copyright (C) 2006-2012 Jacob Mattingley, jem@cvxgen.com.
 # The code in this file is Copyright (C) 2006-2012 Jacob Mattingley.
 # CVXGEN, or solvers produced by CVXGEN, cannot be used for commercial
@@ -10,10 +10,9 @@
 dimensions
   m = 1  # inputs.
   n = 3  # states.
-  nh = 2 # hard constraints
-  ns = 4 # soft constraints
-  nf = 4 # terminal constraints
-  ne = 2 # terminal equality cons
+  nh = 4 # hard constraints
+  ns = 2 # soft constraints
+  nf = 2 # terminal constraints
   T = 9  # horizon.
 end
 
@@ -34,9 +33,6 @@ parameters
   fs (ns) # soft constraints
   Ff (nf,n)
   ff (nf) # terminal constraints
-  Ef (ne,n)
-  Ed (ne,n)
-  ef (ne) # terminal eq cons
 end
 
 variables
@@ -50,5 +46,4 @@ subject to
   x[t+1] == A*x[t] + B*u[t] + d, t=0..T  # dynamics constraints.
   Fx*x[t] + Fu*u[t] <= f, t=0..T # hard constraints
   Ff*x[T+1] <= ff
-  Ef*x[T+1] + Ed*d == ef
 end
