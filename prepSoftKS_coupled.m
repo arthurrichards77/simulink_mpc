@@ -71,6 +71,8 @@ Ef = Ef(1:2,:); % otherwise just get a zero row
 %Ef = [0 1 0; 0 0 1];
 ef = [0;0];
 
+Ef_sig = Ef;
+
 % cost 
 % xN*Qf*xN + qf'*xN + sum (x'*Q*x + u'*R*u + q'*x + r'*u)
 Qf = diag([5 5 2]);
@@ -171,8 +173,9 @@ gt = kron(ones(T,1),[zeros(1,n); -2*Q]);
 %% options
 opts=[];
 opts(1)=0; % 1 = assume diagonal Phi when solving
-opts(2)=5; % Newton iterations
+opts(2)=2; % Newton iterations
 opts(3)=1; % 1 = use soft constraints
 opts(4)=0; % 1 = checking on
 opts(5)=0; % 1 = don't use Pade
 opts(6)=0; % 1 = don't exploit sparsity
+opts(8)=2;

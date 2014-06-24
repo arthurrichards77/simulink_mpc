@@ -1,12 +1,12 @@
 Model {
-  Name			  "mpcSetpointIntpt"
+  Name			  "mpcSetpointIntptCoupled"
   Version		  7.9
   MdlSubVersion		  0
   GraphicalInterface {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.534"
+    ComputedModelVersion    "1.538"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -18,7 +18,7 @@ Model {
       Type		      "Cell"
       Dimension		      2
       Cell		      "HDLSubsystem"
-      Cell		      "mpcSetpointIntpt"
+      Cell		      "mpcSetpointIntptCoupled"
       PropName		      "mdlProps"
     }
   }
@@ -38,9 +38,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "aeagr"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Jun 24 13:53:48 2014"
-  RTWModifiedTimeStamp	  325518693
-  ModelVersionFormat	  "1.%<AutoIncrement:534>"
+  LastModifiedDate	  "Thu Nov 21 15:42:21 2013"
+  RTWModifiedTimeStamp	  306948755
+  ModelVersionFormat	  "1.%<AutoIncrement:538>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -968,7 +968,7 @@ Model {
     }
   }
   System {
-    Name		    "mpcSetpointIntpt"
+    Name		    "mpcSetpointIntptCoupled"
     Location		    [38, 98, 1314, 964]
     Open		    on
     ModelBrowserVisibility  off
@@ -1047,7 +1047,7 @@ Model {
       System {
 	Name			"MPC"
 	Location		[-14, 108, 1245, 974]
-	Open			on
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -1746,7 +1746,7 @@ Model {
 	      BlockType		      S-Function
 	      Name		      " SFunction "
 	      SID		      "231::35"
-	      Tag		      "Stateflow S-Function mpcSetpointIntpt 2"
+	      Tag		      "Stateflow S-Function mpcSetpointIntptCoupled 2"
 	      Ports		      [21, 3]
 	      Position		      [180, 75, 230, 515]
 	      ZOrder		      18
@@ -2471,7 +2471,7 @@ Model {
 	  ZOrder		  -3
 	  Floating		  off
 	  Location		  [192, 634, 516, 873]
-	  Open			  on
+	  Open			  off
 	  NumInputPorts		  "1"
 	  ZoomMode		  "yonly"
 	  List {
@@ -3078,9 +3078,9 @@ Model {
       Position		      [505, 54, 535, 86]
       ZOrder		      -13
       PulseType		      "Time based"
-      Amplitude		      "0.1"
+      Amplitude		      "-0.2*0"
       Period		      "200"
-      PhaseDelay	      "101"
+      PhaseDelay	      "80"
     }
     Block {
       BlockType		      RandomNumber
@@ -3088,7 +3088,7 @@ Model {
       SID		      "358"
       Position		      [660, 345, 690, 375]
       ZOrder		      -15
-      Variance		      "0.000000001*0"
+      Variance		      "0.000000001"
       SampleTime	      "dt"
     }
     Block {
@@ -3251,8 +3251,8 @@ Model {
       SID		      "355"
       Position		      [505, 130, 535, 160]
       ZOrder		      -22
-      Time		      "100"
-      After		      "0.01*0"
+      Time		      "50"
+      After		      "0.01"
       SampleTime	      "0"
     }
     Block {
@@ -3575,7 +3575,7 @@ Model {
 Stateflow {
   machine {
     id			    1
-    name		    "mpcSetpointIntpt"
+    name		    "mpcSetpointIntptCoupled"
     created		    "02-Feb-2011 17:25:45"
     isLibrary		    0
     firstTarget		    30

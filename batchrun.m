@@ -140,3 +140,60 @@ for ii=1:length(iters),
     save(sprintf('KS_NS_%i.mat',iters(ii)))
     
 end
+
+%% K-S with outer looping
+for ii=1:length(iters),
+    
+    % ready for KS version
+    prepSoftKS
+    
+    % settings
+    opts(1) = 1; % assume phi diag
+    opts(2) = iters(ii); % number of iterations
+    opts(3) = 1; % do use KS soft cons
+    opts(4) = 0; % no debug checking
+    opts(5) = 0; % use Pade
+    opts(6) = 0; % make use of sparsity
+    opts(8) = 2;
+    
+    % initial run to get compiled
+    sim mpcSetpointIntpt    
+    
+    % run the sim, timing
+    tic
+    sim mpcSetpointIntpt
+    ksOu2Times(ii)=toc
+    
+    % save data
+    save(sprintf('KS_OU2_%i.mat',iters(ii)))
+    
+end
+
+%% slack method with outer looping
+for ii=1:length(iters),
+    
+    % ready for slack version
+    prepSoftFewerSlacks
+    
+    % settings
+    opts(1) = 0; % don't assume phi diag, as slacks cause coupling
+    opts(2) = iters(ii); % number of iterations
+    opts(3) = 0; % don't use KS soft cons
+    opts(4) = 0; % no debug checking
+    opts(5) = 0; % use Pade
+    opts(6) = 0; % make use of sparsity
+    opts(8) = 2;
+    
+    % initial run to get compiled
+    sim mpcSetpointIntpt    
+    
+    % run the sim, timing
+    tic
+    sim mpcSetpointIntpt
+    slackOu2Times(ii)=toc
+    
+    % save data
+    save(sprintf('Slacks_OU2_%i.mat',iters(ii)))
+
+end
+    
