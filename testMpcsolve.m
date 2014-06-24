@@ -1,6 +1,18 @@
+% number of iters
+opts(2)=11;
+
+% soft cons 1=on 0=ignore
+opts(3)=1;
+
+% checking
+opts(4)=0;
+
+% turn off Pade with opt 5 = 1
+opts(5)=1;
 
 % dummy state
-x = [-15.7227   -1.4466   -0.0999]';
+
+x = [0.1 0 0]';
 
 % dummy previous solution
 z0 = [  0.0051
@@ -66,8 +78,6 @@ h1 = hc + hx*x;
 b1 = bx*x + bd*d;
 hs1 = hxs*x + hcs;
 
-% options 
-opts(2) = 5; % just one iteration
-opts(4) = 1; % turn on all checks
 
-[z,info] = mpcsolve(H,g1,P,h1,C,b1,z0,A,B,Fx,Fu,Ff,Q,R,Qf,opts,Ps,hs1,Ef,Fxs,Fus)
+[z_ks,info] = mpcsolve(H,g1,P,h1,C,b1,z0,A,B,Fx,Fu,Ff,Q,R,Qf,opts,Ps,hs1,Ef,Fxs,Fus);
+info
