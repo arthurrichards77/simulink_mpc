@@ -154,9 +154,9 @@ end
 
 %% trap the case with empty Ef so we don't have an empty signal
 if isempty(Ef),
-    Ef_sig = zeros(1,n+1); % deliberate detectable mismatch with state size
+    Ef_block = zeros(1,n+1); % deliberate detectable mismatch with state size
 else
-    Ef_sig = Ef;
+    Ef_block = Ef;
 end
 
 %% compile MPC problem

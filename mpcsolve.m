@@ -135,7 +135,7 @@ end
 if nop>=9,
     termTol = opts(9);
 else
-    termTol = 0; % effectively use all iters
+    termTol = 0.0; % effectively use all iters
 end
 %% precalculations
 

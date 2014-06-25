@@ -35,7 +35,7 @@ for jj=1:length(barrIters),
         slackTimes(ii,jj) = mytoc
         
         % save data
-        save(sprintf('SL_N%i_B%i.mat',newtIters(ii),barrIters(jj)))
+        save(sprintf('results/SL_N%i_B%i.mat',newtIters(ii),barrIters(jj)))
         
     end
 end
@@ -67,7 +67,7 @@ for jj=1:length(barrIters),
         ksTimes(ii,jj) = mytoc
         
         % save data
-        save(sprintf('KS_N%i_B%i.mat',newtIters(ii),barrIters(jj)))
+        save(sprintf('results/KS_N%i_B%i.mat',newtIters(ii),barrIters(jj)))
         
     end
 end
@@ -95,10 +95,10 @@ for jj=1:length(barrIters),
         tic
         sim mpcSetpointIntpt
         mytoc = toc;
-        ksTimes(ii,jj) = mytoc
+        ksNoPadeTimes(ii,jj) = mytoc
         
         % save data
-        save(sprintf('KSNP_N%i_B%i.mat',newtIters(ii),barrIters(jj)))
+        save(sprintf('results/KSNP_N%i_B%i.mat',newtIters(ii),barrIters(jj)))
         
     end
 end
@@ -111,7 +111,7 @@ for jj=1:length(barrIters),
         prepSoftKS
         
         % settings
-        opts(1) = 0; % do assume phi diag
+        opts(1) = 0; % do NOT assume phi diag
         opts(2) = newtIters(ii); % number of iterations
         opts(3) = 1; % do use KS soft cons
         opts(4) = 0; % no debug checking
@@ -126,10 +126,10 @@ for jj=1:length(barrIters),
         tic
         sim mpcSetpointIntpt
         mytoc = toc;
-        ksTimes(ii,jj) = mytoc
+        ksNoDiagTimes(ii,jj) = mytoc
         
         % save data
-        save(sprintf('KSND_N%i_B%i.mat',newtIters(ii),barrIters(jj)))
+        save(sprintf('results/KSND_N%i_B%i.mat',newtIters(ii),barrIters(jj)))
         
     end
 end

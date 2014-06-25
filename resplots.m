@@ -2,7 +2,7 @@ iters=(3:12)
 
 for ii=1:length(iters),
     
-    load(sprintf('Slacks_%i.mat',iters(ii)),'simout')
+    load(sprintf('results/Slacks_%i.mat',iters(ii)),'simout')
     
     % control and velocity plot
     figure
@@ -24,11 +24,11 @@ for ii=1:length(iters),
     legend('Response','Reference','Location','NorthWest')
     title(sprintf('Slack variables, %i iterations',iters(ii)))
     
-    print('-depsc',sprintf('SL_%i.eps',iters(ii)))
+    print('-depsc',sprintf('results/SL_%i.eps',iters(ii)))
     
     % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
-    load(sprintf('KS_%i.mat',iters(ii)),'simout')
+    load(sprintf('results/KS_%i.mat',iters(ii)),'simout')
     
     % control and velocity plot
     figure
@@ -50,11 +50,11 @@ for ii=1:length(iters),
     legend('Response','Reference','Location','NorthWest')
     title(sprintf('K-S method with Pade, %i iterations',iters(ii)))
     
-    print('-depsc',sprintf('KS_%i.eps',iters(ii)))
+    print('-depsc',sprintf('results/KS_%i.eps',iters(ii)))
     
     % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
-    load(sprintf('KS_NP_%i.mat',iters(ii)),'simout')
+    load(sprintf('results/KS_NP_%i.mat',iters(ii)),'simout')
     
     % control and velocity plot
     figure
@@ -76,11 +76,11 @@ for ii=1:length(iters),
     legend('Response','Reference','Location','NorthWest')
     title(sprintf('K-S method, %i iterations',iters(ii)))
     
-    print('-depsc',sprintf('KS_NP_%i.eps',iters(ii)))
+    print('-depsc',sprintf('results/KS_NP_%i.eps',iters(ii)))
     
     % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
-    load(sprintf('KS_NS_%i.mat',iters(ii)),'simout')
+    load(sprintf('results/KS_NS_%i.mat',iters(ii)),'simout')
     
     % control and velocity plot
     figure
@@ -102,7 +102,7 @@ for ii=1:length(iters),
     legend('Response','Reference','Location','NorthWest')
     title(sprintf('K-S method w/o using Sparsity, %i iterations',iters(ii)))
     
-    print('-depsc',sprintf('KS_NS_%i.eps',iters(ii)))
+    print('-depsc',sprintf('results/KS_NS_%i.eps',iters(ii)))
     
 end
 

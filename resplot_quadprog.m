@@ -18,6 +18,6 @@ ylabel('Position x_1')
 %xlabel('Time')
 legend('Response','Reference','Location','NorthWest')
 
-print('-depsc',sprintf('QP.eps'))
+print('-depsc',sprintf('results/QP.eps'))
 
-save QP.mat
+save results/QP.mat
