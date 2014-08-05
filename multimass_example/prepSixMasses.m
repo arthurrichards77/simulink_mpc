@@ -32,13 +32,13 @@ Klqr = dlqr(A,B,Q,R);
 % adding hard control constraints    
 Fx = [zeros(6,12)];
 Fu = [eye(3); -eye(3) ];
-f = [0.5*ones(6,1)]; 
+f = [.4*ones(6,1)]; 
     
 % soft constraints on mass positions
 Fxs = [eye(6) zeros(6);
       -eye(6) zeros(6)]*100;
 Fus = [zeros(12,3)];
-fs = [0.3*ones(12,1) ]*100; 
+fs = [0.4*ones(12,1) ]*100; 
     
 % terminal constraints Ff*x(N)<=Ff;
 % leave effectively relaxed for now
@@ -183,5 +183,6 @@ opts(4)=0; % 1 = checking on
 opts(5)=1; % 1 = Pade off
 opts(6)=0; % 1 = no sparsity exploitation
 opts(7)=0.01; % tuning of barrier weight kappa
-opts(8)=4; % number of barrier iterations
-opts(9)=1e-6; % Newton iter termination on residual
+opts(8)=3; % number of barrier iterations
+opts(9)=1e-3; % Newton iter termination on residual
+opts(10)=1; % KS parameter rho
