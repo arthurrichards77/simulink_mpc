@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.489"
+    ComputedModelVersion    "1.491"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -38,9 +38,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "aeagr"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Jun 24 17:32:41 2014"
-  RTWModifiedTimeStamp	  325529537
-  ModelVersionFormat	  "1.%<AutoIncrement:489>"
+  LastModifiedDate	  "Tue Aug 05 11:28:13 2014"
+  RTWModifiedTimeStamp	  329138881
+  ModelVersionFormat	  "1.%<AutoIncrement:491>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -3269,8 +3269,8 @@ Stateflow {
     eml {
       isEML		      1
       script		      "function [z,info] = mpcsolve_simk(x,xt,A,B,d,Fx,Fu,f,Ff,ff,Q,R,Qf,Ef,Ed,ef,Fxs,Fus,fs)\n%notcodeg"
-      "en\ncoder.extrinsic('cvxgenSolve')\n\nz = zeros(40,1);\ninfo = zeros(4,1);\n\n% just call to the Matlab version\n"
-      "[z,info] = cvxgenSolve(x,xt,Q,R,Qf,A,B,d,Fx,Fu,f,Fxs,Fus,fs,Ef,Ed,ef,Ff,ff);"
+      "en\ncoder.extrinsic('cvxgenPointMassSolve')\n\nz = zeros(40,1);\ninfo = zeros(4,1);\n\n% just call to the Matlab"
+      " version\n[z,info] = cvxgenPointMassSolve(x,xt,Q,R,Qf,A,B,d,Fx,Fu,f,Fxs,Fus,fs,Ef,Ed,ef,Ff,ff);"
       editorLayout	      "100 M4x1[10 5 700 500]"
     }
   }
