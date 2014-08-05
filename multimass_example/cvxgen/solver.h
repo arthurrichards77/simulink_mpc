@@ -1,4 +1,4 @@
-/* Produced by CVXGEN, 2014-06-24 11:44:06 -0400.  */
+/* Produced by CVXGEN, 2014-08-05 13:11:43 -0400.  */
 /* CVXGEN is Copyright (C) 2006-2012 Jacob Mattingley, jem@cvxgen.com. */
 /* The code in this file is Copyright (C) 2006-2012 Jacob Mattingley. */
 /* CVXGEN, or solvers produced by CVXGEN, cannot be used for commercial */
@@ -28,78 +28,81 @@
 #define pm(A, m, n) printmatrix(#A, A, m, n, 1)
 #endif
 typedef struct Params_t {
-  double x_0[3];
-  double xt[3];
-  double Q[9];
-  double R[1];
-  double Fxs[6];
-  double Fus[2];
-  double fs[2];
-  double Q_final[9];
-  double A[9];
-  double B[3];
-  double d[3];
-  double Fx[12];
-  double Fu[4];
+  double x_0[8];
+  double xt[8];
+  double Q[64];
+  double R[4];
+  double Fxs[32];
+  double Fus[8];
+  double fs[4];
+  double Q_final[64];
+  double A[64];
+  double B[16];
+  double d[8];
+  double Fx[32];
+  double Fu[8];
   double f[4];
-  double Ff[6];
-  double ff[2];
+  double Ff[8];
+  double ff[1];
   double *x[1];
 } Params;
 typedef struct Vars_t {
-  double *u_0; /* 1 rows. */
-  double *t_01; /* 2 rows. */
-  double *x_1; /* 3 rows. */
-  double *u_1; /* 1 rows. */
-  double *t_02; /* 2 rows. */
-  double *x_2; /* 3 rows. */
-  double *u_2; /* 1 rows. */
-  double *t_03; /* 2 rows. */
-  double *x_3; /* 3 rows. */
-  double *u_3; /* 1 rows. */
-  double *t_04; /* 2 rows. */
-  double *x_4; /* 3 rows. */
-  double *u_4; /* 1 rows. */
-  double *t_05; /* 2 rows. */
-  double *x_5; /* 3 rows. */
-  double *u_5; /* 1 rows. */
-  double *t_06; /* 2 rows. */
-  double *x_6; /* 3 rows. */
-  double *u_6; /* 1 rows. */
-  double *t_07; /* 2 rows. */
-  double *x_7; /* 3 rows. */
-  double *u_7; /* 1 rows. */
-  double *t_08; /* 2 rows. */
-  double *x_8; /* 3 rows. */
-  double *u_8; /* 1 rows. */
-  double *t_09; /* 2 rows. */
-  double *x_9; /* 3 rows. */
-  double *u_9; /* 1 rows. */
-  double *t_10; /* 2 rows. */
-  double *x_10; /* 3 rows. */
-  double *u[10];
-  double *x[11];
+  double *u_0; /* 2 rows. */
+  double *t_01; /* 4 rows. */
+  double *x_1; /* 8 rows. */
+  double *u_1; /* 2 rows. */
+  double *t_02; /* 4 rows. */
+  double *x_2; /* 8 rows. */
+  double *u_2; /* 2 rows. */
+  double *t_03; /* 4 rows. */
+  double *x_3; /* 8 rows. */
+  double *u_3; /* 2 rows. */
+  double *t_04; /* 4 rows. */
+  double *x_4; /* 8 rows. */
+  double *u_4; /* 2 rows. */
+  double *t_05; /* 4 rows. */
+  double *x_5; /* 8 rows. */
+  double *u_5; /* 2 rows. */
+  double *t_06; /* 4 rows. */
+  double *x_6; /* 8 rows. */
+  double *u_6; /* 2 rows. */
+  double *t_07; /* 4 rows. */
+  double *x_7; /* 8 rows. */
+  double *u_7; /* 2 rows. */
+  double *t_08; /* 4 rows. */
+  double *x_8; /* 8 rows. */
+  double *u_8; /* 2 rows. */
+  double *t_09; /* 4 rows. */
+  double *x_9; /* 8 rows. */
+  double *u_9; /* 2 rows. */
+  double *t_10; /* 4 rows. */
+  double *x_10; /* 8 rows. */
+  double *u_10; /* 2 rows. */
+  double *t_11; /* 4 rows. */
+  double *x_11; /* 8 rows. */
+  double *u[11];
+  double *x[12];
 } Vars;
 typedef struct Workspace_t {
-  double h[82];
-  double s_inv[82];
-  double s_inv_z[82];
-  double b[30];
-  double q[60];
-  double rhs[254];
-  double x[254];
+  double h[133];
+  double s_inv[133];
+  double s_inv_z[133];
+  double b[88];
+  double q[154];
+  double rhs[508];
+  double x[508];
   double *s;
   double *z;
   double *y;
-  double lhs_aff[254];
-  double lhs_cc[254];
-  double buffer[254];
-  double buffer2[254];
-  double KKT[725];
-  double L[625];
-  double d[254];
-  double v[254];
-  double d_inv[254];
+  double lhs_aff[508];
+  double lhs_cc[508];
+  double buffer[508];
+  double buffer2[508];
+  double KKT[2644];
+  double L[3237];
+  double d[508];
+  double v[508];
+  double d_inv[508];
   double gap;
   double optval;
   double ineq_resid_squared;
