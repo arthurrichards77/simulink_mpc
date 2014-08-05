@@ -1,0 +1,3 @@
+c2_mpcSetpointCvxgen.obj
+mpcSetpointCvxgen_sfun_registry.obj
+mpcSetpointCvxgen_sfun.obj
