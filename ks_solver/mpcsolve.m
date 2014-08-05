@@ -137,6 +137,14 @@ if nop>=9,
 else
     termTol = 0.0; % effectively use all iters
 end
+
+% option 10 - optional setting of KS parameter from outside
+if nop>=10,
+    if opts(10)>0,
+        rho = opts(10);
+    end
+end
+
 %% precalculations
 
 % preform to avoid later work
