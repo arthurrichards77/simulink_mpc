@@ -1,4 +1,4 @@
-# Produced by CVXGEN, 2014-08-05 13:11:24 -0400.
+# Produced by CVXGEN, 2014-08-06 08:56:06 -0400.
 # CVXGEN is Copyright (C) 2006-2012 Jacob Mattingley, jem@cvxgen.com.
 # The code in this file is Copyright (C) 2006-2012 Jacob Mattingley.
 # CVXGEN, or solvers produced by CVXGEN, cannot be used for commercial
@@ -13,7 +13,7 @@ dimensions
   nh = 4 # hard constraints
   ns = 4 # soft constraints
   nf = 1 # terminal constraints
-  T = 10  # horizon.
+  T = 20  # horizon.
 end
 
 parameters
@@ -25,11 +25,11 @@ parameters
   x[0] (n)  # initial state.
   xt (n) # target state
   d (n) # disturbance estimate
-  Fx (nh,n)
-  Fu (nh,m)
+  # Fx (nh,n) # no hard state constraints in this example
+  Fu (nh,m) {1,1 2,2 3,1 4,2}
   f (nh) # hard constraints
-  Fxs (ns,n)
-  Fus (ns,m)
+  Fxs (ns,n) {1,1 2,2 3,3 4,4}
+  # Fus (ns,m) # no soft control constraints in this example
   fs (ns) # soft constraints
   Ff (nf,n)
   ff (nf) # terminal constraints
@@ -41,9 +41,11 @@ variables
 end
 
 minimize
-  sum[t=0..T](quad(x[t]-xt, Q) + quad(u[t], R) + sum(pos(Fxs*x[t]+Fus*u[t]-fs))) + quad(x[T+1]-xt, Q_final)
+  #sum[t=0..T](quad(x[t]-xt, Q) + quad(u[t], R) + sum(pos(Fxs*x[t]+Fus*u[t]-fs))) + quad(x[T+1]-xt, Q_final)
+  sum[t=0..T](quad(x[t]-xt, Q) + quad(u[t], R) + sum(pos(Fxs*x[t]-fs))) + quad(x[T+1]-xt, Q_final)
 subject to
   x[t+1] == A*x[t] + B*u[t] + d, t=0..T  # dynamics constraints.
-  Fx*x[t] + Fu*u[t] <= f, t=0..T # hard constraints
+  # Fx*x[t] + Fu*u[t] <= f, t=0..T # hard constraints
+  Fu*u[t] <= f, t=0..T # hard constraints
   Ff*x[T+1] <= ff
 end

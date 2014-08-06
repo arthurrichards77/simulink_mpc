@@ -64,7 +64,7 @@ r = zeros(2,1);
 %Qf = Q;
 
 % horizon
-T = 11;
+T = 21;
 
 %% checking problem setup
 
@@ -184,3 +184,6 @@ opts(7)=0.01; % tuning of barrier weight kappa
 opts(8)=3; % number of barrier iterations
 opts(9)=1e-3; % Newton iter termination on residual
 opts(10)=1; % parameter rho
+
+% retune for longer horizon
+opts(2)=8;

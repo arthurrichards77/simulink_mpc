@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.43"
+    ComputedModelVersion    "1.45"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -27,9 +27,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "aeagr"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Aug 05 19:39:27 2014"
-  RTWModifiedTimeStamp	  329168047
-  ModelVersionFormat	  "1.%<AutoIncrement:43>"
+  LastModifiedDate	  "Wed Aug 06 14:51:31 2014"
+  RTWModifiedTimeStamp	  329237488
+  ModelVersionFormat	  "1.%<AutoIncrement:45>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -910,7 +910,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "279"
+    SIDHighWatermark	    "281"
     Block {
       BlockType		      Sum
       Name		      "Add"
@@ -927,7 +927,7 @@ Model {
       Name		      "Control_cvx"
       SID		      "132"
       Ports		      [1]
-      Position		      [455, 19, 485, 51]
+      Position		      [690, 19, 720, 51]
       ZOrder		      -3
       Floating		      off
       Location		      [406, 581, 937, 996]
@@ -977,7 +977,7 @@ Model {
       System {
 	Name			"MPC"
 	Location		[336, 133, 1595, 999]
-	Open			on
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -1918,7 +1918,7 @@ Model {
 	  Position		  [670, 854, 700, 886]
 	  ZOrder		  -3
 	  Floating		  off
-	  Location		  [192, 634, 516, 873]
+	  Location		  [47, 617, 371, 856]
 	  Open			  on
 	  NumInputPorts		  "1"
 	  ZoomMode		  "yonly"
@@ -2157,6 +2157,17 @@ Model {
       }
     }
     Block {
+      BlockType		      Mux
+      Name		      "Mux"
+      SID		      "280"
+      Ports		      [2, 1]
+      Position		      [675, 81, 680, 119]
+      ZOrder		      -16
+      ShowName		      off
+      Inputs		      "2"
+      DisplayOption	      "bar"
+    }
+    Block {
       BlockType		      Scope
       Name		      "Pos_cvx"
       SID		      "136"
@@ -2253,6 +2264,17 @@ Model {
       Before		      "zeros(4,1)"
       After		      "-[0.5;0;0;0]"
       SampleTime	      "0"
+    }
+    Block {
+      BlockType		      ToWorkspace
+      Name		      "To Workspace"
+      SID		      "281"
+      Ports		      [1]
+      Position		      [725, 85, 785, 115]
+      ZOrder		      -7
+      VariableName	      "simout_cvx"
+      MaxDataPoints	      "inf"
+      SampleTime	      "-1"
     }
     Block {
       BlockType		      SubSystem
@@ -2772,19 +2794,22 @@ Model {
 	DstPort			1
       }
       Branch {
-	Points			[0, -110]
-	DstBlock		"Control_cvx"
-	DstPort			1
+	Points			[0, -110; 300, 0]
+	Branch {
+	  DstBlock		  "Control_cvx"
+	  DstPort		  1
+	}
+	Branch {
+	  Points		  [0, 0; 0, 55]
+	  DstBlock		  "Mux"
+	  DstPort		  1
+	}
       }
     }
     Line {
       SrcBlock		      "plant"
       SrcPort		      1
       Points		      [55, 0]
-      Branch {
-	DstBlock		"State"
-	DstPort			1
-      }
       Branch {
 	Points			[0, 85]
 	DstBlock		"Selector"
@@ -2794,6 +2819,18 @@ Model {
 	Points			[0, -100; -405, 0; 0, 75]
 	DstBlock		"MPC"
 	DstPort			1
+      }
+      Branch {
+	Points			[65, 0]
+	Branch {
+	  DstBlock		  "State"
+	  DstPort		  1
+	}
+	Branch {
+	  Points		  [0, -60]
+	  DstBlock		  "Mux"
+	  DstPort		  2
+	}
       }
     }
     Line {
@@ -2822,6 +2859,12 @@ Model {
       Points		      [5, 0; 0, -35]
       DstBlock		      "Add"
       DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Mux"
+      SrcPort		      1
+      DstBlock		      "To Workspace"
+      DstPort		      1
     }
   }
 }
@@ -2877,7 +2920,7 @@ Stateflow {
     eml {
       isEML		      1
       script		      "function [z,info] = mpcsolve_simk(x,xt,A,B,d,Fx,Fu,f,Ff,ff,Q,R,Qf,Ef,Ed,ef,Fxs,Fus,fs)\n%notcodeg"
-      "en\ncoder.extrinsic('cvxgenSolve')\n\nz = zeros(110,1);\ninfo = zeros(4,1);\n\n% just call to the Matlab version"
+      "en\ncoder.extrinsic('cvxgenSolve')\n\nz = zeros(210,1);\ninfo = zeros(4,1);\n\n% just call to the Matlab version"
       "\n[z,info] = cvxgenSolve(x,xt,Q,R,Qf,A,B,d,Fx,Fu,f,Fxs,Fus,fs,Ef,Ed,ef,Ff,ff);"
       editorLayout	      "100 M4x1[10 5 700 500]"
     }

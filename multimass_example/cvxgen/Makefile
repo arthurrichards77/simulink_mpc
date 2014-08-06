@@ -1,4 +1,4 @@
-# Produced by CVXGEN, 2014-08-05 13:11:23 -0400.
+# Produced by CVXGEN, 2014-08-06 08:56:06 -0400.
 # CVXGEN is Copyright (C) 2006-2012 Jacob Mattingley, jem@cvxgen.com.
 # The code in this file is Copyright (C) 2006-2012 Jacob Mattingley.
 # CVXGEN, or solvers produced by CVXGEN, cannot be used for commercial

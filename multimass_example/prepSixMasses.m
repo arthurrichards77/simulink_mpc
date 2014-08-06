@@ -32,13 +32,13 @@ Klqr = dlqr(A,B,Q,R);
 % adding hard control constraints    
 Fx = [zeros(6,12)];
 Fu = [eye(3); -eye(3) ];
-f = [.4*ones(6,1)]; 
+f = [.5*ones(6,1)]; 
     
 % soft constraints on mass positions
 Fxs = [eye(6) zeros(6);
       -eye(6) zeros(6)]*100;
 Fus = [zeros(12,3)];
-fs = [0.4*ones(12,1) ]*100; 
+fs = [1*ones(12,1) ]*100; 
     
 % terminal constraints Ff*x(N)<=Ff;
 % leave effectively relaxed for now
@@ -66,7 +66,7 @@ r = zeros(3,1);
 %Qf = Q;
 
 % horizon
-T = 10;
+T = 31;
 
 %% checking problem setup
 
@@ -177,7 +177,7 @@ gt = kron(ones(T,1),[zeros(1,n); -2*Q]);
 %% options
 opts=[];
 opts(1)=1; % 1 = assume diagonal Phi when solving
-opts(2)=5; % Newton iterations
+opts(2)=10; % Newton iterations
 opts(3)=1; % 1 = use soft constraints
 opts(4)=0; % 1 = checking on
 opts(5)=1; % 1 = Pade off

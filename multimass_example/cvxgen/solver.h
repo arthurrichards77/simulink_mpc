@@ -1,4 +1,4 @@
-/* Produced by CVXGEN, 2014-08-05 13:11:43 -0400.  */
+/* Produced by CVXGEN, 2014-08-06 08:56:45 -0400.  */
 /* CVXGEN is Copyright (C) 2006-2012 Jacob Mattingley, jem@cvxgen.com. */
 /* The code in this file is Copyright (C) 2006-2012 Jacob Mattingley. */
 /* CVXGEN, or solvers produced by CVXGEN, cannot be used for commercial */
@@ -32,15 +32,13 @@ typedef struct Params_t {
   double xt[8];
   double Q[64];
   double R[4];
-  double Fxs[32];
-  double Fus[8];
+  double Fxs[4];
   double fs[4];
   double Q_final[64];
   double A[64];
   double B[16];
   double d[8];
-  double Fx[32];
-  double Fu[8];
+  double Fu[4];
   double f[4];
   double Ff[8];
   double ff[1];
@@ -80,29 +78,59 @@ typedef struct Vars_t {
   double *u_10; /* 2 rows. */
   double *t_11; /* 4 rows. */
   double *x_11; /* 8 rows. */
-  double *u[11];
-  double *x[12];
+  double *u_11; /* 2 rows. */
+  double *t_12; /* 4 rows. */
+  double *x_12; /* 8 rows. */
+  double *u_12; /* 2 rows. */
+  double *t_13; /* 4 rows. */
+  double *x_13; /* 8 rows. */
+  double *u_13; /* 2 rows. */
+  double *t_14; /* 4 rows. */
+  double *x_14; /* 8 rows. */
+  double *u_14; /* 2 rows. */
+  double *t_15; /* 4 rows. */
+  double *x_15; /* 8 rows. */
+  double *u_15; /* 2 rows. */
+  double *t_16; /* 4 rows. */
+  double *x_16; /* 8 rows. */
+  double *u_16; /* 2 rows. */
+  double *t_17; /* 4 rows. */
+  double *x_17; /* 8 rows. */
+  double *u_17; /* 2 rows. */
+  double *t_18; /* 4 rows. */
+  double *x_18; /* 8 rows. */
+  double *u_18; /* 2 rows. */
+  double *t_19; /* 4 rows. */
+  double *x_19; /* 8 rows. */
+  double *u_19; /* 2 rows. */
+  double *t_20; /* 4 rows. */
+  double *x_20; /* 8 rows. */
+  double *u_20; /* 2 rows. */
+  double *t_21; /* 4 rows. */
+  double *x_21; /* 8 rows. */
+  double *u[21];
+  double *x[22];
 } Vars;
 typedef struct Workspace_t {
-  double h[133];
-  double s_inv[133];
-  double s_inv_z[133];
-  double b[88];
-  double q[154];
-  double rhs[508];
-  double x[508];
+  double h[253];
+  double s_inv[253];
+  double s_inv_z[253];
+  double b[168];
+  double q[294];
+  double rhs[968];
+  double x[968];
   double *s;
   double *z;
   double *y;
-  double lhs_aff[508];
-  double lhs_cc[508];
-  double buffer[508];
-  double buffer2[508];
-  double KKT[2644];
-  double L[3237];
-  double d[508];
-  double v[508];
-  double d_inv[508];
+  double lhs_aff[968];
+  double lhs_cc[968];
+  double buffer[968];
+  double buffer2[968];
+  double KKT[3702];
+  double L[4206];
+  double d[968];
+  double v[968];
+  double d_inv[968];
   double gap;
   double optval;
   double ineq_resid_squared;
