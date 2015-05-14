@@ -1,5 +1,6 @@
-*/slprj/**/*
+**/slprj/**/*
 *.asv
 *.autosave
 *.mex*
 *.eps
+*.mdl.r*
