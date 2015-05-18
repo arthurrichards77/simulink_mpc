@@ -1,4 +1,4 @@
-function [H,g,gt,P,hx,hc,C,bx,bd,Ps,hxs,hcs,Ef_block,Ed_block,ef_block] = buildmatrices(A,B,Q,R,q,r,Qf,qf,T,Fx,Fu,f,Fxs,Fus,fs,Ff,ff,Ef,ef,Ed)
+function [H,g,gt,P,hx,hc,C,bx,bd,Ps,hxs,hcs,Ef_block,Ed_block,ef_block] = buildmatrices(A,B,Q,R,q,r,Qf,qf,T,Fx,Fu,f,Fxs,Fus,fs,Ff,ff,Ef,ef,Ed,Fp,Fps,Fpf)
 %
 % MPC for system x+ = A*x + B*u + d
 % tracking target state xt
