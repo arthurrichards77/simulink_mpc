@@ -1,3 +1,6 @@
+%% setup path for KS solver
+addpath('../ks_solver')
+
 %% double integrator MPC setup
 
 % time step
