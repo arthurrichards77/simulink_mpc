@@ -1,5 +1,5 @@
 Model {
-  Name			  "mpcSetpointIntpt"
+  Name			  "pointmass_param_mpc"
   Version		  8.3
   MdlSubVersion		  0
   SavedCharacterEncoding  "windows-1252"
@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.483"
+    ComputedModelVersion    "1.487"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -18,7 +18,7 @@ Model {
       Type		      "Cell"
       Dimension		      2
       Cell		      "HDLSubsystem"
-      Cell		      "mpcSetpointIntpt"
+      Cell		      "pointmass_param_mpc"
       PropName		      "mdlProps"
     }
   }
@@ -41,7 +41,7 @@ Model {
       $ObjectID		      3
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [-8.0, -8.0, 1936.0, 1056.0]
+      Location		      [-8.0, 0.0, 1936.0, 1056.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		4
@@ -77,9 +77,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "aeagr"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon May 18 10:38:15 2015"
-  RTWModifiedTimeStamp	  353846283
-  ModelVersionFormat	  "1.%<AutoIncrement:483>"
+  LastModifiedDate	  "Mon May 18 13:30:19 2015"
+  RTWModifiedTimeStamp	  353856556
+  ModelVersionFormat	  "1.%<AutoIncrement:487>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -121,11 +121,11 @@ Model {
     $PropName		    "DataLoggingOverride"
     $ObjectID		    7
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
-    model_		    "mpcSetpointIntpt"
+    model_		    "pointmass_param_mpc"
     Array {
       Type		      "Cell"
       Dimension		      1
-      Cell		      "mpcSetpointIntpt"
+      Cell		      "pointmass_param_mpc"
       PropName		      "logAsSpecifiedByModels_"
     }
     Array {
@@ -1103,8 +1103,8 @@ Model {
     }
   }
   System {
-    Name		    "mpcSetpointIntpt"
-    Location		    [-8, -8, 1928, 1048]
+    Name		    "pointmass_param_mpc"
+    Location		    [-8, 0, 1928, 1056]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -1118,7 +1118,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "395"
+    SIDHighWatermark	    "399"
     Block {
       BlockType		      Scope
       Name		      "Control"
@@ -1262,8 +1262,8 @@ Model {
       Name		      "MPC"
       SID		      "202"
       RequirementInfo	      "{}  %GIDa_0c6e92d2_bf34_4970_87ae_4e32833bf9c6"
-      Ports		      [2, 1]
-      Position		      [370, 248, 435, 312]
+      Ports		      [3, 1]
+      Position		      [370, 238, 435, 322]
       ZOrder		      -6
       TreatAsAtomicUnit	      on
       SystemSampleTime	      "dt"
@@ -1285,12 +1285,12 @@ Model {
 	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
 	TiledPageScale		1
 	ShowPageBoundaries	off
-	ZoomFactor		"60"
+	ZoomFactor		"80"
 	Block {
 	  BlockType		  Inport
-	  Name			  "x_u"
+	  Name			  "x"
 	  SID			  "203"
-	  Position		  [15, 528, 45, 542]
+	  Position		  [20, 528, 50, 542]
 	  ZOrder		  -1
 	  IconDisplay		  "Port number"
 	}
@@ -1298,16 +1298,25 @@ Model {
 	  BlockType		  Inport
 	  Name			  "r_t"
 	  SID			  "349"
-	  Position		  [935, 273, 965, 287]
+	  Position		  [990, 273, 1020, 287]
 	  ZOrder		  -2
 	  Port			  "2"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "p"
+	  SID			  "396"
+	  Position		  [20, 708, 50, 722]
+	  ZOrder		  1
+	  Port			  "3"
 	  IconDisplay		  "Port number"
 	}
 	Block {
 	  BlockType		  Constant
 	  Name			  "A"
 	  SID			  "273"
-	  Position		  [255, 525, 285, 555]
+	  Position		  [310, 525, 340, 555]
 	  ZOrder		  -3
 	  Value			  "A"
 	}
@@ -1315,7 +1324,7 @@ Model {
 	  BlockType		  Constant
 	  Name			  "A1"
 	  SID			  "308"
-	  Position		  [255, 595, 285, 625]
+	  Position		  [310, 595, 340, 625]
 	  ZOrder		  -4
 	  Value			  "Fx"
 	}
@@ -1323,7 +1332,7 @@ Model {
 	  BlockType		  Constant
 	  Name			  "A2"
 	  SID			  "310"
-	  Position		  [255, 665, 285, 695]
+	  Position		  [310, 665, 340, 695]
 	  ZOrder		  -5
 	  Value			  "Ff"
 	}
@@ -1331,7 +1340,7 @@ Model {
 	  BlockType		  Constant
 	  Name			  "A3"
 	  SID			  "312"
-	  Position		  [255, 735, 285, 765]
+	  Position		  [310, 735, 340, 765]
 	  ZOrder		  -6
 	  Value			  "R"
 	}
@@ -1339,9 +1348,10 @@ Model {
 	  BlockType		  Sum
 	  Name			  "Add"
 	  SID			  "296"
-	  Ports			  [2, 1]
-	  Position		  [210, 382, 240, 413]
+	  Ports			  [3, 1]
+	  Position		  [205, 379, 235, 421]
 	  ZOrder		  -2
+	  Inputs		  "+++"
 	  InputSameDT		  off
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
@@ -1350,9 +1360,10 @@ Model {
 	  BlockType		  Sum
 	  Name			  "Add1"
 	  SID			  "322"
-	  Ports			  [2, 1]
-	  Position		  [175, 872, 205, 903]
+	  Ports			  [3, 1]
+	  Position		  [205, 849, 240, 901]
 	  ZOrder		  -2
+	  Inputs		  "+++"
 	  InputSameDT		  off
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
@@ -1362,7 +1373,7 @@ Model {
 	  Name			  "Add4"
 	  SID			  "351"
 	  Ports			  [2, 1]
-	  Position		  [210, 312, 240, 343]
+	  Position		  [265, 312, 295, 343]
 	  ZOrder		  -2
 	  InputSameDT		  off
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
@@ -1373,7 +1384,7 @@ Model {
 	  Name			  "Add5"
 	  SID			  "354"
 	  Ports			  [2, 1]
-	  Position		  [210, 452, 240, 483]
+	  Position		  [210, 547, 240, 578]
 	  ZOrder		  -2
 	  InputSameDT		  off
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
@@ -1383,7 +1394,7 @@ Model {
 	  BlockType		  Constant
 	  Name			  "B"
 	  SID			  "274"
-	  Position		  [300, 560, 330, 590]
+	  Position		  [355, 560, 385, 590]
 	  ZOrder		  -13
 	  Value			  "B"
 	}
@@ -1391,7 +1402,7 @@ Model {
 	  BlockType		  Constant
 	  Name			  "B1"
 	  SID			  "309"
-	  Position		  [300, 630, 330, 660]
+	  Position		  [355, 630, 385, 660]
 	  ZOrder		  -14
 	  Value			  "Fu"
 	}
@@ -1399,7 +1410,7 @@ Model {
 	  BlockType		  Constant
 	  Name			  "B2"
 	  SID			  "311"
-	  Position		  [300, 700, 330, 730]
+	  Position		  [355, 700, 385, 730]
 	  ZOrder		  -15
 	  Value			  "Q"
 	}
@@ -1407,7 +1418,7 @@ Model {
 	  BlockType		  Constant
 	  Name			  "B3"
 	  SID			  "313"
-	  Position		  [300, 770, 330, 800]
+	  Position		  [355, 770, 385, 800]
 	  ZOrder		  -16
 	  Value			  "Qf"
 	}
@@ -1415,7 +1426,7 @@ Model {
 	  BlockType		  Constant
 	  Name			  "B4"
 	  SID			  "320"
-	  Position		  [255, 805, 285, 835]
+	  Position		  [310, 805, 340, 835]
 	  ZOrder		  -17
 	  Value			  "opts"
 	}
@@ -1423,7 +1434,7 @@ Model {
 	  BlockType		  Constant
 	  Name			  "B5"
 	  SID			  "361"
-	  Position		  [255, 910, 285, 940]
+	  Position		  [310, 910, 340, 940]
 	  ZOrder		  -18
 	  Value			  "Ef_block"
 	}
@@ -1431,7 +1442,7 @@ Model {
 	  BlockType		  Constant
 	  Name			  "C"
 	  SID			  "243"
-	  Position		  [255, 420, 285, 450]
+	  Position		  [310, 420, 340, 450]
 	  ZOrder		  -19
 	  Value			  "C"
 	}
@@ -1440,7 +1451,7 @@ Model {
 	  Name			  "Calculate Cost"
 	  SID			  "380"
 	  Ports			  [5, 1]
-	  Position		  [545, 46, 705, 134]
+	  Position		  [600, 46, 760, 134]
 	  ZOrder		  -20
 	  RequestExecContextInheritance	off
 	  System {
@@ -1753,7 +1764,7 @@ Model {
 	  Name			  "Demux"
 	  SID			  "314"
 	  Ports			  [1, 4]
-	  Position		  [580, 732, 585, 808]
+	  Position		  [635, 732, 640, 808]
 	  ZOrder		  -7
 	  ShowName		  off
 	  DisplayOption		  "bar"
@@ -1763,7 +1774,7 @@ Model {
 	  Name			  "Embedded\nMATLAB Function"
 	  SID			  "231"
 	  Ports			  [21, 2]
-	  Position		  [365, 283, 490, 1007]
+	  Position		  [420, 283, 545, 1007]
 	  ZOrder		  -21
 	  LibraryVersion	  "1.30"
 	  ErrorFcn		  "Stateflow.Translate.translate"
@@ -1990,7 +2001,7 @@ Model {
 	      BlockType		      S-Function
 	      Name		      " SFunction "
 	      SID		      "231::39"
-	      Tag		      "Stateflow S-Function mpcSetpointIntpt 2"
+	      Tag		      "Stateflow S-Function pointmass_param_mpc 2"
 	      Ports		      [21, 3]
 	      Position		      [180, 70, 230, 510]
 	      ZOrder		      22
@@ -2220,7 +2231,7 @@ Model {
 	  Name			  "Estimate Disturbance"
 	  SID			  "364"
 	  Ports			  [2, 1]
-	  Position		  [750, 230, 820, 290]
+	  Position		  [805, 230, 875, 290]
 	  ZOrder		  -23
 	  RequestExecContextInheritance	off
 	  System {
@@ -2422,7 +2433,7 @@ Model {
 	  Name			  "First Input"
 	  SID			  "204"
 	  Ports			  [1, 1]
-	  Position		  [575, 253, 620, 607]
+	  Position		  [630, 253, 675, 607]
 	  ZOrder		  -22
 	  InputPortWidth	  "size(H,1)"
 	}
@@ -2430,7 +2441,7 @@ Model {
 	  BlockType		  Constant
 	  Name			  "H"
 	  SID			  "236"
-	  Position		  [255, 280, 285, 310]
+	  Position		  [310, 280, 340, 310]
 	  ZOrder		  -23
 	  Value			  "H"
 	}
@@ -2439,7 +2450,7 @@ Model {
 	  Name			  "Mux"
 	  SID			  "348"
 	  Ports			  [2, 1]
-	  Position		  [995, 251, 1000, 289]
+	  Position		  [1050, 251, 1055, 289]
 	  ZOrder		  -16
 	  ShowName		  off
 	  Inputs		  "2"
@@ -2449,7 +2460,7 @@ Model {
 	  BlockType		  Constant
 	  Name			  "P"
 	  SID			  "244"
-	  Position		  [255, 350, 285, 380]
+	  Position		  [310, 350, 340, 380]
 	  ZOrder		  -25
 	  Value			  "P"
 	}
@@ -2457,7 +2468,7 @@ Model {
 	  BlockType		  Constant
 	  Name			  "P1"
 	  SID			  "321"
-	  Position		  [300, 840, 330, 870]
+	  Position		  [355, 840, 385, 870]
 	  ZOrder		  -26
 	  Value			  "Ps"
 	}
@@ -2465,7 +2476,7 @@ Model {
 	  BlockType		  Constant
 	  Name			  "P2"
 	  SID			  "362"
-	  Position		  [300, 945, 330, 975]
+	  Position		  [355, 945, 385, 975]
 	  ZOrder		  -27
 	  Value			  "Fxs"
 	}
@@ -2473,7 +2484,7 @@ Model {
 	  BlockType		  Constant
 	  Name			  "P3"
 	  SID			  "363"
-	  Position		  [255, 980, 285, 1010]
+	  Position		  [310, 980, 340, 1010]
 	  ZOrder		  -27
 	  Value			  "Fus"
 	}
@@ -2481,7 +2492,7 @@ Model {
 	  BlockType		  UnitDelay
 	  Name			  "Previous Solution"
 	  SID			  "238"
-	  Position		  [410, 1038, 445, 1072]
+	  Position		  [465, 1038, 500, 1072]
 	  ZOrder		  -28
 	  BlockMirror		  on
 	  SampleTime		  "-1"
@@ -2491,7 +2502,7 @@ Model {
 	  Name			  "To Workspace"
 	  SID			  "393"
 	  Ports			  [1]
-	  Position		  [690, 630, 750, 660]
+	  Position		  [745, 630, 805, 660]
 	  ZOrder		  -7
 	  VariableName		  "info_out"
 	  MaxDataPoints		  "inf"
@@ -2499,21 +2510,9 @@ Model {
 	}
 	Block {
 	  BlockType		  Gain
-	  Name			  "bx*x"
-	  SID			  "298"
-	  Position		  [150, 520, 180, 550]
-	  ZOrder		  -11
-	  Gain			  "bx"
-	  Multiplication	  "Matrix(K*u)"
-	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
-	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
-	  SaturateOnIntegerOverflow off
-	}
-	Block {
-	  BlockType		  Gain
-	  Name			  "bx*x1"
+	  Name			  "bd*d"
 	  SID			  "353"
-	  Position		  [150, 575, 180, 605]
+	  Position		  [155, 575, 185, 605]
 	  ZOrder		  -11
 	  Gain			  "bd"
 	  Multiplication	  "Matrix(K*u)"
@@ -2523,9 +2522,21 @@ Model {
 	}
 	Block {
 	  BlockType		  Gain
+	  Name			  "bx*x"
+	  SID			  "298"
+	  Position		  [155, 520, 185, 550]
+	  ZOrder		  -11
+	  Gain			  "bx"
+	  Multiplication	  "Matrix(K*u)"
+	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Gain
 	  Name			  "calc target"
 	  SID			  "356"
-	  Position		  [1030, 255, 1060, 285]
+	  Position		  [1085, 255, 1115, 285]
 	  ZOrder		  -11
 	  Gain			  "pinv([eye(3)-A;1 0 0])"
 	  Multiplication	  "Matrix(K*u)"
@@ -2538,7 +2549,7 @@ Model {
 	  Name			  "cost"
 	  SID			  "376"
 	  Ports			  [1]
-	  Position		  [780, 74, 810, 106]
+	  Position		  [835, 74, 865, 106]
 	  ZOrder		  -3
 	  Floating		  off
 	  Location		  [769, 149, 1915, 927]
@@ -2571,7 +2582,7 @@ Model {
 	  Name			  "d"
 	  SID			  "346"
 	  Ports			  [1]
-	  Position		  [865, 294, 895, 326]
+	  Position		  [920, 294, 950, 326]
 	  ZOrder		  -3
 	  Floating		  off
 	  Location		  [188, 390, 1033, 821]
@@ -2603,7 +2614,7 @@ Model {
 	  BlockType		  Constant
 	  Name			  "g"
 	  SID			  "233"
-	  Position		  [150, 320, 180, 350]
+	  Position		  [205, 320, 235, 350]
 	  ZOrder		  -35
 	  Value			  "g"
 	}
@@ -2611,7 +2622,7 @@ Model {
 	  BlockType		  Constant
 	  Name			  "hc"
 	  SID			  "209"
-	  Position		  [150, 430, 180, 460]
+	  Position		  [110, 440, 140, 470]
 	  ZOrder		  -36
 	  Value			  "hc"
 	}
@@ -2619,15 +2630,27 @@ Model {
 	  BlockType		  Constant
 	  Name			  "hc1"
 	  SID			  "323"
-	  Position		  [115, 920, 145, 950]
+	  Position		  [155, 915, 185, 945]
 	  ZOrder		  -37
 	  Value			  "hcs"
 	}
 	Block {
 	  BlockType		  Gain
+	  Name			  "hp*p"
+	  SID			  "398"
+	  Position		  [110, 385, 140, 415]
+	  ZOrder		  3
+	  Gain			  "hp"
+	  Multiplication	  "Matrix(K*u)"
+	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Gain
 	  Name			  "hx*x"
 	  SID			  "297"
-	  Position		  [150, 375, 180, 405]
+	  Position		  [110, 330, 140, 360]
 	  ZOrder		  -11
 	  Gain			  "hx"
 	  Multiplication	  "Matrix(K*u)"
@@ -2639,7 +2662,7 @@ Model {
 	  BlockType		  Gain
 	  Name			  "hx*x3"
 	  SID			  "352"
-	  Position		  [150, 280, 180, 310]
+	  Position		  [205, 280, 235, 310]
 	  ZOrder		  -11
 	  Gain			  "gt"
 	  Multiplication	  "Matrix(K*u)"
@@ -2651,9 +2674,21 @@ Model {
 	  BlockType		  Gain
 	  Name			  "hxs*x"
 	  SID			  "324"
-	  Position		  [115, 865, 145, 895]
+	  Position		  [155, 815, 185, 845]
 	  ZOrder		  -11
 	  Gain			  "hxs"
+	  Multiplication	  "Matrix(K*u)"
+	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "hxs*x1"
+	  SID			  "397"
+	  Position		  [155, 860, 185, 890]
+	  ZOrder		  2
+	  Gain			  "hps"
 	  Multiplication	  "Matrix(K*u)"
 	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
@@ -2664,7 +2699,7 @@ Model {
 	  Name			  "iterCount"
 	  SID			  "392"
 	  Ports			  [1]
-	  Position		  [620, 854, 650, 886]
+	  Position		  [675, 854, 705, 886]
 	  ZOrder		  -3
 	  Floating		  off
 	  Location		  [1570, 736, 1894, 975]
@@ -2698,7 +2733,7 @@ Model {
 	  Name			  "rd"
 	  SID			  "316"
 	  Ports			  [1]
-	  Position		  [620, 744, 650, 776]
+	  Position		  [675, 744, 705, 776]
 	  ZOrder		  -3
 	  Floating		  off
 	  Location		  [188, 390, 512, 629]
@@ -2730,7 +2765,7 @@ Model {
 	  Name			  "rp"
 	  SID			  "315"
 	  Ports			  [1]
-	  Position		  [620, 694, 650, 726]
+	  Position		  [675, 694, 705, 726]
 	  ZOrder		  -3
 	  Floating		  off
 	  Location		  [13, 708, 337, 947]
@@ -2762,7 +2797,7 @@ Model {
 	  Name			  "solChoice"
 	  SID			  "317"
 	  Ports			  [1]
-	  Position		  [620, 794, 650, 826]
+	  Position		  [675, 794, 705, 826]
 	  ZOrder		  -3
 	  Floating		  off
 	  Location		  [218, 634, 542, 873]
@@ -2795,7 +2830,7 @@ Model {
 	  Name			  "xt"
 	  SID			  "350"
 	  Ports			  [1]
-	  Position		  [1120, 254, 1150, 286]
+	  Position		  [1175, 254, 1205, 286]
 	  ZOrder		  -3
 	  Floating		  off
 	  Location		  [5, 49, 1199, 795]
@@ -2827,7 +2862,7 @@ Model {
 	  BlockType		  Outport
 	  Name			  "delta-u"
 	  SID			  "208"
-	  Position		  [865, 423, 895, 437]
+	  Position		  [920, 423, 950, 437]
 	  ZOrder		  -47
 	  IconDisplay		  "Port number"
 	}
@@ -2921,46 +2956,42 @@ Model {
 	}
 	Line {
 	  ZOrder		  15
-	  SrcBlock		  "x_u"
+	  SrcBlock		  "x"
 	  SrcPort		  1
-	  Points		  [30, 0]
+	  Points		  [32, 0]
 	  Branch {
-	    ZOrder		    16
-	    Points		    [45, 0]
+	    ZOrder		    17
+	    DstBlock		    "bx*x"
+	    DstPort		    1
+	  }
+	  Branch {
+	    ZOrder		    18
+	    Points		    [0, -190]
 	    Branch {
-	      ZOrder		      17
-	      DstBlock		      "bx*x"
-	      DstPort		      1
-	    }
-	    Branch {
-	      ZOrder		      18
-	      Points		      [0, -145]
+	      ZOrder		      75
+	      Labels		      [1, 1]
+	      Points		      [0, -100; 373, 0]
 	      Branch {
-		ZOrder			19
-		DstBlock		"hx*x"
+		ZOrder			21
+		DstBlock		"Estimate Disturbance"
 		DstPort			1
 	      }
 	      Branch {
-		ZOrder			20
-		Labels			[0, 0]
-		Points			[0, -145; 280, 0]
-		Branch {
-		  ZOrder		  21
-		  DstBlock		  "Estimate Disturbance"
-		  DstPort		  1
-		}
-		Branch {
-		  ZOrder		  22
-		  Points		  [0, -140]
-		  DstBlock		  "Calculate Cost"
-		  DstPort		  4
-		}
+		ZOrder			22
+		Points			[0, -140]
+		DstBlock		"Calculate Cost"
+		DstPort			4
 	      }
+	    }
+	    Branch {
+	      ZOrder		      19
+	      DstBlock		      "hx*x"
+	      DstPort		      1
 	    }
 	  }
 	  Branch {
 	    ZOrder		    23
-	    Points		    [0, 345]
+	    Points		    [0, 295]
 	    DstBlock		    "hxs*x"
 	    DstPort		    1
 	  }
@@ -2969,16 +3000,9 @@ Model {
 	  ZOrder		  24
 	  SrcBlock		  "hx*x"
 	  SrcPort		  1
+	  Points		  [28, 0; 0, 40]
 	  DstBlock		  "Add"
 	  DstPort		  1
-	}
-	Line {
-	  ZOrder		  25
-	  SrcBlock		  "hc"
-	  SrcPort		  1
-	  Points		  [10, 0]
-	  DstBlock		  "Add"
-	  DstPort		  2
 	}
 	Line {
 	  ZOrder		  26
@@ -3094,21 +3118,15 @@ Model {
 	  ZOrder		  42
 	  SrcBlock		  "hxs*x"
 	  SrcPort		  1
+	  Points		  [5, 0; 0, 30]
 	  DstBlock		  "Add1"
 	  DstPort		  1
-	}
-	Line {
-	  ZOrder		  43
-	  SrcBlock		  "hc1"
-	  SrcPort		  1
-	  Points		  [10, 0]
-	  DstBlock		  "Add1"
-	  DstPort		  2
 	}
 	Line {
 	  ZOrder		  44
 	  SrcBlock		  "Add1"
 	  SrcPort		  1
+	  Points		  [81, 0; 0, 15]
 	  DstBlock		  "Embedded\nMATLAB Function"
 	  DstPort		  18
 	}
@@ -3127,8 +3145,8 @@ Model {
 	    }
 	    Branch {
 	      ZOrder		      48
-	      Points		      [0, -55; -805, 0; 0, 385]
-	      DstBlock		      "bx*x1"
+	      Points		      [0, 851; -846, 0; 0, -521]
+	      DstBlock		      "bd*d"
 	      DstPort		      1
 	    }
 	  }
@@ -3217,6 +3235,7 @@ Model {
 	  ZOrder		  62
 	  SrcBlock		  "Add5"
 	  SrcPort		  1
+	  Points		  [18, 0; 0, -95]
 	  DstBlock		  "Embedded\nMATLAB Function"
 	  DstPort		  6
 	}
@@ -3224,15 +3243,15 @@ Model {
 	  ZOrder		  63
 	  SrcBlock		  "bx*x"
 	  SrcPort		  1
-	  Points		  [5, 0; 0, -75]
+	  Points		  [5, 0]
 	  DstBlock		  "Add5"
 	  DstPort		  1
 	}
 	Line {
 	  ZOrder		  64
-	  SrcBlock		  "bx*x1"
+	  SrcBlock		  "bd*d"
 	  SrcPort		  1
-	  Points		  [10, 0]
+	  Points		  [5, 0]
 	  DstBlock		  "Add5"
 	  DstPort		  2
 	}
@@ -3272,6 +3291,54 @@ Model {
 	  DstBlock		  "iterCount"
 	  DstPort		  1
 	}
+	Line {
+	  ZOrder		  70
+	  SrcBlock		  "hc1"
+	  SrcPort		  1
+	  Points		  [5, 0; 0, -40]
+	  DstBlock		  "Add1"
+	  DstPort		  3
+	}
+	Line {
+	  ZOrder		  71
+	  SrcBlock		  "hxs*x1"
+	  SrcPort		  1
+	  DstBlock		  "Add1"
+	  DstPort		  2
+	}
+	Line {
+	  ZOrder		  72
+	  SrcBlock		  "p"
+	  SrcPort		  1
+	  Points		  [10, 0]
+	  Branch {
+	    ZOrder		    86
+	    Points		    [0, -315]
+	    DstBlock		    "hp*p"
+	    DstPort		    1
+	  }
+	  Branch {
+	    ZOrder		    85
+	    Points		    [0, 160]
+	    DstBlock		    "hxs*x1"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  ZOrder		  73
+	  SrcBlock		  "hc"
+	  SrcPort		  1
+	  Points		  [28, 0; 0, -40]
+	  DstBlock		  "Add"
+	  DstPort		  3
+	}
+	Line {
+	  ZOrder		  87
+	  SrcBlock		  "hp*p"
+	  SrcPort		  1
+	  DstBlock		  "Add"
+	  DstPort		  2
+	}
       }
     }
     Block {
@@ -3290,7 +3357,7 @@ Model {
       Name		      "Mux1"
       SID		      "89"
       Ports		      [2, 1]
-      Position		      [335, 239, 340, 286]
+      Position		      [295, 224, 300, 271]
       ZOrder		      -8
       ShowName		      off
       Inputs		      "2"
@@ -3316,7 +3383,7 @@ Model {
       Name		      "SetPoint Sequence"
       SID		      "40"
       Ports		      [0, 1]
-      Position		      [120, 269, 175, 321]
+      Position		      [145, 254, 200, 306]
       ZOrder		      -17
       RequestExecContextInheritance off
       System {
@@ -3436,6 +3503,17 @@ Model {
       YMin		      "-1"
       YMax		      "14"
       DataFormat	      "StructureWithTime"
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Step
+      Name		      "Step"
+      SID		      "399"
+      Position		      [155, 345, 185, 375]
+      ZOrder		      2
+      Time		      "100"
+      Before		      "0.05"
+      After		      "0"
       SampleTime	      "0"
     }
     Block {
@@ -3568,7 +3646,7 @@ Model {
       }
       Branch {
 	ZOrder			6
-	Points			[0, 100; -620, 0; 0, -155]
+	Points			[0, 100; -639, 0; 0, -170]
 	DstBlock		"Mux1"
 	DstPort			1
       }
@@ -3624,7 +3702,7 @@ Model {
       }
       Branch {
 	ZOrder			22
-	Points			[-175, 0; 0, -75]
+	Points			[-212, 0; 0, -90]
 	DstBlock		"Mux1"
 	DstPort			2
       }
@@ -3690,6 +3768,14 @@ Model {
       DstBlock		      "Sum1"
       DstPort		      1
     }
+    Line {
+      ZOrder		      38
+      SrcBlock		      "Step"
+      SrcPort		      1
+      Points		      [39, 0; 0, -50]
+      DstBlock		      "MPC"
+      DstPort		      3
+    }
     Annotation {
       SID		      "196"
       Name		      "u(k)=u(k-1)+delta_u(k)"
@@ -3709,7 +3795,7 @@ Model {
 Stateflow {
   machine {
     id			    1
-    name		    "mpcSetpointIntpt"
+    name		    "pointmass_param_mpc"
     created		    "02-Feb-2011 17:25:45"
     isLibrary		    0
     firstTarget		    30

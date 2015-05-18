@@ -1,4 +1,4 @@
-function [H,g,gt,P,hx,hc,C,bx,bd,Ps,hxs,hcs,Ef_block,Ed_block,ef_block] = buildmatrices(A,B,Q,R,q,r,Qf,qf,T,Fx,Fu,f,Fxs,Fus,fs,Fxf,ff,Ef,ef,Ed,Fp,Fps,Fpf)
+function [H,g,gt,P,hx,hc,C,bx,bd,Ps,hxs,hcs,Ef_block,Ed_block,ef_block,hp,hps] = buildmatrices(A,B,Q,R,q,r,Qf,qf,T,Fx,Fu,f,Fxs,Fus,fs,Fxf,ff,Ef,ef,Ed,Fp,Fps,Fpf)
 %
 % MPC for system x+ = A*x + B*u + d
 % tracking target state xt
@@ -22,26 +22,17 @@ function [H,g,gt,P,hx,hc,C,bx,bd,Ps,hxs,hcs,Ef_block,Ed_block,ef_block] = buildm
 %% checking problem setup
 
 % sizes
-n = size(A,1);
-m = size(B,2);
-ell = size(Fx,1);
-ellf = size(Fxf,1);
-ellef = size(Ef,1);
-ells = size(Fxs,1);
+n = size(A,1); % number of states
+m = size(B,2); % number of inputs
+ell = size(Fx,1); % number of hard constraints
+ellf = size(Fxf,1); % number of terminal state constraints
+ellef = size(Ef,1); % number of terminal equality constraints
+ells = size(Fxs,1); % number of soft constraints
 
 % checks
-if size(B,1)~=n,
-    error('B must have same number of rows as A')
-end
-if size(A,2)~=n,
-    error('A must be square')
-end
-if size(Q,2)~=n,
-    error('Q must be the same size as A')
-end
-if size(Q,1)~=n,
-    error('Q must be the same size as A')
-end
+assert(all(size(A)==[n n]),'A must be n x n')
+assert(all(size(B)==[n m]),'B must be n x m')
+assert(all(size(Q)==size(A)),'Q must be same size as A')
 if size(Fx,2)~=n,
     error('Fx must have same number of columns as A')
 end
@@ -50,6 +41,9 @@ if size(Fu,1)~=ell,
 end
 if size(Fu,2)~=m,
     error('Fu must have same number of columns as B')
+end
+if size(f,1)~=ell,
+    error('f must have same number of rows as Fx')
 end
 if size(Fx,2)~=n,
     error('Fx must have same number of columns as A')
@@ -67,31 +61,69 @@ if size(ef,1)~=ellef,
     error('ef must have same number of rows as Ef')
 end
 
+% test soft constraint sizing
+assert(all(size(Fxs)==[ells n]),'Size Fxs')
+assert(all(size(Fus)==[ells m]),'Size Fus')
+assert(all(size(fs)==[ells 1]),'Size fs')
+
+% test for optional parametric constraints
+if ~exist('Fp','var'),
+    warning('No parametric constraints specified')
+    ellp = 0; % number of parameters
+elseif isempty(Fp),
+    warning('No parametric constraints specified')
+    ellp = 0; % number of parameters
+else
+    ellp = size(Fp,2); % number of parameters
+    % must also provide Fps and Fpf
+    assert(exist('Fps','var')>0,'Must specify Fps with parametric constraints')
+    assert(exist('Fpf','var')>0,'Must specify Fpf with parametric constraints')
+    % and they must be compatible sizes
+    assert(all(size(Fp)==[ell ellp]),'Fp must be ell x ellp')
+    assert(all(size(Fps)==[ells ellp]),'Fp must be ell x ellp')
+    assert(all(size(Fpf)==[ellf ellp]),'Fp must be ell x ellp')
+end
+
 %% compile MPC problem
 
 % min z'*H*z + (gt*xt+g)'*z + sum(max(0,Ps*z-hs))
 % s.t. P*z <= h
 %      C*z == b
 %
-% where h = hx*x0 + hc
-% where hs = hxs*x0 + hcs
+% where h = hx*x0 + hp*p + hc
+% where hs = hxs*x0 + hps*p + hcs
 % and b = bx*x0 + bd*d
 
 H = blkdiag(R,kron(eye(T-1),blkdiag(Q,R)),Qf);
-P = blkdiag(Fu,kron(eye(T-1),[Fx Fu]),Fxf);
-C = [kron(eye(T),[-B eye(n)]) + kron([zeros(1,T); eye(T-1) zeros(T-1,1)],[zeros(n,m) -A]); zeros(ellef,m+(T-1)*(m+n)) Ef];
-
 g = [r; repmat([q;r],T-1,1); qf];
+gt = kron(ones(T,1),[zeros(1,n); -2*Q]);
+
+P = blkdiag(Fu,kron(eye(T-1),[Fx Fu]),Fxf);
 hc = [repmat(f,T,1);ff];
 hx = [-Fx; zeros((T-1)*ell + ellf,n)];
+% optional parametric bit
+if ellp>0,
+    hp = [repmat(-Fp,T,1); -Fpf];
+else
+    hp=[];
+end
+
+C = [kron(eye(T),[-B eye(n)]) + kron([zeros(1,T); eye(T-1) zeros(T-1,1)],[zeros(n,m) -A]); zeros(ellef,m+(T-1)*(m+n)) Ef];
+% bc = [zeros(T*n,1); ef]; % note this means non-zero ef is ignored
 bx = [A; zeros(ellef+(T-1)*n,n)];
-b = [zeros(T*n,1); ef];
+% bd done lower down, dependent on Ef etc
 
 Ps = blkdiag(Fus,kron(eye(T-1),[Fxs Fus]));
 % check padding
 Ps(1,T*(n+m))=0;
 hcs = [repmat(fs,T,1)];
 hxs = [-Fxs; zeros((T-1)*ells,n)];
+% optional parametric bit
+if ellp>0,
+    hps = repmat(-Fps,T,1);
+else
+    hps=[];
+end
 
 % extra bit for offset free tracking
 if ~isempty(Ef),
@@ -105,9 +137,3 @@ else
     Ed_block = Ef_block;
     ef_block = Ef_block;
 end
-
-% optional removal of disturbance modeling
-%bd = 0*bd;
-
-% term for tracking non-zero reference
-gt = kron(ones(T,1),[zeros(1,n); -2*Q]);
