@@ -96,7 +96,7 @@ end
 
 H = blkdiag(R,kron(eye(T-1),blkdiag(Q,R)),Qf);
 g = [r; repmat([q;r],T-1,1); qf];
-gt = kron(ones(T,1),[zeros(1,n); -2*Q]);
+gt = kron(ones(T,1),[zeros(m,n); -2*Q]);
 
 P = blkdiag(Fu,kron(eye(T-1),[Fx Fu]),Fxf);
 hc = [repmat(f,T,1);ff];
