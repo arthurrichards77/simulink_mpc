@@ -79,7 +79,7 @@ T = 10;
 %% build QP matrices
 
 % see help information in BUILDMATRICES for details of QP matrix format
-[H,g,gt,P,hx,hc,C,bx,bd,Ps,hxs,hcs,Ef_block,Ed_block,ef_block] = buildmatrices(A,B,Q,R,q,r,Qf,qf,T,Fx,Fu,f,Fxs,Fus,fs,Ff,ff,Ef,ef,Ed,Fp,Fps,Fpf);
+[H,g,gt,P,hx,hc,C,bx,bd,Ps,hxs,hcs,Ef_block,Ed_block,ef_block] = buildmatrices(A,B,Q,R,q,r,Qf,qf,T,Fx,Fu,f,Fxs,Fus,fs,Fxf,ff,Ef,ef,Ed,Fp,Fps,Fpf);
 
 %% options
 opts=[];

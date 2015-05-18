@@ -1,4 +1,4 @@
-function [H,g,gt,P,hx,hc,C,bx,bd,Ps,hxs,hcs,Ef_block,Ed_block,ef_block] = buildmatrices(A,B,Q,R,q,r,Qf,qf,T,Fx,Fu,f,Fxs,Fus,fs,Ff,ff,Ef,ef,Ed,Fp,Fps,Fpf)
+function [H,g,gt,P,hx,hc,C,bx,bd,Ps,hxs,hcs,Ef_block,Ed_block,ef_block] = buildmatrices(A,B,Q,R,q,r,Qf,qf,T,Fx,Fu,f,Fxs,Fus,fs,Fxf,ff,Ef,ef,Ed,Fp,Fps,Fpf)
 %
 % MPC for system x+ = A*x + B*u + d
 % tracking target state xt
@@ -25,7 +25,7 @@ function [H,g,gt,P,hx,hc,C,bx,bd,Ps,hxs,hcs,Ef_block,Ed_block,ef_block] = buildm
 n = size(A,1);
 m = size(B,2);
 ell = size(Fx,1);
-ellf = size(Ff,1);
+ellf = size(Fxf,1);
 ellef = size(Ef,1);
 ells = size(Fxs,1);
 
@@ -54,7 +54,7 @@ end
 if size(Fx,2)~=n,
     error('Fx must have same number of columns as A')
 end
-if size(Ff,2)~=n,
+if size(Fxf,2)~=n,
     error('Ff must have same number of columns as A')
 end
 if size(ff,1)~=ellf,
@@ -78,7 +78,7 @@ end
 % and b = bx*x0 + bd*d
 
 H = blkdiag(R,kron(eye(T-1),blkdiag(Q,R)),Qf);
-P = blkdiag(Fu,kron(eye(T-1),[Fx Fu]),Ff);
+P = blkdiag(Fu,kron(eye(T-1),[Fx Fu]),Fxf);
 C = [kron(eye(T),[-B eye(n)]) + kron([zeros(1,T); eye(T-1) zeros(T-1,1)],[zeros(n,m) -A]); zeros(ellef,m+(T-1)*(m+n)) Ef];
 
 g = [r; repmat([q;r],T-1,1); qf];
