@@ -1,8 +1,10 @@
 # simulink_mpc
 Soft constrained Simulink MPC utility using fast quadratic programming
+
 Developed at University of Bristol by Arthur Richards
 
 Implements work published in A. Richards, "Fast model predictive control with soft constraints," European Control Conference 2013
+
 http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=6669291&tag=1
 
 @INPROCEEDINGS{6669291, 
