@@ -75,16 +75,3 @@ Qf = Q;
 
 % horizon
 T = 10;
-
-%% build QP matrices
-
-% see help information in BUILDMATRICES for details of QP matrix format
-[H,g,gt,P,hx,hc,C,bx,bd,Ps,hxs,hcs,Ef_block,Ed_block,ef_block,hp,hps] = buildmatrices(A,B,Q,R,q,r,Qf,qf,T,Fx,Fu,f,Fxs,Fus,fs,Fxf,ff,Ef,ef,Ed,Fp,Fps,Fpf);
-
-%% options
-opts=[];
-opts(1)=1; % 1 = assume diagonal Phi when solving
-opts(2)=5; % Newton iterations
-opts(3)=1; % 1 = use soft constraints
-opts(4)=0; % 1 = checking on
-opts(7)=0.005; % tuning of barrier weight kappa

@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.496"
+    ComputedModelVersion    "1.504"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -77,9 +77,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "aeagr"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Jun 11 17:43:48 2015"
-  RTWModifiedTimeStamp	  355945417
-  ModelVersionFormat	  "1.%<AutoIncrement:496>"
+  LastModifiedDate	  "Thu Jun 11 18:18:30 2015"
+  RTWModifiedTimeStamp	  355947493
+  ModelVersionFormat	  "1.%<AutoIncrement:504>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1154,276 +1154,7 @@ Model {
     }
     Block {
       BlockType		      SubSystem
-      Name		      "Disturbance"
-      SID		      "394"
-      Ports		      [0, 1]
-      Position		      [500, 77, 570, 143]
-      ZOrder		      1
-      RequestExecContextInheritance off
-      System {
-	Name			"Disturbance"
-	Location		[-8, 0, 1928, 1056]
-	Open			off
-	ModelBrowserVisibility	off
-	ModelBrowserWidth	200
-	ScreenColor		"white"
-	PaperOrientation	"landscape"
-	PaperPositionMode	"auto"
-	PaperType		"A4"
-	PaperUnits		"centimeters"
-	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
-	TiledPageScale		1
-	ShowPageBoundaries	off
-	ZoomFactor		"100"
-	Block {
-	  BlockType		  DiscretePulseGenerator
-	  Name			  "Pulse\nGenerator"
-	  SID			  "390"
-	  Ports			  [0, 1]
-	  Position		  [20, 29, 50, 61]
-	  ZOrder		  -13
-	  PulseType		  "Time based"
-	  Amplitude		  "0.1"
-	  Period		  "200"
-	  PhaseDelay		  "100"
-	}
-	Block {
-	  BlockType		  RateTransition
-	  Name			  "Rate Transition2"
-	  SID			  "391"
-	  Position		  [70, 24, 100, 66]
-	  ZOrder		  -10
-	}
-	Block {
-	  BlockType		  Step
-	  Name			  "Step"
-	  SID			  "355"
-	  Position		  [20, 105, 50, 135]
-	  ZOrder		  -22
-	  Time			  "100"
-	  After			  "0.01"
-	  SampleTime		  "0"
-	}
-	Block {
-	  BlockType		  Sum
-	  Name			  "Sum3"
-	  SID			  "388"
-	  Ports			  [2, 1]
-	  Position		  [95, 110, 115, 130]
-	  ZOrder		  -24
-	  ShowName		  off
-	  IconShape		  "round"
-	  Inputs		  "++|"
-	  InputSameDT		  off
-	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
-	  SaturateOnIntegerOverflow off
-	}
-	Block {
-	  BlockType		  Outport
-	  Name			  "d"
-	  SID			  "395"
-	  Position		  [165, 238, 195, 252]
-	  ZOrder		  1
-	  IconDisplay		  "Port number"
-	}
-	Line {
-	  ZOrder		  33
-	  SrcBlock		  "Step"
-	  SrcPort		  1
-	  DstBlock		  "Sum3"
-	  DstPort		  2
-	}
-	Line {
-	  ZOrder		  35
-	  SrcBlock		  "Pulse\nGenerator"
-	  SrcPort		  1
-	  DstBlock		  "Rate Transition2"
-	  DstPort		  1
-	}
-	Line {
-	  ZOrder		  37
-	  SrcBlock		  "Sum3"
-	  SrcPort		  1
-	  Points		  [30, 0]
-	  DstBlock		  "d"
-	  DstPort		  1
-	}
-	Line {
-	  ZOrder		  36
-	  SrcBlock		  "Rate Transition2"
-	  SrcPort		  1
-	  DstBlock		  "Sum3"
-	  DstPort		  1
-	}
-      }
-    }
-    Block {
-      BlockType		      Mux
-      Name		      "Mux"
-      SID		      "3"
-      Ports		      [2, 1]
-      Position		      [825, 259, 830, 346]
-      ZOrder		      -7
-      ShowName		      off
-      Inputs		      "2"
-      DisplayOption	      "bar"
-    }
-    Block {
-      BlockType		      Integrator
-      Name		      "Position"
-      SID		      "2"
-      Ports		      [1, 1]
-      Position		      [750, 265, 780, 295]
-      ZOrder		      -10
-    }
-    Block {
-      BlockType		      RateTransition
-      Name		      "Rate Transition"
-      SID		      "360"
-      Position		      [515, 259, 550, 301]
-      ZOrder		      4
-    }
-    Block {
-      BlockType		      SubSystem
-      Name		      "SetPoint Sequence"
-      SID		      "40"
-      Ports		      [0, 1]
-      Position		      [145, 254, 200, 306]
-      ZOrder		      -17
-      RequestExecContextInheritance off
-      System {
-	Name			"SetPoint Sequence"
-	Location		[-8, 0, 1928, 1056]
-	Open			off
-	ModelBrowserVisibility	off
-	ModelBrowserWidth	200
-	ScreenColor		"white"
-	PaperOrientation	"landscape"
-	PaperPositionMode	"auto"
-	PaperType		"A4"
-	PaperUnits		"centimeters"
-	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
-	TiledPageScale		1
-	ShowPageBoundaries	off
-	ZoomFactor		"100"
-	Block {
-	  BlockType		  Gain
-	  Name			  "Gain"
-	  SID			  "11"
-	  Position		  [120, 35, 150, 65]
-	  ZOrder		  -1
-	  Gain			  "0.5"
-	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
-	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
-	  SaturateOnIntegerOverflow off
-	}
-	Block {
-	  BlockType		  RateTransition
-	  Name			  "Rate Transition"
-	  SID			  "36"
-	  Position		  [75, 29, 100, 71]
-	  ZOrder		  -2
-	}
-	Block {
-	  BlockType		  Reference
-	  Name			  "Repeating\nSequence\nStair"
-	  SID			  "9"
-	  Ports			  [0, 1]
-	  Position		  [25, 35, 55, 65]
-	  ZOrder		  -3
-	  LibraryVersion	  "1.287"
-	  SourceBlock		  "simulink/Sources/Repeating\nSequence\nStair"
-	  SourceType		  "Repeating Sequence Stair"
-	  ContentPreviewEnabled	  off
-	  OutValues		  "[1 0 2 0 3 0 4 0 5 0 6 0].'"
-	  tsamp			  "20"
-	  OutMin		  "[]"
-	  OutMax		  "[]"
-	  OutDataTypeStr	  "double"
-	  OutputDataTypeScalingMode "Specify via dialog"
-	  OutDataType		  "double"
-	  ConRadixGroup		  "Best Precision: Vector-wise"
-	  OutScaling		  "2^-12"
-	  LockScale		  off
-	}
-	Block {
-	  BlockType		  Outport
-	  Name			  "r"
-	  SID			  "41"
-	  Position		  [175, 43, 205, 57]
-	  ZOrder		  -4
-	  IconDisplay		  "Port number"
-	}
-	Line {
-	  ZOrder		  1
-	  SrcBlock		  "Repeating\nSequence\nStair"
-	  SrcPort		  1
-	  DstBlock		  "Rate Transition"
-	  DstPort		  1
-	}
-	Line {
-	  ZOrder		  2
-	  SrcBlock		  "Rate Transition"
-	  SrcPort		  1
-	  DstBlock		  "Gain"
-	  DstPort		  1
-	}
-	Line {
-	  ZOrder		  3
-	  SrcBlock		  "Gain"
-	  SrcPort		  1
-	  DstBlock		  "r"
-	  DstPort		  1
-	}
-      }
-    }
-    Block {
-      BlockType		      Scope
-      Name		      "State"
-      SID		      "7"
-      Ports		      [1]
-      Position		      [920, 289, 950, 321]
-      ZOrder		      -18
-      Floating		      off
-      Location		      [1293, 56, 1912, 439]
-      Open		      on
-      NumInputPorts	      "1"
-      ZoomMode		      "yonly"
-      List {
-	ListType		AxesTitles
-	axes1			"%<SignalLabel>"
-      }
-      List {
-	ListType		ScopeGraphics
-	FigureColor		"[0.5 0.5 0.5]"
-	AxesColor		"[0 0 0]"
-	AxesTickColor		"[1 1 1]"
-	LineColors		"[1 1 0;1 0 1;0 1 1;1 0 0;0 1 0;0 0 1]"
-	LineStyles		"-|-|-|-|-|-"
-	LineWidths		"[0.5 0.5 0.5 0.5 0.5 0.5]"
-	MarkerStyles		"none|none|none|none|none|none"
-      }
-      ShowLegends	      off
-      TimeRange		      "200             "
-      YMin		      "-1"
-      YMax		      "14"
-      DataFormat	      "StructureWithTime"
-      SampleTime	      "0"
-    }
-    Block {
-      BlockType		      Step
-      Name		      "Step"
-      SID		      "399"
-      Position		      [155, 345, 185, 375]
-      ZOrder		      2
-      Time		      "100"
-      Before		      "0.15"
-      After		      "0"
-      SampleTime	      "0"
-    }
-    Block {
-      BlockType		      SubSystem
-      Name		      "Subsystem"
+      Name		      "Controller"
       SID		      "410"
       Ports		      [3, 1]
       Position		      [430, 248, 470, 312]
@@ -1432,7 +1163,7 @@ Model {
       SystemSampleTime	      "dt"
       RequestExecContextInheritance off
       System {
-	Name			"Subsystem"
+	Name			"Controller"
 	Location		[-8, -8, 1928, 1048]
 	Open			off
 	ModelBrowserVisibility	off
@@ -1693,6 +1424,398 @@ Model {
 	  ZOrder		  19
 	  TreatAsAtomicUnit	  on
 	  RequestExecContextInheritance	off
+	  Object {
+	    $PropName		    "MaskObject"
+	    $ObjectID		    21
+	    $ClassName		    "Simulink.Mask"
+	    Initialization	    "% build the big matrices\n[H,g,gt,P,hx,hc,C,bx,bd,Ps,hxs,hcs,Ef_block,Ed_block,ef_block,hp,hp"
+	    "s] = buildmatrices(A,B,Q,R,qv,rv,Qf,qfv,T,Fx,Fu,f,Fxs,Fus,fs,Fxf,ff,Ef,e,Ed,Fp,Fps,Fpf);\n\n% options\nopts=[];\n"
+	    "disp(consAllBox)\nif consAllBox,\n    opts(1)=1; % 1 = assume diagonal Phi when solving\nelse\n    opts(1)=0;\nen"
+	    "d\nopts(2)=numNewton; % Newton iterations\nopts(3)=1; % 1 = use soft constraints\nopts(4)=0; % 1 = checking on\no"
+	    "pts(7)=kappa; % tuning of barrier weight kappa\n"
+	    Array {
+	      Type		      "Simulink.MaskParameter"
+	      Dimension		      26
+	      Object {
+		$ObjectID		22
+		Type			"edit"
+		Name			"A"
+		Prompt			"A"
+		Value			"A"
+	      }
+	      Object {
+		$ObjectID		23
+		Type			"edit"
+		Name			"B"
+		Prompt			"B"
+		Value			"B"
+	      }
+	      Object {
+		$ObjectID		24
+		Type			"edit"
+		Name			"T"
+		Prompt			"Horizon length T"
+		Value			"T"
+	      }
+	      Object {
+		$ObjectID		25
+		Type			"edit"
+		Name			"Q"
+		Prompt			"Q"
+		Value			"Q"
+	      }
+	      Object {
+		$ObjectID		26
+		Type			"edit"
+		Name			"R"
+		Prompt			"R"
+		Value			"R"
+	      }
+	      Object {
+		$ObjectID		27
+		Type			"edit"
+		Name			"Qf"
+		Prompt			"Qf"
+		Value			"Qf"
+	      }
+	      Object {
+		$ObjectID		28
+		Type			"edit"
+		Name			"qv"
+		Prompt			"q"
+		Value			"q"
+	      }
+	      Object {
+		$ObjectID		29
+		Type			"edit"
+		Name			"rv"
+		Prompt			"r"
+		Value			"r"
+	      }
+	      Object {
+		$ObjectID		30
+		Type			"edit"
+		Name			"qfv"
+		Prompt			"qf"
+		Value			"qf"
+	      }
+	      Object {
+		$ObjectID		31
+		Type			"edit"
+		Name			"Fx"
+		Prompt			"Fx"
+		Value			"Fx"
+	      }
+	      Object {
+		$ObjectID		32
+		Type			"edit"
+		Name			"Fu"
+		Prompt			"Fu"
+		Value			"Fu"
+	      }
+	      Object {
+		$ObjectID		33
+		Type			"edit"
+		Name			"Fp"
+		Prompt			"Fp"
+		Value			"Fp"
+	      }
+	      Object {
+		$ObjectID		34
+		Type			"edit"
+		Name			"f"
+		Prompt			"f"
+		Value			"f"
+	      }
+	      Object {
+		$ObjectID		35
+		Type			"edit"
+		Name			"Fxs"
+		Prompt			"Fxs"
+		Value			"Fxs"
+	      }
+	      Object {
+		$ObjectID		36
+		Type			"edit"
+		Name			"Fus"
+		Prompt			"Fus"
+		Value			"Fus"
+	      }
+	      Object {
+		$ObjectID		37
+		Type			"edit"
+		Name			"Fps"
+		Prompt			"Fps"
+		Value			"Fps"
+	      }
+	      Object {
+		$ObjectID		38
+		Type			"edit"
+		Name			"fs"
+		Prompt			"fs"
+		Value			"fs"
+	      }
+	      Object {
+		$ObjectID		39
+		Type			"edit"
+		Name			"Fxf"
+		Prompt			"Fxf"
+		Value			"Fxf"
+	      }
+	      Object {
+		$ObjectID		40
+		Type			"edit"
+		Name			"Fpf"
+		Prompt			"Fpf"
+		Value			"Fpf"
+	      }
+	      Object {
+		$ObjectID		41
+		Type			"edit"
+		Name			"ff"
+		Prompt			"ff"
+		Value			"ff"
+	      }
+	      Object {
+		$ObjectID		42
+		Type			"edit"
+		Name			"Ef"
+		Prompt			"Ef"
+		Value			"Ef"
+	      }
+	      Object {
+		$ObjectID		43
+		Type			"edit"
+		Name			"Ed"
+		Prompt			"Ed"
+		Value			"Ed"
+	      }
+	      Object {
+		$ObjectID		44
+		Type			"edit"
+		Name			"e"
+		Prompt			"ef"
+		Value			"ef"
+	      }
+	      Object {
+		$ObjectID		45
+		Type			"checkbox"
+		Name			"consAllBox"
+		Prompt			"Box constraints"
+		Value			"on"
+	      }
+	      Object {
+		$ObjectID		46
+		Type			"edit"
+		Name			"numNewton"
+		Prompt			"Number of Newton Iterations"
+		Value			"5"
+	      }
+	      Object {
+		$ObjectID		47
+		Type			"edit"
+		Name			"kappa"
+		Prompt			"Barrier weight kappa"
+		Value			"0.005"
+	      }
+	      PropName		      "Parameters"
+	    }
+	    Array {
+	      Type		      "Simulink.dialog.Container"
+	      Dimension		      2
+	      Object {
+		$ObjectID		48
+		$ClassName		"Simulink.dialog.Group"
+		Prompt			"%<MaskType>"
+		Object {
+		  $PropName		  "DialogControls"
+		  $ObjectID		  49
+		  $ClassName		  "Simulink.dialog.Text"
+		  Prompt		  "%<MaskDescription>"
+		  Name			  "DescTextVar"
+		}
+		Name			"DescGroupVar"
+	      }
+	      Object {
+		$ObjectID		50
+		$ClassName		"Simulink.dialog.TabContainer"
+		Array {
+		  Type			  "Simulink.dialog.Tab"
+		  Dimension		  6
+		  Object {
+		    $ObjectID		    51
+		    Prompt		    "Dynamics"
+		    Array {
+		    Type		    "Simulink.dialog.parameter.Edit"
+		    Dimension		    3
+		    Object {
+		    $ObjectID		    52
+		    Name		    "A"
+		    }
+		    Object {
+		    $ObjectID		    53
+		    Name		    "B"
+		    }
+		    Object {
+		    $ObjectID		    54
+		    Name		    "T"
+		    }
+		    PropName		    "DialogControls"
+		    }
+		    Name		    "Container11"
+		  }
+		  Object {
+		    $ObjectID		    55
+		    Prompt		    "Cost"
+		    Array {
+		    Type		    "Simulink.dialog.parameter.Edit"
+		    Dimension		    6
+		    Object {
+		    $ObjectID		    56
+		    Name		    "Q"
+		    }
+		    Object {
+		    $ObjectID		    57
+		    Name		    "R"
+		    }
+		    Object {
+		    $ObjectID		    58
+		    Name		    "Qf"
+		    }
+		    Object {
+		    $ObjectID		    59
+		    Name		    "qv"
+		    }
+		    Object {
+		    $ObjectID		    60
+		    Name		    "rv"
+		    }
+		    Object {
+		    $ObjectID		    61
+		    Name		    "qfv"
+		    }
+		    PropName		    "DialogControls"
+		    }
+		    Name		    "Container6"
+		  }
+		  Object {
+		    $ObjectID		    62
+		    Prompt		    "Hard Constraints"
+		    Array {
+		    Type		    "Simulink.dialog.parameter.Edit"
+		    Dimension		    4
+		    Object {
+		    $ObjectID		    63
+		    Name		    "Fx"
+		    }
+		    Object {
+		    $ObjectID		    64
+		    Name		    "Fu"
+		    }
+		    Object {
+		    $ObjectID		    65
+		    Name		    "Fp"
+		    }
+		    Object {
+		    $ObjectID		    66
+		    Name		    "f"
+		    }
+		    PropName		    "DialogControls"
+		    }
+		    Name		    "Container9"
+		  }
+		  Object {
+		    $ObjectID		    67
+		    Prompt		    "Soft Constraints"
+		    Array {
+		    Type		    "Simulink.dialog.parameter.Edit"
+		    Dimension		    4
+		    Object {
+		    $ObjectID		    68
+		    Name		    "Fxs"
+		    }
+		    Object {
+		    $ObjectID		    69
+		    Name		    "Fus"
+		    }
+		    Object {
+		    $ObjectID		    70
+		    Name		    "Fps"
+		    }
+		    Object {
+		    $ObjectID		    71
+		    Name		    "fs"
+		    }
+		    PropName		    "DialogControls"
+		    }
+		    Name		    "Container10"
+		  }
+		  Object {
+		    $ObjectID		    72
+		    Prompt		    "Terminal Constraints"
+		    Array {
+		    Type		    "Simulink.dialog.parameter.Edit"
+		    Dimension		    6
+		    Object {
+		    $ObjectID		    73
+		    Name		    "Fxf"
+		    }
+		    Object {
+		    $ObjectID		    74
+		    Name		    "Fpf"
+		    }
+		    Object {
+		    $ObjectID		    75
+		    Name		    "ff"
+		    }
+		    Object {
+		    $ObjectID		    76
+		    Name		    "Ef"
+		    }
+		    Object {
+		    $ObjectID		    77
+		    Name		    "Ed"
+		    }
+		    Object {
+		    $ObjectID		    78
+		    Name		    "e"
+		    }
+		    PropName		    "DialogControls"
+		    }
+		    Name		    "Container12"
+		  }
+		  Object {
+		    $ObjectID		    79
+		    Prompt		    "Settings"
+		    Array {
+		    Type		    "Simulink.dialog.parameter.Control"
+		    Dimension		    3
+		    Object {
+		    $ObjectID		    80
+		    $ClassName		    "Simulink.dialog.parameter.CheckBox"
+		    Name		    "consAllBox"
+		    }
+		    Object {
+		    $ObjectID		    81
+		    $ClassName		    "Simulink.dialog.parameter.Edit"
+		    Name		    "numNewton"
+		    }
+		    Object {
+		    $ObjectID		    82
+		    $ClassName		    "Simulink.dialog.parameter.Edit"
+		    Name		    "kappa"
+		    }
+		    PropName		    "DialogControls"
+		    }
+		    Name		    "Container15"
+		  }
+		  PropName		  "DialogControls"
+		}
+		Name			"Container5"
+	      }
+	      PropName		      "DialogControls"
+	    }
+	  }
 	  System {
 	    Name		    "MPC"
 	    Location		    [-8, -8, 1928, 1048]
@@ -3608,7 +3731,7 @@ Model {
 	  }
 	  Branch {
 	    ZOrder		    22
-	    Points		    [0, 163; -1224, 0; 0, -383]
+	    Points		    [0, 163; -1129, 0; 0, -383]
 	    DstBlock		    "Mux1"
 	    DstPort		    2
 	  }
@@ -3769,6 +3892,275 @@ Model {
       }
     }
     Block {
+      BlockType		      SubSystem
+      Name		      "Disturbance"
+      SID		      "394"
+      Ports		      [0, 1]
+      Position		      [500, 77, 570, 143]
+      ZOrder		      1
+      RequestExecContextInheritance off
+      System {
+	Name			"Disturbance"
+	Location		[-8, 0, 1928, 1056]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  DiscretePulseGenerator
+	  Name			  "Pulse\nGenerator"
+	  SID			  "390"
+	  Ports			  [0, 1]
+	  Position		  [20, 29, 50, 61]
+	  ZOrder		  -13
+	  PulseType		  "Time based"
+	  Amplitude		  "0.1"
+	  Period		  "200"
+	  PhaseDelay		  "100"
+	}
+	Block {
+	  BlockType		  RateTransition
+	  Name			  "Rate Transition2"
+	  SID			  "391"
+	  Position		  [70, 24, 100, 66]
+	  ZOrder		  -10
+	}
+	Block {
+	  BlockType		  Step
+	  Name			  "Step"
+	  SID			  "355"
+	  Position		  [20, 105, 50, 135]
+	  ZOrder		  -22
+	  Time			  "100"
+	  After			  "0.01"
+	  SampleTime		  "0"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum3"
+	  SID			  "388"
+	  Ports			  [2, 1]
+	  Position		  [95, 110, 115, 130]
+	  ZOrder		  -24
+	  ShowName		  off
+	  IconShape		  "round"
+	  Inputs		  "++|"
+	  InputSameDT		  off
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "d"
+	  SID			  "395"
+	  Position		  [165, 238, 195, 252]
+	  ZOrder		  1
+	  IconDisplay		  "Port number"
+	}
+	Line {
+	  ZOrder		  33
+	  SrcBlock		  "Step"
+	  SrcPort		  1
+	  DstBlock		  "Sum3"
+	  DstPort		  2
+	}
+	Line {
+	  ZOrder		  35
+	  SrcBlock		  "Pulse\nGenerator"
+	  SrcPort		  1
+	  DstBlock		  "Rate Transition2"
+	  DstPort		  1
+	}
+	Line {
+	  ZOrder		  37
+	  SrcBlock		  "Sum3"
+	  SrcPort		  1
+	  Points		  [30, 0]
+	  DstBlock		  "d"
+	  DstPort		  1
+	}
+	Line {
+	  ZOrder		  36
+	  SrcBlock		  "Rate Transition2"
+	  SrcPort		  1
+	  DstBlock		  "Sum3"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      Mux
+      Name		      "Mux"
+      SID		      "3"
+      Ports		      [2, 1]
+      Position		      [825, 259, 830, 346]
+      ZOrder		      -7
+      ShowName		      off
+      Inputs		      "2"
+      DisplayOption	      "bar"
+    }
+    Block {
+      BlockType		      Integrator
+      Name		      "Position"
+      SID		      "2"
+      Ports		      [1, 1]
+      Position		      [750, 265, 780, 295]
+      ZOrder		      -10
+    }
+    Block {
+      BlockType		      RateTransition
+      Name		      "Rate Transition"
+      SID		      "360"
+      Position		      [515, 259, 550, 301]
+      ZOrder		      4
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "SetPoint Sequence"
+      SID		      "40"
+      Ports		      [0, 1]
+      Position		      [145, 254, 200, 306]
+      ZOrder		      -17
+      RequestExecContextInheritance off
+      System {
+	Name			"SetPoint Sequence"
+	Location		[-8, 0, 1928, 1056]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Gain
+	  Name			  "Gain"
+	  SID			  "11"
+	  Position		  [120, 35, 150, 65]
+	  ZOrder		  -1
+	  Gain			  "0.5"
+	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  RateTransition
+	  Name			  "Rate Transition"
+	  SID			  "36"
+	  Position		  [75, 29, 100, 71]
+	  ZOrder		  -2
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Repeating\nSequence\nStair"
+	  SID			  "9"
+	  Ports			  [0, 1]
+	  Position		  [25, 35, 55, 65]
+	  ZOrder		  -3
+	  LibraryVersion	  "1.287"
+	  SourceBlock		  "simulink/Sources/Repeating\nSequence\nStair"
+	  SourceType		  "Repeating Sequence Stair"
+	  ContentPreviewEnabled	  off
+	  OutValues		  "[1 0 2 0 3 0 4 0 5 0 6 0].'"
+	  tsamp			  "20"
+	  OutMin		  "[]"
+	  OutMax		  "[]"
+	  OutDataTypeStr	  "double"
+	  OutputDataTypeScalingMode "Specify via dialog"
+	  OutDataType		  "double"
+	  ConRadixGroup		  "Best Precision: Vector-wise"
+	  OutScaling		  "2^-12"
+	  LockScale		  off
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "r"
+	  SID			  "41"
+	  Position		  [175, 43, 205, 57]
+	  ZOrder		  -4
+	  IconDisplay		  "Port number"
+	}
+	Line {
+	  ZOrder		  1
+	  SrcBlock		  "Repeating\nSequence\nStair"
+	  SrcPort		  1
+	  DstBlock		  "Rate Transition"
+	  DstPort		  1
+	}
+	Line {
+	  ZOrder		  2
+	  SrcBlock		  "Rate Transition"
+	  SrcPort		  1
+	  DstBlock		  "Gain"
+	  DstPort		  1
+	}
+	Line {
+	  ZOrder		  3
+	  SrcBlock		  "Gain"
+	  SrcPort		  1
+	  DstBlock		  "r"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "State"
+      SID		      "7"
+      Ports		      [1]
+      Position		      [920, 289, 950, 321]
+      ZOrder		      -18
+      Floating		      off
+      Location		      [2037, 180, 2656, 563]
+      Open		      on
+      NumInputPorts	      "1"
+      ZoomMode		      "yonly"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      List {
+	ListType		ScopeGraphics
+	FigureColor		"[0.5 0.5 0.5]"
+	AxesColor		"[0 0 0]"
+	AxesTickColor		"[1 1 1]"
+	LineColors		"[1 1 0;1 0 1;0 1 1;1 0 0;0 1 0;0 0 1]"
+	LineStyles		"-|-|-|-|-|-"
+	LineWidths		"[0.5 0.5 0.5 0.5 0.5 0.5]"
+	MarkerStyles		"none|none|none|none|none|none"
+      }
+      ShowLegends	      off
+      TimeRange		      "200             "
+      YMin		      "-1"
+      YMax		      "14"
+      DataFormat	      "StructureWithTime"
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Step
+      Name		      "Step"
+      SID		      "399"
+      Position		      [155, 345, 185, 375]
+      ZOrder		      2
+      Time		      "100"
+      Before		      "0.15"
+      After		      "0"
+      SampleTime	      "0"
+    }
+    Block {
       BlockType		      Sum
       Name		      "Sum1"
       SID		      "325"
@@ -3838,7 +4230,7 @@ Model {
       Branch {
 	ZOrder			46
 	Points			[0, 97; -569, 0; 0, -142]
-	DstBlock		"Subsystem"
+	DstBlock		"Controller"
 	DstPort			1
       }
       Branch {
@@ -3888,7 +4280,7 @@ Model {
       ZOrder		      39
       SrcBlock		      "SetPoint Sequence"
       SrcPort		      1
-      DstBlock		      "Subsystem"
+      DstBlock		      "Controller"
       DstPort		      2
     }
     Line {
@@ -3896,12 +4288,12 @@ Model {
       SrcBlock		      "Step"
       SrcPort		      1
       Points		      [198, 0; 0, -60]
-      DstBlock		      "Subsystem"
+      DstBlock		      "Controller"
       DstPort		      3
     }
     Line {
       ZOrder		      42
-      SrcBlock		      "Subsystem"
+      SrcBlock		      "Controller"
       SrcPort		      1
       DstBlock		      "Rate Transition"
       DstPort		      1
@@ -3941,7 +4333,7 @@ Stateflow {
   }
   chart {
     id			    2
-    name		    "Subsystem/MPC/Embedded\nMATLAB Function"
+    name		    "Controller/MPC/Embedded\nMATLAB Function"
     windowPosition	    [495 108.75 230 645]
     viewLimits		    [0 169.5 0 348.75]
     screen		    [1 1 1920 1080 1.333333333333333]
@@ -4518,7 +4910,7 @@ Stateflow {
   }
   instance {
     id			    29
-    name		    "Subsystem/MPC/Embedded\nMATLAB Function"
+    name		    "Controller/MPC/Embedded\nMATLAB Function"
     machine		    1
     chart		    2
   }
