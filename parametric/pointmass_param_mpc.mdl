@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.487"
+    ComputedModelVersion    "1.488"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -77,9 +77,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "aeagr"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon May 18 13:30:19 2015"
-  RTWModifiedTimeStamp	  353856556
-  ModelVersionFormat	  "1.%<AutoIncrement:487>"
+  LastModifiedDate	  "Tue May 19 13:57:07 2015"
+  RTWModifiedTimeStamp	  353937640
+  ModelVersionFormat	  "1.%<AutoIncrement:488>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -3512,7 +3512,7 @@ Model {
       Position		      [155, 345, 185, 375]
       ZOrder		      2
       Time		      "100"
-      Before		      "0.05"
+      Before		      "0.15"
       After		      "0"
       SampleTime	      "0"
     }
