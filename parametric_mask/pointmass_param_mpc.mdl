@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.495"
+    ComputedModelVersion    "1.496"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -63,10 +63,10 @@ Model {
 	$ObjectID		6
 	$ClassName		"Simulink.EditorInfo"
 	IsActive		[1]
-	ViewObjType		"SimulinkSubsys"
-	LoadSaveID		"429"
+	ViewObjType		"SimulinkTopLevel"
+	LoadSaveID		"0"
 	Extents			[1886.0, 882.0]
-	ZoomFactor		[0.8]
+	ZoomFactor		[1.0]
 	Offset			[0.0, 0.0]
       }
     }
@@ -77,9 +77,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "aeagr"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Jun 11 17:40:12 2015"
-  RTWModifiedTimeStamp	  355945129
-  ModelVersionFormat	  "1.%<AutoIncrement:495>"
+  LastModifiedDate	  "Thu Jun 11 17:43:48 2015"
+  RTWModifiedTimeStamp	  355945417
+  ModelVersionFormat	  "1.%<AutoIncrement:496>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1105,7 +1105,7 @@ Model {
   System {
     Name		    "pointmass_param_mpc"
     Location		    [-8, -8, 1928, 1048]
-    Open		    off
+    Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
     ScreenColor		    "white"
@@ -1696,7 +1696,7 @@ Model {
 	  System {
 	    Name		    "MPC"
 	    Location		    [-8, -8, 1928, 1048]
-	    Open		    on
+	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
 	    ScreenColor		    "white"
@@ -1768,7 +1768,7 @@ Model {
 	      SID		      "436"
 	      Position		      [455, 715, 485, 745]
 	      ZOrder		      -5
-	      Value		      "Ff"
+	      Value		      "Fxf"
 	    }
 	    Block {
 	      BlockType		      Constant
