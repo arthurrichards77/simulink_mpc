@@ -730,9 +730,9 @@ for ww=1:numBarrIters,
             break
         end
         
-    end
+        iterCount = iterCount + 1;
     
-    iterCount = iterCount + kk;
+    end    
             
     kappa = kappa*0.2;
     rho = rho*5;

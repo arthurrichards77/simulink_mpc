@@ -108,7 +108,10 @@ else
     hp=[];
 end
 
-C = [kron(eye(T),[-B eye(n)]) + kron([zeros(1,T); eye(T-1) zeros(T-1,1)],[zeros(n,m) -A]); zeros(ellef,m+(T-1)*(m+n)) Ef];
+C = [kron(eye(T),[-B eye(n)]) + kron([zeros(1,T); eye(T-1) zeros(T-1,1)],[zeros(n,m) -A])];
+if ellef>0,
+    C = [C; zeros(ellef,m+(T-1)*(m+n)) Ef];
+end
 % bc = [zeros(T*n,1); ef]; % note this means non-zero ef is ignored
 bx = [A; zeros(ellef+(T-1)*n,n)];
 % bd done lower down, dependent on Ef etc
