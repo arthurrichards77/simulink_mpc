@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.511"
+    ComputedModelVersion    "1.514"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -41,7 +41,7 @@ Model {
       $ObjectID		      3
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [1801.0, 0.0, 1936.0, 1056.0]
+      Location		      [1912.0, -8.0, 1296.0, 1040.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		4
@@ -63,9 +63,9 @@ Model {
 	$ObjectID		6
 	$ClassName		"Simulink.EditorInfo"
 	IsActive		[1]
-	ViewObjType		"SimulinkSubsys"
-	LoadSaveID		"410"
-	Extents			[1886.0, 882.0]
+	ViewObjType		"SimulinkTopLevel"
+	LoadSaveID		"0"
+	Extents			[1246.0, 866.0]
 	ZoomFactor		[1.0]
 	Offset			[0.0, 0.0]
       }
@@ -77,9 +77,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "aeagr"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Jun 12 14:58:48 2015"
-  RTWModifiedTimeStamp	  356021896
-  ModelVersionFormat	  "1.%<AutoIncrement:511>"
+  LastModifiedDate	  "Fri Jun 12 15:45:03 2015"
+  RTWModifiedTimeStamp	  356024695
+  ModelVersionFormat	  "1.%<AutoIncrement:514>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1023,6 +1023,9 @@ Model {
       SampleTime	      "-1"
     }
     Block {
+      BlockType		      Terminator
+    }
+    Block {
       BlockType		      ToWorkspace
       VariableName	      "simulink_output"
       MaxDataPoints	      "1000"
@@ -1045,8 +1048,8 @@ Model {
   }
   System {
     Name		    "pointmass_param_mpc"
-    Location		    [1801, 0, 3737, 1056]
-    Open		    off
+    Location		    [1912, -8, 3208, 1032]
+    Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
     ScreenColor		    "white"
@@ -1059,7 +1062,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "506"
+    SIDHighWatermark	    "507"
     Block {
       BlockType		      Scope
       Name		      "Control"
@@ -1105,8 +1108,8 @@ Model {
       RequestExecContextInheritance off
       System {
 	Name			"Controller"
-	Location		[1801, 0, 3737, 1056]
-	Open			on
+	Location		[1856, 0, 3152, 1040]
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -1117,12 +1120,12 @@ Model {
 	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
 	TiledPageScale		1
 	ShowPageBoundaries	off
-	ZoomFactor		"100"
+	ZoomFactor		"50"
 	Block {
 	  BlockType		  Inport
 	  Name			  "x"
 	  SID			  "497"
-	  Position		  [110, 368, 140, 382]
+	  Position		  [20, 303, 50, 317]
 	  ZOrder		  21
 	  IconDisplay		  "Port number"
 	}
@@ -1130,7 +1133,7 @@ Model {
 	  BlockType		  Inport
 	  Name			  "r_t"
 	  SID			  "411"
-	  Position		  [255, 498, 285, 512]
+	  Position		  [165, 433, 195, 447]
 	  ZOrder		  1
 	  Port			  "2"
 	  IconDisplay		  "Port number"
@@ -1139,7 +1142,7 @@ Model {
 	  BlockType		  Inport
 	  Name			  "p"
 	  SID			  "413"
-	  Position		  [255, 698, 285, 712]
+	  Position		  [165, 633, 195, 647]
 	  ZOrder		  3
 	  Port			  "3"
 	  IconDisplay		  "Port number"
@@ -1149,7 +1152,7 @@ Model {
 	  Name			  "Demux"
 	  SID			  "416"
 	  Ports			  [1, 4]
-	  Position		  [1645, 687, 1650, 763]
+	  Position		  [1555, 622, 1560, 698]
 	  ZOrder		  10
 	  ShowName		  off
 	  DisplayOption		  "bar"
@@ -1159,7 +1162,7 @@ Model {
 	  Name			  "Estimate Disturbance"
 	  SID			  "417"
 	  Ports			  [2, 1]
-	  Position		  [1290, 130, 1360, 190]
+	  Position		  [1200, 65, 1270, 125]
 	  ZOrder		  7
 	  RequestExecContextInheritance	off
 	  System {
@@ -1360,12 +1363,12 @@ Model {
 	  BlockType		  Reference
 	  Name			  "MPC"
 	  SID			  "506"
-	  Ports			  [4, 3]
-	  Position		  [770, 339, 985, 756]
+	  Ports			  [4, 4]
+	  Position		  [680, 274, 895, 691]
 	  ZOrder		  22
-	  LibraryVersion	  "1.1"
+	  LibraryVersion	  "1.2"
 	  SourceBlock		  "softmpc/MPC"
-	  SourceType		  ""
+	  SourceType		  "MPC"
 	  ContentPreviewEnabled	  off
 	  A			  "A"
 	  B			  "B"
@@ -1400,7 +1403,7 @@ Model {
 	  Name			  "Mux"
 	  SID			  "428"
 	  Ports			  [2, 1]
-	  Position		  [395, 476, 400, 514]
+	  Position		  [305, 411, 310, 449]
 	  ZOrder		  8
 	  ShowName		  off
 	  Inputs		  "2"
@@ -1411,7 +1414,7 @@ Model {
 	  Name			  "Mux1"
 	  SID			  "89"
 	  Ports			  [2, 1]
-	  Position		  [240, 364, 245, 411]
+	  Position		  [150, 299, 155, 346]
 	  ZOrder		  -8
 	  ShowName		  off
 	  Inputs		  "2"
@@ -1422,7 +1425,7 @@ Model {
 	  Name			  "Sum"
 	  SID			  "87"
 	  Ports			  [2, 1]
-	  Position		  [1295, 540, 1315, 560]
+	  Position		  [1205, 415, 1225, 435]
 	  ZOrder		  -23
 	  ShowName		  off
 	  IconShape		  "round"
@@ -1432,11 +1435,18 @@ Model {
 	  SaturateOnIntegerOverflow off
 	}
 	Block {
+	  BlockType		  Terminator
+	  Name			  "Terminator"
+	  SID			  "507"
+	  Position		  [1030, 525, 1050, 545]
+	  ZOrder		  23
+	}
+	Block {
 	  BlockType		  ToWorkspace
 	  Name			  "To Workspace"
 	  SID			  "486"
 	  Ports			  [1]
-	  Position		  [1755, 585, 1815, 615]
+	  Position		  [1665, 520, 1725, 550]
 	  ZOrder		  11
 	  VariableName		  "info_out1"
 	  MaxDataPoints		  "inf"
@@ -1446,7 +1456,7 @@ Model {
 	  BlockType		  UnitDelay
 	  Name			  "Unit Delay"
 	  SID			  "88"
-	  Position		  [1325, 603, 1360, 637]
+	  Position		  [1235, 478, 1270, 512]
 	  ZOrder		  -27
 	  BlockMirror		  on
 	  SampleTime		  "-1"
@@ -1455,7 +1465,7 @@ Model {
 	  BlockType		  Gain
 	  Name			  "calc target"
 	  SID			  "487"
-	  Position		  [430, 480, 460, 510]
+	  Position		  [340, 415, 370, 445]
 	  ZOrder		  9
 	  Gain			  "pinv([eye(3)-A;1 0 0])"
 	  Multiplication	  "Matrix(K*u)"
@@ -1468,7 +1478,7 @@ Model {
 	  Name			  "cost"
 	  SID			  "488"
 	  Ports			  [1]
-	  Position		  [1075, 394, 1105, 426]
+	  Position		  [985, 309, 1015, 341]
 	  ZOrder		  12
 	  Floating		  off
 	  Location		  [769, 149, 1915, 927]
@@ -1501,7 +1511,7 @@ Model {
 	  Name			  "d"
 	  SID			  "489"
 	  Ports			  [1]
-	  Position		  [1605, 144, 1635, 176]
+	  Position		  [1515, 79, 1545, 111]
 	  ZOrder		  13
 	  Floating		  off
 	  Location		  [188, 390, 1033, 821]
@@ -1534,7 +1544,7 @@ Model {
 	  Name			  "delta-Control"
 	  SID			  "307"
 	  Ports			  [1]
-	  Position		  [1330, 464, 1360, 496]
+	  Position		  [1240, 339, 1270, 371]
 	  ZOrder		  -29
 	  Floating		  off
 	  Location		  [652, 517, 1275, 882]
@@ -1567,7 +1577,7 @@ Model {
 	  Name			  "iterCount"
 	  SID			  "490"
 	  Ports			  [1]
-	  Position		  [1685, 809, 1715, 841]
+	  Position		  [1595, 744, 1625, 776]
 	  ZOrder		  14
 	  Floating		  off
 	  Location		  [1570, 736, 1894, 975]
@@ -1601,7 +1611,7 @@ Model {
 	  Name			  "rd"
 	  SID			  "491"
 	  Ports			  [1]
-	  Position		  [1685, 699, 1715, 731]
+	  Position		  [1595, 634, 1625, 666]
 	  ZOrder		  15
 	  Floating		  off
 	  Location		  [188, 390, 512, 629]
@@ -1633,7 +1643,7 @@ Model {
 	  Name			  "rp"
 	  SID			  "492"
 	  Ports			  [1]
-	  Position		  [1685, 649, 1715, 681]
+	  Position		  [1595, 584, 1625, 616]
 	  ZOrder		  16
 	  Floating		  off
 	  Location		  [13, 708, 337, 947]
@@ -1665,7 +1675,7 @@ Model {
 	  Name			  "solChoice"
 	  SID			  "493"
 	  Ports			  [1]
-	  Position		  [1685, 749, 1715, 781]
+	  Position		  [1595, 684, 1625, 716]
 	  ZOrder		  17
 	  Floating		  off
 	  Location		  [218, 634, 542, 873]
@@ -1698,7 +1708,7 @@ Model {
 	  Name			  "xt"
 	  SID			  "494"
 	  Ports			  [1]
-	  Position		  [515, 534, 545, 566]
+	  Position		  [425, 469, 455, 501]
 	  ZOrder		  18
 	  Floating		  off
 	  Location		  [6, 49, 1200, 795]
@@ -1730,7 +1740,7 @@ Model {
 	  BlockType		  Outport
 	  Name			  "u"
 	  SID			  "414"
-	  Position		  [1465, 543, 1495, 557]
+	  Position		  [1375, 478, 1405, 492]
 	  ZOrder		  4
 	  IconDisplay		  "Port number"
 	}
@@ -1738,7 +1748,7 @@ Model {
 	  ZOrder		  13
 	  SrcBlock		  "Sum"
 	  SrcPort		  1
-	  Points		  [60, 0]
+	  Points		  [60, 0; 0, 60]
 	  Branch {
 	    ZOrder		    76
 	    DstBlock		    "u"
@@ -1746,7 +1756,7 @@ Model {
 	  }
 	  Branch {
 	    ZOrder		    14
-	    Points		    [0, 70]
+	    Points		    [0, 10]
 	    DstBlock		    "Unit Delay"
 	    DstPort		    1
 	  }
@@ -1755,9 +1765,9 @@ Model {
 	  ZOrder		  114
 	  SrcBlock		  "MPC"
 	  SrcPort		  2
-	  Points		  [238, 0]
+	  Points		  [238, 0; 0, -5]
 	  Branch {
-	    ZOrder		    72
+	    ZOrder		    151
 	    Points		    [52, 0]
 	    Branch {
 	      ZOrder		      24
@@ -1773,7 +1783,7 @@ Model {
 	  }
 	  Branch {
 	    ZOrder		    64
-	    Points		    [0, -375]
+	    Points		    [0, -315]
 	    DstBlock		    "Estimate Disturbance"
 	    DstPort		    2
 	  }
@@ -1790,7 +1800,7 @@ Model {
 	  }
 	  Branch {
 	    ZOrder		    22
-	    Points		    [0, 163; -1129, 0; 0, -383]
+	    Points		    [0, 223; -1129, 0; 0, -383]
 	    DstBlock		    "Mux1"
 	    DstPort		    2
 	  }
@@ -1901,24 +1911,6 @@ Model {
 	  DstPort		  1
 	}
 	Line {
-	  ZOrder		  113
-	  SrcBlock		  "MPC"
-	  SrcPort		  3
-	  Points		  [590, 0]
-	  Branch {
-	    ZOrder		    62
-	    Points		    [0, -90]
-	    DstBlock		    "To Workspace"
-	    DstPort		    1
-	  }
-	  Branch {
-	    ZOrder		    61
-	    Points		    [0, 35]
-	    DstBlock		    "Demux"
-	    DstPort		    1
-	  }
-	}
-	Line {
 	  ZOrder		  111
 	  SrcBlock		  "p"
 	  SrcPort		  1
@@ -1939,10 +1931,35 @@ Model {
 	  DstBlock		  "Mux1"
 	  DstPort		  1
 	}
+	Line {
+	  ZOrder		  145
+	  SrcBlock		  "MPC"
+	  SrcPort		  4
+	  Points		  [485, 0]
+	  Branch {
+	    ZOrder		    147
+	    Points		    [0, -105]
+	    DstBlock		    "To Workspace"
+	    DstPort		    1
+	  }
+	  Branch {
+	    ZOrder		    146
+	    Points		    [0, 20]
+	    DstBlock		    "Demux"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  ZOrder		  148
+	  SrcBlock		  "MPC"
+	  SrcPort		  3
+	  DstBlock		  "Terminator"
+	  DstPort		  1
+	}
 	Annotation {
 	  SID			  "196"
 	  Name			  "u(k)=u(k-1)+delta_u(k)"
-	  Position		  [1343, 527, 1444, 542]
+	  Position		  [1253, 402, 1354, 417]
 	  InternalMargins	  [0, 0, 0, 0]
 	  FixedHeight		  off
 	  FixedWidth		  off
@@ -2184,7 +2201,7 @@ Model {
       ZOrder		      -18
       Floating		      off
       Location		      [1296, 330, 1915, 713]
-      Open		      on
+      Open		      off
       NumInputPorts	      "1"
       ZoomMode		      "yonly"
       List {

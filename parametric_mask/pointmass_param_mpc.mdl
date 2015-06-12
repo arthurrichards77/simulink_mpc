@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.507"
+    ComputedModelVersion    "1.511"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -41,7 +41,7 @@ Model {
       $ObjectID		      3
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [-8.0, -8.0, 1936.0, 1056.0]
+      Location		      [-8.0, 0.0, 1936.0, 1056.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		4
@@ -77,9 +77,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "aeagr"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Jun 11 18:28:10 2015"
-  RTWModifiedTimeStamp	  355948087
-  ModelVersionFormat	  "1.%<AutoIncrement:507>"
+  LastModifiedDate	  "Fri Jun 12 15:39:34 2015"
+  RTWModifiedTimeStamp	  356024361
+  ModelVersionFormat	  "1.%<AutoIncrement:511>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1104,7 +1104,7 @@ Model {
   }
   System {
     Name		    "pointmass_param_mpc"
-    Location		    [-8, -8, 1928, 1048]
+    Location		    [-8, 0, 1928, 1056]
     Open		    off
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -1118,7 +1118,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "505"
+    SIDHighWatermark	    "508"
     Block {
       BlockType		      Scope
       Name		      "Control"
@@ -1164,7 +1164,7 @@ Model {
       RequestExecContextInheritance off
       System {
 	Name			"Controller"
-	Location		[-8, -8, 1928, 1048]
+	Location		[-8, 0, 1928, 1056]
 	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -1208,7 +1208,7 @@ Model {
 	  Name			  "Demux"
 	  SID			  "416"
 	  Ports			  [1, 4]
-	  Position		  [1645, 687, 1650, 763]
+	  Position		  [1645, 697, 1650, 773]
 	  ZOrder		  10
 	  ShowName		  off
 	  DisplayOption		  "bar"
@@ -1419,7 +1419,7 @@ Model {
 	  BlockType		  SubSystem
 	  Name			  "MPC"
 	  SID			  "429"
-	  Ports			  [4, 3]
+	  Ports			  [4, 4]
 	  Position		  [770, 339, 985, 756]
 	  ZOrder		  19
 	  TreatAsAtomicUnit	  on
@@ -1428,6 +1428,8 @@ Model {
 	    $PropName		    "MaskObject"
 	    $ObjectID		    21
 	    $ClassName		    "Simulink.Mask"
+	    Type		    "MPC"
+	    Description		    "Solves a quadratic program with soft and hard constraints in the form of MPC."
 	    Initialization	    "% build the big matrices\n[H,g,gt,P,hx,hc,C,bx,bd,Ps,hxs,hcs,Ef_block,Ed_block,ef_block,hp,hp"
 	    "s] = buildmatrices(A,B,Q,R,qv,rv,Qf,qfv,T,Fx,Fu,f,Fxs,Fus,fs,Fxf,ff,Ef,e,Ed,Fp,Fps,Fpf);\n\n% options\nopts=[];\n"
 	    "disp(consAllBox)\nif consAllBox,\n    opts(1)=1; % 1 = assume diagonal Phi when solving\nelse\n    opts(1)=0;\nen"
@@ -1587,14 +1589,14 @@ Model {
 		$ObjectID		43
 		Type			"edit"
 		Name			"Ef"
-		Prompt			"Ef"
+		Prompt			"Exf"
 		Value			"Ef"
 	      }
 	      Object {
 		$ObjectID		44
 		Type			"edit"
 		Name			"Ed"
-		Prompt			"Ed"
+		Prompt			"Edf"
 		Value			"Ed"
 	      }
 	      Object {
@@ -1653,22 +1655,32 @@ Model {
 		    $ObjectID		    52
 		    Prompt		    "Dynamics"
 		    Array {
-		    Type		    "Simulink.dialog.parameter.Edit"
-		    Dimension		    4
+		    Type		    "Simulink.dialog.Control"
+		    Dimension		    5
 		    Object {
 		    $ObjectID		    53
-		    Name		    "A"
+		    $ClassName		    "Simulink.dialog.Text"
+		    Prompt		    "x(k+1)=A*x(k)+B*u(k)"
+		    Name		    "Control2"
 		    }
 		    Object {
 		    $ObjectID		    54
-		    Name		    "B"
+		    $ClassName		    "Simulink.dialog.parameter.Edit"
+		    Name		    "A"
 		    }
 		    Object {
 		    $ObjectID		    55
-		    Name		    "T"
+		    $ClassName		    "Simulink.dialog.parameter.Edit"
+		    Name		    "B"
 		    }
 		    Object {
 		    $ObjectID		    56
+		    $ClassName		    "Simulink.dialog.parameter.Edit"
+		    Name		    "T"
+		    }
+		    Object {
+		    $ObjectID		    57
+		    $ClassName		    "Simulink.dialog.parameter.Edit"
 		    Name		    "dt"
 		    }
 		    PropName		    "DialogControls"
@@ -1676,33 +1688,46 @@ Model {
 		    Name		    "Container11"
 		  }
 		  Object {
-		    $ObjectID		    57
+		    $ObjectID		    58
 		    Prompt		    "Cost"
 		    Array {
-		    Type		    "Simulink.dialog.parameter.Edit"
-		    Dimension		    6
-		    Object {
-		    $ObjectID		    58
-		    Name		    "Q"
-		    }
+		    Type		    "Simulink.dialog.Control"
+		    Dimension		    7
 		    Object {
 		    $ObjectID		    59
-		    Name		    "R"
+		    $ClassName		    "Simulink.dialog.Text"
+		    Prompt		    "Cost = sum{k=0 to T-1} x(k)'*Q*x(k)+u(k)'*R*u(k)+q'*x(k)+r'*u(k) + x(T)'*Qf*x(T) + qf'*x(T) + SOFT_"
+		    "CONSTRAINT_PENALTY"
+		    Name		    "Control3"
 		    }
 		    Object {
 		    $ObjectID		    60
-		    Name		    "Qf"
+		    $ClassName		    "Simulink.dialog.parameter.Edit"
+		    Name		    "Q"
 		    }
 		    Object {
 		    $ObjectID		    61
-		    Name		    "qv"
+		    $ClassName		    "Simulink.dialog.parameter.Edit"
+		    Name		    "R"
 		    }
 		    Object {
 		    $ObjectID		    62
-		    Name		    "rv"
+		    $ClassName		    "Simulink.dialog.parameter.Edit"
+		    Name		    "Qf"
 		    }
 		    Object {
 		    $ObjectID		    63
+		    $ClassName		    "Simulink.dialog.parameter.Edit"
+		    Name		    "qv"
+		    }
+		    Object {
+		    $ObjectID		    64
+		    $ClassName		    "Simulink.dialog.parameter.Edit"
+		    Name		    "rv"
+		    }
+		    Object {
+		    $ObjectID		    65
+		    $ClassName		    "Simulink.dialog.parameter.Edit"
 		    Name		    "qfv"
 		    }
 		    PropName		    "DialogControls"
@@ -1710,25 +1735,35 @@ Model {
 		    Name		    "Container6"
 		  }
 		  Object {
-		    $ObjectID		    64
+		    $ObjectID		    66
 		    Prompt		    "Hard Constraints"
 		    Array {
-		    Type		    "Simulink.dialog.parameter.Edit"
-		    Dimension		    4
-		    Object {
-		    $ObjectID		    65
-		    Name		    "Fx"
-		    }
-		    Object {
-		    $ObjectID		    66
-		    Name		    "Fu"
-		    }
+		    Type		    "Simulink.dialog.Control"
+		    Dimension		    5
 		    Object {
 		    $ObjectID		    67
-		    Name		    "Fp"
+		    $ClassName		    "Simulink.dialog.Text"
+		    Prompt		    "Subject to Fx*x+Fu*u+Fp*p<=f, where p is the parameter input."
+		    Name		    "Control4"
 		    }
 		    Object {
 		    $ObjectID		    68
+		    $ClassName		    "Simulink.dialog.parameter.Edit"
+		    Name		    "Fx"
+		    }
+		    Object {
+		    $ObjectID		    69
+		    $ClassName		    "Simulink.dialog.parameter.Edit"
+		    Name		    "Fu"
+		    }
+		    Object {
+		    $ObjectID		    70
+		    $ClassName		    "Simulink.dialog.parameter.Edit"
+		    Name		    "Fp"
+		    }
+		    Object {
+		    $ObjectID		    71
+		    $ClassName		    "Simulink.dialog.parameter.Edit"
 		    Name		    "f"
 		    }
 		    PropName		    "DialogControls"
@@ -1736,25 +1771,35 @@ Model {
 		    Name		    "Container9"
 		  }
 		  Object {
-		    $ObjectID		    69
+		    $ObjectID		    72
 		    Prompt		    "Soft Constraints"
 		    Array {
-		    Type		    "Simulink.dialog.parameter.Edit"
-		    Dimension		    4
+		    Type		    "Simulink.dialog.Control"
+		    Dimension		    5
 		    Object {
-		    $ObjectID		    70
+		    $ObjectID		    73
+		    $ClassName		    "Simulink.dialog.Text"
+		    Prompt		    "SOFT_CONSTRAINT_PENALTY = sum(max(0,Fxs*x+Fus*u+Fps*p-fs))"
+		    Name		    "Control5"
+		    }
+		    Object {
+		    $ObjectID		    74
+		    $ClassName		    "Simulink.dialog.parameter.Edit"
 		    Name		    "Fxs"
 		    }
 		    Object {
-		    $ObjectID		    71
+		    $ObjectID		    75
+		    $ClassName		    "Simulink.dialog.parameter.Edit"
 		    Name		    "Fus"
 		    }
 		    Object {
-		    $ObjectID		    72
+		    $ObjectID		    76
+		    $ClassName		    "Simulink.dialog.parameter.Edit"
 		    Name		    "Fps"
 		    }
 		    Object {
-		    $ObjectID		    73
+		    $ObjectID		    77
+		    $ClassName		    "Simulink.dialog.parameter.Edit"
 		    Name		    "fs"
 		    }
 		    PropName		    "DialogControls"
@@ -1762,33 +1807,51 @@ Model {
 		    Name		    "Container10"
 		  }
 		  Object {
-		    $ObjectID		    74
+		    $ObjectID		    78
 		    Prompt		    "Terminal Constraints"
 		    Array {
-		    Type		    "Simulink.dialog.parameter.Edit"
-		    Dimension		    6
-		    Object {
-		    $ObjectID		    75
-		    Name		    "Fxf"
-		    }
-		    Object {
-		    $ObjectID		    76
-		    Name		    "Fpf"
-		    }
-		    Object {
-		    $ObjectID		    77
-		    Name		    "ff"
-		    }
-		    Object {
-		    $ObjectID		    78
-		    Name		    "Ef"
-		    }
+		    Type		    "Simulink.dialog.Control"
+		    Dimension		    8
 		    Object {
 		    $ObjectID		    79
-		    Name		    "Ed"
+		    $ClassName		    "Simulink.dialog.Text"
+		    Prompt		    "Hard terminal inequality constraints Fxf*x(T)+Fpf*p<=ff [compulsory]"
+		    Name		    "Control6"
 		    }
 		    Object {
 		    $ObjectID		    80
+		    $ClassName		    "Simulink.dialog.parameter.Edit"
+		    Name		    "Fxf"
+		    }
+		    Object {
+		    $ObjectID		    81
+		    $ClassName		    "Simulink.dialog.parameter.Edit"
+		    Name		    "Fpf"
+		    }
+		    Object {
+		    $ObjectID		    82
+		    $ClassName		    "Simulink.dialog.parameter.Edit"
+		    Name		    "ff"
+		    }
+		    Object {
+		    $ObjectID		    83
+		    $ClassName		    "Simulink.dialog.Text"
+		    Prompt		    "Terminal inequality constraints Exf*x(T)+Ed*d=ef [Optional - leave Exf as [] to ignore]"
+		    Name		    "Control7"
+		    }
+		    Object {
+		    $ObjectID		    84
+		    $ClassName		    "Simulink.dialog.parameter.Edit"
+		    Name		    "Ef"
+		    }
+		    Object {
+		    $ObjectID		    85
+		    $ClassName		    "Simulink.dialog.parameter.Edit"
+		    Name		    "Ed"
+		    }
+		    Object {
+		    $ObjectID		    86
+		    $ClassName		    "Simulink.dialog.parameter.Edit"
 		    Name		    "e"
 		    }
 		    PropName		    "DialogControls"
@@ -1796,23 +1859,23 @@ Model {
 		    Name		    "Container12"
 		  }
 		  Object {
-		    $ObjectID		    81
+		    $ObjectID		    87
 		    Prompt		    "Settings"
 		    Array {
 		    Type		    "Simulink.dialog.parameter.Control"
 		    Dimension		    3
 		    Object {
-		    $ObjectID		    82
+		    $ObjectID		    88
 		    $ClassName		    "Simulink.dialog.parameter.CheckBox"
 		    Name		    "consAllBox"
 		    }
 		    Object {
-		    $ObjectID		    83
+		    $ObjectID		    89
 		    $ClassName		    "Simulink.dialog.parameter.Edit"
 		    Name		    "numNewton"
 		    }
 		    Object {
-		    $ObjectID		    84
+		    $ObjectID		    90
 		    $ClassName		    "Simulink.dialog.parameter.Edit"
 		    Name		    "kappa"
 		    }
@@ -1829,7 +1892,7 @@ Model {
 	  }
 	  System {
 	    Name		    "MPC"
-	    Location		    [-8, -8, 1928, 1048]
+	    Location		    [-8, 0, 1928, 1056]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -1884,7 +1947,7 @@ Model {
 	      BlockType		      SubSystem
 	      Name		      "Subsystem"
 	      SID		      "498"
-	      Ports		      [4, 3]
+	      Ports		      [4, 4]
 	      Position		      [430, 349, 715, 711]
 	      ZOrder		      13
 	      TreatAsAtomicUnit	      on
@@ -1892,7 +1955,7 @@ Model {
 	      RequestExecContextInheritance off
 	      System {
 		Name			"Subsystem"
-		Location		[-8, -8, 1928, 1048]
+		Location		[-8, 0, 1928, 1056]
 		Open			off
 		ModelBrowserVisibility	off
 		ModelBrowserWidth	200
@@ -3016,7 +3079,7 @@ Model {
 		}
 		Block {
 		  BlockType		  Outport
-		  Name			  "Out1"
+		  Name			  "J"
 		  SID			  "503"
 		  Position		  [1265, 58, 1295, 72]
 		  ZOrder		  8
@@ -3024,7 +3087,7 @@ Model {
 		}
 		Block {
 		  BlockType		  Outport
-		  Name			  "Out2"
+		  Name			  "u"
 		  SID			  "504"
 		  Position		  [1265, 398, 1295, 412]
 		  ZOrder		  9
@@ -3033,11 +3096,20 @@ Model {
 		}
 		Block {
 		  BlockType		  Outport
-		  Name			  "Out3"
+		  Name			  "u_x_all"
+		  SID			  "506"
+		  Position		  [1265, 613, 1295, 627]
+		  ZOrder		  11
+		  Port			  "3"
+		  IconDisplay		  "Port number"
+		}
+		Block {
+		  BlockType		  Outport
+		  Name			  "info"
 		  SID			  "505"
 		  Position		  [1265, 793, 1295, 807]
 		  ZOrder		  10
-		  Port			  "3"
+		  Port			  "4"
 		  IconDisplay		  "Port number"
 		}
 		Line {
@@ -3065,9 +3137,18 @@ Model {
 		  Points		  [0, -35; 35, 0]
 		  Branch {
 		    ZOrder		    5
-		    Points		    [0, 625]
+		    Points		    [0, 215]
+		    Branch {
+		    ZOrder		    101
+		    DstBlock		    "u_x_all"
+		    DstPort		    1
+		    }
+		    Branch {
+		    ZOrder		    100
+		    Points		    [0, 410]
 		    DstBlock		    "Previous Solution"
 		    DstPort		    1
+		    }
 		  }
 		  Branch {
 		    ZOrder		    6
@@ -3150,7 +3231,7 @@ Model {
 		  ZOrder		  61
 		  SrcBlock		  "First Input"
 		  SrcPort		  1
-		  DstBlock		  "Out2"
+		  DstBlock		  "u"
 		  DstPort		  1
 		}
 		Line {
@@ -3235,7 +3316,7 @@ Model {
 		  ZOrder		  62
 		  SrcBlock		  "Embedded\nMATLAB Function"
 		  SrcPort		  2
-		  DstBlock		  "Out3"
+		  DstBlock		  "info"
 		  DstPort		  1
 		}
 		Line {
@@ -3405,7 +3486,7 @@ Model {
 		  ZOrder		  60
 		  SrcBlock		  "Calculate Cost"
 		  SrcPort		  1
-		  DstBlock		  "Out1"
+		  DstBlock		  "J"
 		  DstPort		  1
 		}
 	      }
@@ -3414,7 +3495,7 @@ Model {
 	      BlockType		      Outport
 	      Name		      "J"
 	      SID		      "483"
-	      Position		      [1255, 133, 1285, 147]
+	      Position		      [1255, 388, 1285, 402]
 	      ZOrder		      10
 	      IconDisplay	      "Port number"
 	    }
@@ -3422,18 +3503,27 @@ Model {
 	      BlockType		      Outport
 	      Name		      "u"
 	      SID		      "484"
-	      Position		      [1255, 473, 1285, 487]
+	      Position		      [1255, 478, 1285, 492]
 	      ZOrder		      11
 	      Port		      "2"
 	      IconDisplay	      "Port number"
 	    }
 	    Block {
 	      BlockType		      Outport
+	      Name		      "u_x_all"
+	      SID		      "507"
+	      Position		      [1255, 568, 1285, 582]
+	      ZOrder		      14
+	      Port		      "3"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Outport
 	      Name		      "info"
 	      SID		      "485"
-	      Position		      [1255, 868, 1285, 882]
+	      Position		      [1255, 658, 1285, 672]
 	      ZOrder		      12
-	      Port		      "3"
+	      Port		      "4"
 	      IconDisplay	      "Port number"
 	    }
 	    Line {
@@ -3471,7 +3561,6 @@ Model {
 	      ZOrder		      60
 	      SrcBlock		      "Subsystem"
 	      SrcPort		      1
-	      Points		      [230, 0; 0, -270]
 	      DstBlock		      "J"
 	      DstPort		      1
 	    }
@@ -3479,16 +3568,21 @@ Model {
 	      ZOrder		      61
 	      SrcBlock		      "Subsystem"
 	      SrcPort		      2
-	      Points		      [383, 0; 0, -50]
 	      DstBlock		      "u"
 	      DstPort		      1
 	    }
 	    Line {
 	      ZOrder		      62
 	      SrcBlock		      "Subsystem"
-	      SrcPort		      3
-	      Points		      [230, 0; 0, 225]
+	      SrcPort		      4
 	      DstBlock		      "info"
+	      DstPort		      1
+	    }
+	    Line {
+	      ZOrder		      63
+	      SrcBlock		      "Subsystem"
+	      SrcPort		      3
+	      DstBlock		      "u_x_all"
 	      DstPort		      1
 	    }
 	  }
@@ -3520,7 +3614,7 @@ Model {
 	  Name			  "Sum"
 	  SID			  "87"
 	  Ports			  [2, 1]
-	  Position		  [1295, 540, 1315, 560]
+	  Position		  [1295, 485, 1315, 505]
 	  ZOrder		  -23
 	  ShowName		  off
 	  IconShape		  "round"
@@ -3530,11 +3624,18 @@ Model {
 	  SaturateOnIntegerOverflow off
 	}
 	Block {
+	  BlockType		  Terminator
+	  Name			  "Terminator"
+	  SID			  "508"
+	  Position		  [1080, 590, 1100, 610]
+	  ZOrder		  22
+	}
+	Block {
 	  BlockType		  ToWorkspace
 	  Name			  "To Workspace"
 	  SID			  "486"
 	  Ports			  [1]
-	  Position		  [1755, 585, 1815, 615]
+	  Position		  [1755, 595, 1815, 625]
 	  ZOrder		  11
 	  VariableName		  "info_out1"
 	  MaxDataPoints		  "inf"
@@ -3544,7 +3645,7 @@ Model {
 	  BlockType		  UnitDelay
 	  Name			  "Unit Delay"
 	  SID			  "88"
-	  Position		  [1325, 603, 1360, 637]
+	  Position		  [1325, 548, 1360, 582]
 	  ZOrder		  -27
 	  BlockMirror		  on
 	  SampleTime		  "-1"
@@ -3566,7 +3667,7 @@ Model {
 	  Name			  "cost"
 	  SID			  "488"
 	  Ports			  [1]
-	  Position		  [1075, 394, 1105, 426]
+	  Position		  [1075, 374, 1105, 406]
 	  ZOrder		  12
 	  Floating		  off
 	  Location		  [769, 149, 1915, 927]
@@ -3632,7 +3733,7 @@ Model {
 	  Name			  "delta-Control"
 	  SID			  "307"
 	  Ports			  [1]
-	  Position		  [1330, 464, 1360, 496]
+	  Position		  [1330, 409, 1360, 441]
 	  ZOrder		  -29
 	  Floating		  off
 	  Location		  [652, 517, 1275, 882]
@@ -3699,7 +3800,7 @@ Model {
 	  Name			  "rd"
 	  SID			  "491"
 	  Ports			  [1]
-	  Position		  [1685, 699, 1715, 731]
+	  Position		  [1685, 709, 1715, 741]
 	  ZOrder		  15
 	  Floating		  off
 	  Location		  [188, 390, 512, 629]
@@ -3731,7 +3832,7 @@ Model {
 	  Name			  "rp"
 	  SID			  "492"
 	  Ports			  [1]
-	  Position		  [1685, 649, 1715, 681]
+	  Position		  [1685, 659, 1715, 691]
 	  ZOrder		  16
 	  Floating		  off
 	  Location		  [13, 708, 337, 947]
@@ -3763,7 +3864,7 @@ Model {
 	  Name			  "solChoice"
 	  SID			  "493"
 	  Ports			  [1]
-	  Position		  [1685, 749, 1715, 781]
+	  Position		  [1685, 759, 1715, 791]
 	  ZOrder		  17
 	  Floating		  off
 	  Location		  [218, 634, 542, 873]
@@ -3828,7 +3929,7 @@ Model {
 	  BlockType		  Outport
 	  Name			  "u"
 	  SID			  "414"
-	  Position		  [1465, 543, 1495, 557]
+	  Position		  [1465, 488, 1495, 502]
 	  ZOrder		  4
 	  IconDisplay		  "Port number"
 	}
@@ -3855,7 +3956,7 @@ Model {
 	  SrcPort		  2
 	  Points		  [238, 0]
 	  Branch {
-	    ZOrder		    72
+	    ZOrder		    111
 	    Points		    [52, 0]
 	    Branch {
 	      ZOrder		      24
@@ -3871,7 +3972,7 @@ Model {
 	  }
 	  Branch {
 	    ZOrder		    64
-	    Points		    [0, -375]
+	    Points		    [0, -320]
 	    DstBlock		    "Estimate Disturbance"
 	    DstPort		    2
 	  }
@@ -3888,7 +3989,7 @@ Model {
 	  }
 	  Branch {
 	    ZOrder		    22
-	    Points		    [0, 163; -1129, 0; 0, -383]
+	    Points		    [0, 218; -1129, 0; 0, -383]
 	    DstBlock		    "Mux1"
 	    DstPort		    2
 	  }
@@ -3994,24 +4095,24 @@ Model {
 	  ZOrder		  60
 	  SrcBlock		  "Demux"
 	  SrcPort		  4
-	  Points		  [5, 0; 0, 70]
+	  Points		  [5, 0; 0, 60]
 	  DstBlock		  "iterCount"
 	  DstPort		  1
 	}
 	Line {
 	  ZOrder		  63
 	  SrcBlock		  "MPC"
-	  SrcPort		  3
+	  SrcPort		  4
 	  Points		  [590, 0]
 	  Branch {
-	    ZOrder		    62
-	    Points		    [0, -90]
+	    ZOrder		    109
+	    Points		    [0, -95]
 	    DstBlock		    "To Workspace"
 	    DstPort		    1
 	  }
 	  Branch {
 	    ZOrder		    61
-	    Points		    [0, 35]
+	    Points		    [0, 30]
 	    DstBlock		    "Demux"
 	    DstPort		    1
 	  }
@@ -4037,10 +4138,17 @@ Model {
 	  DstBlock		  "Mux1"
 	  DstPort		  1
 	}
+	Line {
+	  ZOrder		  112
+	  SrcBlock		  "MPC"
+	  SrcPort		  3
+	  DstBlock		  "Terminator"
+	  DstPort		  1
+	}
 	Annotation {
 	  SID			  "196"
 	  Name			  "u(k)=u(k-1)+delta_u(k)"
-	  Position		  [1343, 527, 1444, 542]
+	  Position		  [1343, 472, 1444, 487]
 	  InternalMargins	  [0, 0, 0, 0]
 	  FixedHeight		  off
 	  FixedWidth		  off
@@ -4281,7 +4389,7 @@ Model {
       Position		      [920, 289, 950, 321]
       ZOrder		      -18
       Floating		      off
-      Location		      [2037, 180, 2656, 563]
+      Location		      [1296, 180, 1915, 563]
       Open		      on
       NumInputPorts	      "1"
       ZoomMode		      "yonly"
@@ -4499,8 +4607,6 @@ Stateflow {
     firstJunction	    27
     viewObj		    2
     machine		    1
-    subviewS {
-    }
     ssIdHighWaterMark	    27
     decomposition	    CLUSTER_CHART
     type		    EML_CHART
