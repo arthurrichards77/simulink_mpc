@@ -1,7 +1,6 @@
 **/slprj/**/*
 *.asv
 *.autosave
-*.mex*
 *.eps
 *.mat
 *.mexw64
