@@ -1,6 +1,10 @@
-slprj/**/*
+**/slprj/**/*
+*.asv
+*.autosave
+*.mex*
 *.eps
 *.mat
 *.mexw64
 *.mexw32
 codegen/**/*
+*.mdl.r*
