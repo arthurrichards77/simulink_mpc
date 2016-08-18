@@ -1,0 +1,22 @@
+<!-- saved from url=(0014)about:internet -->
+<pre class="code">
+<span class="srcline"><span class="lineno"><a href="51,563" id="srcline563">563</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="51,564" id="srcline564">564</a></span><span class="line"><span class="keyword">function</span> <span class="var type1" id="S183T7U3382">y</span> = myexp(<span class="var type1" id="S184T7U3385">u</span>,<span class="var type1" id="S185T4U3386">flagNoPade</span>)</span></span>
+<span class="srcline"><span class="lineno"><a href="51,565" id="srcline565">565</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="51,566" id="srcline566">566</a></span><span class="line"><span class="comment">% use built in exponential</span></span></span>
+<span class="srcline"><span class="lineno"><a href="51,567" id="srcline567">567</a></span><span class="line"><span class="keyword">if</span> <span class="var type1" id="S185T4U3389">flagNoPade</span>,</span></span>
+<span class="srcline"><span class="lineno"><a href="51,568" id="srcline568">568</a></span><span class="line">    <span class="mxinfo " id="T7:U5"><span class="var type1" id="S183T7U3392">y</span> = <span class="mxinfo " id="T7:U7">exp(<span class="var type1" id="S184T7U3395">u</span>)</span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="51,569" id="srcline569">569</a></span><span class="line"><span class="keyword">else</span></span></span>
+<span class="srcline"><span class="lineno"><a href="51,570" id="srcline570">570</a></span><span class="line">    <span class="comment">% use pade approximant</span></span></span>
+<span class="srcline"><span class="lineno"><a href="51,571" id="srcline571">571</a></span><span class="line">    <span class="mxinfo " id="T7:U9"><span class="var type1" id="S187T7U3399">di</span> = <span class="mxinfo " id="T7:U11">ones(size(<span class="var type1" id="S184T7U3404">u</span>))</span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="51,572" id="srcline572">572</a></span><span class="line">    <span class="mxinfo " id="T7:U13"><span class="var type1" id="S190T7U3407">ds</span> = <span class="var type1" id="S187T7U3408">di</span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="51,573" id="srcline573">573</a></span><span class="line">    <span class="keyword">for</span> <span class="var type1" id="S191T7U3411">ii</span>=<span class="mxinfo " id="T7:U17">1</span>:3,</span></span>
+<span class="srcline"><span class="lineno"><a href="51,574" id="srcline574">574</a></span><span class="line">        <span class="mxinfo " id="T7:U18"><span class="var type1" id="S187T7U3417">di</span> = <span class="mxinfo " id="T7:U20"><span class="mxinfo " id="T7:U21">(<span class="mxinfo " id="T7:U22"><span class="mxinfo " id="T7:U23">-1</span>/<span class="var type1" id="S191T7U3424">ii</span></span>)*<span class="var type1" id="S187T7U3425">di</span></span>.*<span class="var type1" id="S184T7U3426">u</span></span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="51,575" id="srcline575">575</a></span><span class="line">        <span class="mxinfo " id="T7:U27"><span class="var type1" id="S190T7U3429">ds</span> = <span class="mxinfo " id="T7:U29"><span class="var type1" id="S190T7U3431">ds</span>+<span class="var type1" id="S187T7U3432">di</span></span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="51,576" id="srcline576">576</a></span><span class="line">    <span class="keyword">end</span></span></span>
+<span class="srcline"><span class="lineno"><a href="51,577" id="srcline577">577</a></span><span class="line">    <span class="mxinfo " id="T7:U32"><span class="var type1" id="S183T7U3435">y</span> = <span class="mxinfo " id="T7:U34"><span class="mxinfo " id="T7:U35">1</span>./<span class="var type1" id="S190T7U3438">ds</span></span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="51,578" id="srcline578">578</a></span><span class="line"><span class="keyword">end</span></span></span>
+<span class="srcline"><span class="lineno"><a href="51,579" id="srcline579">579</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="51,580" id="srcline580">580</a></span><span class="line"><span class="keyword">end</span></span></span>
+<span class="srcline"><span class="lineno"><a href="51,581" id="srcline581">581</a></span><span class="line"></span></span>
+</pre>

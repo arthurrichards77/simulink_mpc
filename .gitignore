@@ -3,3 +3,4 @@ slprj/**/*
 *.mat
 *.mexw64
 *.mexw32
+codegen/**/*

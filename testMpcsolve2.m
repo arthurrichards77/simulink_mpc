@@ -17,7 +17,7 @@ opts(4)=0;
 opts(5)=1;
 
 % dummy state
-x = [0.1 0 0]';
+x = [0.2 0 0]';
 
 % dummy previous solution
 z0 = 0*g+0.01;
