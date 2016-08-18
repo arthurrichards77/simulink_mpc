@@ -5,5 +5,8 @@
 *.mat
 *.mexw64
 *.mexw32
-codegen/**/*
+**/codegen/**/*
 *.mdl.r*
+*.o
+*.exe
+**/html/*
