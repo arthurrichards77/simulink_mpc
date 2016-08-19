@@ -7,3 +7,8 @@
 *.mexw32
 codegen/**/*
 *.mdl.r*
+**/codegen/**/*
+*.mdl.r*
+*.o
+*.exe
+**/html/*
